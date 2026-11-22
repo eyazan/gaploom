@@ -4,6 +4,8 @@
 - New world **The Clocktower** (levels 21–24) with procedural clock-tower diorama; all four levels force-divergent
   with new structures (blocking work cart, cross-family "lantern cart" scaffold, double scaffold). 12/24 divergent.
 - GitHub repository + GitHub Actions workflow: tests, web export, GitHub Pages deploy.
+- CI "Platform builds": unsigned iOS .ipa (macOS runner, for sideloading) and Windows/macOS/Linux desktop builds.
+- Desktop keyboard shortcuts (Z undo, R restart, H hint, Esc back, Enter next). `docs/STEAM_PLAN.md`.
 
 ## 0.2.0 — 2026-11-22
 - Originality: levels 8, 9, 14, 15, 17, 20 redesigned around scaffolding; force-divergent levels 2/20 → 8/20.

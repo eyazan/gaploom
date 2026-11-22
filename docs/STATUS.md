@@ -17,7 +17,7 @@
 | Signature mechanic | ✅ | 530 automated checks pass |
 | Tutorial / completion / undo / restart / save | ✅ | Test suites + screenshots |
 | Deterministic rules | ✅ | Determinism suite |
-| Reproducible build | ✅ | Web, Linux; iOS Xcode project (needs Mac to build) |
+| Reproducible build | ✅ | CI builds Web, Windows, macOS, Linux and an unsigned iOS .ipa on every push |
 | Device test | ❌ | Waiting for owner's iPhone test — `docs/testing/IOS_TESTING.md` |
 | Human playtests | ❌ | Not started |
 | Repository on GitHub | ✅ | https://github.com/eyazan/gaploom (public) |
