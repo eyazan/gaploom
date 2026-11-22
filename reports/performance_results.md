@@ -7,9 +7,9 @@ Targets (60 FPS on mid-range phones, fast startup, low battery use) remain **unv
 ## Logic (headless, `tests/run_tests.gd` → `reports/test_results.json`)
 | Metric | Measured |
 |---|---|
-| `FunctionalSimulation.evaluate` (level 20) | 13.6 µs per call |
-| Destination query for one gap | 23.8 µs |
-| Solve all 20 handcrafted levels (exhaustive BFS) | 21.5 ms, 175 states |
+| `FunctionalSimulation.evaluate` (level 20) | 25.8 µs per call (v0.2.0 level 20; 13.6 µs on the smaller v0.1.0 board) |
+| Destination query for one gap | 25.5 µs |
+| Solve all 20 handcrafted levels (exhaustive BFS) | 53.6 ms, 249 states (v0.2.0) |
 | Generate + solve 10 000 candidates | 5.8 s (32 481 solver states) |
 | Static memory (test process) | 22.2 MB (peak 32.0 MB) |
 
@@ -32,8 +32,8 @@ Uncapped, VSync off, 720×1280, while playing the solution (measured on v0.1.0, 
 * v0.2.0, web, iPhone 13 emulation in headless Chromium, local HTTP server: the engine reported its renderer
   ~1.1 s after navigation. Local network only — not representative of mobile data.
 * Main scene ready 85 ms after the script started (desktop binary, warm disk).
-* Web: the measurement script waited on a DOM condition that never fired and fell through a 60 s timeout, so
-  **no valid web startup time was measured**. The page was interactive when screenshots were taken.
+* v0.1.0 desktop-viewport web run: the script's wait condition never fired (60 s timeout), so that run gave no
+  valid startup time; the v0.2.0 figure above replaces it.
 
 ## Size
 | Artifact | Size |

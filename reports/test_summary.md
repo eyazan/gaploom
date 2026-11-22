@@ -1,7 +1,7 @@
 # Test Summary
 
 Run: 2026-11-22 (re-run for v0.2.0 levels), Godot 4.5.1 stable, headless, `godot --headless -s tests/run_tests.gd`.
-Raw output: `reports/test_results.json`. **Result: 462 checks passed, 0 failed (≈1.6 s).**
+Raw output: `reports/test_results.json`. **Result: 462 checks passed, 0 failed (≈2.5 s).**
 
 | Suite | Checks | What it covers |
 |---|---|---|
@@ -9,7 +9,7 @@ Raw output: `reports/test_results.json`. **Result: 462 checks passed, 0 failed (
 | light | 7 | Beam stops at solid, light gap transmits, motion gap blocks, double mirror routing, mirror-loop termination |
 | motion | 13 | Cart settling, motion frontier, groove passage + docking, frames per step, gap under a cart is not a source, solar cart needs light, cart shadows |
 | transfer_validity | 23 | 5 991 random (incl. out-of-range/negative) invalid transfers never mutate state or move count; split and floating-chunk rejection |
-| conservation_random | 20 | 3 977 random legal moves across all levels: per-family gap totals constant, slabs connected, no material outside slabs, carts never overlap or sit in solid |
+| conservation_random | 20 | 6 980 random legal moves across all levels: per-family gap totals constant, slabs connected, no material outside slabs, carts never overlap or sit in solid |
 | determinism | 60 | Identical sequences → identical states, animation frames and beams; settle is a fixed point; state serialization round-trip |
 | undo_restart | 60 | Undo walks back exactly to the initial state; undo on empty history is a no-op; 50× restart stable |
 | solver | 103 | All 20 levels solved exhaustively; par == optimum; solution replays to a win; hint is legal; a provably unsolvable level is reported unsolvable with 100% dead ends. Writes `solver_metrics.csv` |

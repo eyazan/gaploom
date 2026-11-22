@@ -39,7 +39,7 @@ Planned: 1–5 basics, 6–10 light, 11–15 motion, 16–20 combined.
 * **Level 20 has 558 optimal solutions** (6 moves, 130 states): many interchangeable orders. Fine as a
   relaxed finale, but it lowers tension.
 * Dead ends exist only in 18–20. Earlier levels are fully forgiving.
-* All levels are still short (max optimal length 6; 255 states in total). Deeper levels remain a P1 need.
+* All levels are still short (max optimal length 6; 249 states in total). Deeper levels remain a P1 need.
 
 ## Generated pool (10 000 candidates)
 Accepted 293; optimal-length histogram {3: 216, 4: 53, 5: 17, 6: 7}; tier histogram {1: 51, 2: 203, 3: 28, 4: 11}.
