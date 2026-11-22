@@ -64,6 +64,11 @@ force can reach a cell, then taken back:
 These moves have no counterpart in a block puzzle: in the baseline the player simply drops a block where it
 is needed; in GAPLOOM the *function* of the gap decides who can deliver it there.
 
+**v0.3.0 (Clocktower, levels 21–24):** all four new levels are force-divergent and use structures that are
+*not* clones of the earlier scaffold: a work cart that blocks the main track until moved on (21), a
+**cross-family scaffold** where glass wakes a solar work cart that opens a groove (22, 24), and two scaffolds
+in series (23). Total: **12 / 24 (50%)**, meeting the ≥50% target for the batch.
+
 **Verdict for v0.2.0: SUFFICIENT FOR TESTING, NOT PROVEN.** The solver shows that 40% of the levels need
 force-specific reasoning. Whether players *perceive* that difference is a human question (playtest item).
 

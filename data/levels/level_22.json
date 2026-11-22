@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_22",
+ "name": "Lantern Cart",
+ "world": "clocktower",
+ "tutorial": "tut_lantern",
+ "par": 4,
+ "rows": [
+  ".. .. .. Ev .. hL ho",
+  ".. .. qo xo xo .. ..",
+  ".. .. qo sv .. .. ..",
+  "S> .. qo qo .. .. D.",
+  ".. .. .. .. .. .. ..",
+  "E> zo .. .. .. .. R.",
+  ".. zo .. .. gM gM go"
+ ]
+}

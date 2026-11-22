@@ -27,6 +27,10 @@ Difficulty score = heuristic in `src/solver/difficulty_estimator.gd`
 | 18 | 3 | 1 | 6 | 1.00 | 0.33 | 1/2 | 5.90 | 3 |
 | 19 | 4 | 2 | 14 | 1.46 | 0.57 | 2/2 | 7.65 | 4 |
 | 20 | 6 | 558 | 130 | 4.60 | 0.29 | 4/2 | 6.69 | 3 |
+| 21 | 4 | 2 | 7 | 1.33 | 0.14 | 0/4 | 5.01 | 3 |
+| 22 | 4 | 2 | 7 | 1.67 | 0.00 | 2/2 | 5.58 | 3 |
+| 23 | 6 | 88 | 30 | 5.07 | 0.00 | 6/0 | 5.13 | 3 |
+| 24 | 5 | 3 | 9 | 1.75 | 0.00 | 2/3 | 6.48 | 3 |
 
 ## Curve vs. plan (v0.2.0)
 Planned: 1–5 basics, 6–10 light, 11–15 motion, 16–20 combined.
@@ -38,8 +42,9 @@ Planned: 1–5 basics, 6–10 light, 11–15 motion, 16–20 combined.
   structure in different clothes. Variety risk; next content batch must break this pattern.
 * **Level 20 has 558 optimal solutions** (6 moves, 130 states): many interchangeable orders. Fine as a
   relaxed finale, but it lowers tension.
-* Dead ends exist only in 18–20. Earlier levels are fully forgiving.
-* All levels are still short (max optimal length 6; 249 states in total). Deeper levels remain a P1 need.
+* Clocktower (21–24, v0.3.0): 4–6 moves, 2–88 optimal solutions, all force-divergent.
+* Dead ends exist only in 18–21. Earlier levels are fully forgiving.
+* All levels are still short (max optimal length 6; 302 states in total over 24 levels). Deeper levels remain a P1 need.
 
 ## Generated pool (10 000 candidates)
 Accepted 293; optimal-length histogram {3: 216, 4: 53, 5: 17, 6: 7}; tier histogram {1: 51, 2: 203, 3: 28, 4: 11}.

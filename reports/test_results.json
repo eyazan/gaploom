@@ -1,19 +1,19 @@
 {
- "elapsed_ms": 2461,
+ "elapsed_ms": 3475,
  "engine": "4.5.1-stable (official)",
  "failed": 0,
  "failures": [],
  "metrics": {
-  "destinations_us": 25.51,
-  "evaluate_us": 25.8,
-  "invalid_moves_checked": 5995,
-  "random_moves_played": 6980,
-  "solve_all_handcrafted_ms": 53.6,
-  "solve_all_states": 249,
-  "static_memory_mb": 22.26,
+  "destinations_us": 39.35,
+  "evaluate_us": 34.18,
+  "invalid_moves_checked": 7195,
+  "random_moves_played": 10120,
+  "solve_all_handcrafted_ms": 89.5,
+  "solve_all_states": 302,
+  "static_memory_mb": 22.28,
   "static_memory_peak_mb": 32.22
  },
- "passed": 462,
+ "passed": 530,
  "suites": {
   "board_view": {
    "failed": 0,
@@ -21,15 +21,15 @@
   },
   "canonical": {
    "failed": 0,
-   "passed": 61
+   "passed": 73
   },
   "conservation_random": {
    "failed": 0,
-   "passed": 20
+   "passed": 24
   },
   "determinism": {
    "failed": 0,
-   "passed": 60
+   "passed": 72
   },
   "generator": {
    "failed": 0,
@@ -49,7 +49,7 @@
   },
   "parsing": {
    "failed": 0,
-   "passed": 30
+   "passed": 34
   },
   "performance": {
    "failed": 0,
@@ -61,7 +61,7 @@
   },
   "solver": {
    "failed": 0,
-   "passed": 103
+   "passed": 123
   },
   "solver_limits": {
    "failed": 0,
@@ -69,12 +69,12 @@
   },
   "transfer_validity": {
    "failed": 0,
-   "passed": 23
+   "passed": 27
   },
   "undo_restart": {
    "failed": 0,
-   "passed": 60
+   "passed": 72
   }
  },
- "timestamp_unix": 1795345218
+ "timestamp_unix": 1795379298
 }

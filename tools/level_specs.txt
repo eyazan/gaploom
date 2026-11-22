@@ -171,3 +171,44 @@ hM ho .. .. co co ..
 gL go xo xo .. .. fL
 .. gL .. E^ D. .. fo
 """)
+
+L(21, "Clear the Track", "clocktower", "tut_cleartrack", """
+.. .. .. Sv .. .. ..
+.. .. qo xo xo .. ..
+.. .. qo .. .. .. ..
+S> .. qo qo .. .. D.
+.. .. .. wo wo .. ..
+.. .. .. .. .. .. ..
+gM gM go .. .. .. ..
+""")
+
+L(22, "Lantern Cart", "clocktower", "tut_lantern", """
+.. .. .. Ev .. hL ho
+.. .. qo xo xo .. ..
+.. .. qo sv .. .. ..
+S> .. qo qo .. .. D.
+.. .. .. .. .. .. ..
+E> zo .. .. .. .. R.
+.. zo .. .. gM gM go
+""")
+
+L(23, "Twin Bridges", "clocktower", "", """
+.. Ev .. .. .. .. ..
+.. .. .. .. .. .. ..
+qo qo .. .. .. .. ..
+.. qo .. .. xo .. E<
+.. .. .. .. xo .. ..
+.. po po .. yo .. ..
+.. po .. .. yo .. E<
+.. R. gL gL gL gL go
+""")
+
+L(24, "Clockwork Heart", "clocktower", "", """
+.. .. .. Ev .. hL ho
+.. .. qo xo xo .. ..
+.. .. qo sv .. .. ..
+S> .. qo qo .. ro D.
+.. .. .. .. .. ro ..
+E> zo .. .. .. .. R.
+.. zo .. .. gM gM go
+""")

@@ -1,7 +1,7 @@
 # Test Summary
 
 Run: 2026-11-22 (re-run for v0.2.0 levels), Godot 4.5.1 stable, headless, `godot --headless -s tests/run_tests.gd`.
-Raw output: `reports/test_results.json`. **Result: 462 checks passed, 0 failed (≈2.5 s).**
+Raw output: `reports/test_results.json`. **Result: 530 checks passed, 0 failed (≈3.5 s), 24 levels (v0.3.0).**
 
 | Suite | Checks | What it covers |
 |---|---|---|

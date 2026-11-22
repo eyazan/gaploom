@@ -27,3 +27,6 @@ MSG_SPLIT,That would break the slab in two.,Bu levhayı ikiye böler.
 MSG_OCCUPIED,A cart is standing on it.,Üzerinde bir vagon duruyor.
 MSG_NOT_SOLID,Gaps only go into solid slabs.,Boşluk yalnızca dolu levhaya girer.
 MSG_STUCK,No way forward from here. Try undo.,Buradan çıkış yok. Geri almayı dene.
+WORLD_CLOCKTOWER,The Clocktower,Saat Kulesi
+tut_cleartrack,A cart that stops on the track blocks everyone.,Rayda duran vagon herkesin yolunu keser.
+tut_lantern,Light can wake a cart that clears the way.,"Işık, yolu açacak vagonu uyandırabilir."

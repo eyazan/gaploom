@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_21",
+ "name": "Clear the Track",
+ "world": "clocktower",
+ "tutorial": "tut_cleartrack",
+ "par": 4,
+ "rows": [
+  ".. .. .. Sv .. .. ..",
+  ".. .. qo xo xo .. ..",
+  ".. .. qo .. .. .. ..",
+  "S> .. qo qo .. .. D.",
+  ".. .. .. wo wo .. ..",
+  ".. .. .. .. .. .. ..",
+  "gM gM go .. .. .. .."
+ ]
+}

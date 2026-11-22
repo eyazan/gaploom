@@ -33,5 +33,5 @@ func _initialize() -> void:
 	var f := FileAccess.open("res://reports/equivalence_analysis.csv", FileAccess.WRITE)
 	f.store_string("\n".join(rows) + "\n")
 	print("\n".join(rows))
-	print("levels with a shorter baseline solution: %d/20; levels with more first-move options in baseline: %d/20" % [shortcut, more_choices])
+	print("levels with a shorter baseline solution: %d/%d; levels with more first-move options in baseline: %d/%d" % [shortcut, LevelCatalog.COUNT, more_choices, LevelCatalog.COUNT])
 	quit()

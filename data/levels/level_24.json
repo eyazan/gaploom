@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_24",
+ "name": "Clockwork Heart",
+ "world": "clocktower",
+ "tutorial": "",
+ "par": 5,
+ "rows": [
+  ".. .. .. Ev .. hL ho",
+  ".. .. qo xo xo .. ..",
+  ".. .. qo sv .. .. ..",
+  "S> .. qo qo .. ro D.",
+  ".. .. .. .. .. ro ..",
+  "E> zo .. .. .. .. R.",
+  ".. zo .. .. gM gM go"
+ ]
+}

@@ -5,8 +5,8 @@ iPhone-13 emulation).
 
 | # | Severity | Issue | Notes / next step |
 |---|---|---|---|
-| 1 | Medium (design) | 8/20 levels are force-divergent (was 2/20), but 4 of them (7, 8, 9, 17) share one solver graph → low structural variety. Whether players *notice* the difference is untested. | `docs/research/originality_audit.md`. Next batch ≥50% divergent with new structures; playtest question. |
-| 2 | High (content) | Levels are short (optimal 1–6 moves, 249 states total). Fine for onboarding, too shallow for a premium product. | Deeper levels needed. |
+| 1 | Medium (design) | 12/24 levels are force-divergent (was 2/20 in v0.1). Levels 7, 8, 9, 17 still share one solver graph. Whether players *notice* the difference is untested. | `docs/research/originality_audit.md`. Next batch ≥50% divergent with new structures; playtest question. |
+| 2 | High (content) | Levels are short (optimal 1–6 moves, 302 states total). Fine for onboarding, too shallow for a premium product. | Deeper levels needed. |
 | 3 | **High (validation)** | Never run on a physical phone. Web build tested only in Chromium with iPhone 13 emulation (touch taps) — not in real Safari/WebKit. | Owner iPhone test: `docs/testing/IOS_TESTING.md`. |
 | 4 | Medium | iOS preset exports an Xcode project on Linux but cannot be built/signed here; Team ID is a placeholder. No Android preset (no Android test device). | Build on a Mac with Xcode (Path B). |
 | 5 | Low | Game screen is capped at 30 FPS while idle and 60 FPS while anything moves; redraw is still continuous. | Measure battery on device. |

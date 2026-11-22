@@ -46,6 +46,8 @@ func _draw() -> void:
 			_railway(base, u, w)
 		"greenhouse":
 			_greenhouse(base, u)
+		"clocktower":
+			_clocktower(base, u)
 
 
 func _lighthouse(b: Vector2, u: float) -> void:
@@ -131,3 +133,35 @@ func _greenhouse(b: Vector2, u: float) -> void:
 		for k in 8:
 			var a := TAU * k / 8.0 + _t * 0.4
 			draw_line(sun + Vector2(cos(a), sin(a)) * u * 0.75, sun + Vector2(cos(a), sin(a)) * u * 1.05, Color("ffd27a"), 2.0)
+
+
+func _clocktower(b: Vector2, u: float) -> void:
+	# 0 tower, 1 clock face, 2 hands, 3 gears + bell
+	var tw := u * 1.6
+	var top := -u * 6.0
+	draw_rect(Rect2(b + Vector2(-tw, top), Vector2(tw * 2.0, -top)), _col(0, Color("c4b2e6")))
+	draw_colored_polygon(PackedVector2Array([b + Vector2(-tw * 1.2, top), b + Vector2(tw * 1.2, top), b + Vector2(0, top - u * 1.6)]), _col(0, Color("e8a598")))
+	draw_rect(Rect2(b + Vector2(-u * 0.4, -u * 1.1), Vector2(u * 0.8, u * 1.1)), _col(0, Color("6b5a8e")))
+	var fc := b + Vector2(0, -u * 4.2)
+	draw_circle(fc, u * 1.15, _col(1, Color("fff6dc")))
+	draw_arc(fc, u * 1.15, 0, TAU, 32, _col(1, Color("6b5a8e")), 3.0, true)
+	for k in 12:
+		var a := TAU * k / 12.0
+		draw_circle(fc + Vector2(cos(a), sin(a)) * u * 0.95, u * 0.05, _col(1, Color("6b5a8e")))
+	var t := _t if _on(2) else 0.0
+	var ah := -PI / 2.0 + t * 0.15
+	var am := -PI / 2.0 + t * 1.8
+	draw_line(fc, fc + Vector2(cos(ah), sin(ah)) * u * 0.55, _col(2, Color("2b2d42")), u * 0.12)
+	draw_line(fc, fc + Vector2(cos(am), sin(am)) * u * 0.85, _col(2, Color("2b2d42")), u * 0.08)
+	draw_circle(fc, u * 0.1, _col(2, Color("ff9b7a")))
+	var spin := _t * 0.8 if _on(3) else 0.0
+	for gi in 2:
+		var gc := b + Vector2((gi * 2 - 1) * tw * 1.7, -u * 1.2 - gi * u * 0.6)
+		var gr := u * (0.7 - gi * 0.15)
+		draw_circle(gc, gr, _col(3, Color("f0d29a")))
+		for k in 8:
+			var a := TAU * k / 8.0 + spin * (1.0 if gi == 0 else -1.3)
+			draw_circle(gc + Vector2(cos(a), sin(a)) * gr, u * 0.16, _col(3, Color("f0d29a")))
+		draw_circle(gc, gr * 0.35, _col(3, Color("d9b69a")))
+	var bell := b + Vector2(0, top - u * 0.55)
+	draw_colored_polygon(PackedVector2Array([bell + Vector2(-u * 0.35, u * 0.3), bell + Vector2(u * 0.35, u * 0.3), bell + Vector2(u * 0.2, -u * 0.25), bell + Vector2(-u * 0.2, -u * 0.25)]), _col(3, Color("ffd27a")))

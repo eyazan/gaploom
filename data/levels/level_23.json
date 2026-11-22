@@ -1,0 +1,18 @@
+{
+ "format": 1,
+ "id": "level_23",
+ "name": "Twin Bridges",
+ "world": "clocktower",
+ "tutorial": "",
+ "par": 6,
+ "rows": [
+  ".. Ev .. .. .. .. ..",
+  ".. .. .. .. .. .. ..",
+  "qo qo .. .. .. .. ..",
+  ".. qo .. .. xo .. E<",
+  ".. .. .. .. xo .. ..",
+  ".. po po .. yo .. ..",
+  ".. po .. .. yo .. E<",
+  ".. R. gL gL gL gL go"
+ ]
+}

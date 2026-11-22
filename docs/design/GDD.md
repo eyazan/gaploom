@@ -43,7 +43,7 @@ restart are free; a solver-backed hint shows the next optimal move from the curr
 One finger. Drag a gap onto a highlighted cell, or tap gap → tap destination. Mouse identical.
 Invalid drops shake the target and show a one-line reason (e.g. "That would break the slab in two.").
 
-## 6. Content (v0.2.0: 20 handcrafted levels, all solver-verified)
+## 6. Content (v0.3.0: 24 handcrafted levels in 4 worlds, all solver-verified)
 
 | # | Name | World | Teaches | Par | Force-divergent |
 |---|---|---|---|---|---|
@@ -67,6 +67,10 @@ Invalid drops shake the target and show a one-line reason (e.g. "That would brea
 | 18 | Airlock | Greenhouse | Groove → glass swap behind a solar cart | 3 | |
 | 19 | Glass and Groove | Greenhouse | Same cell needs both families, in order | 4 | |
 | 20 | Greenhouse Heart | Greenhouse | Airlock + shadow + scaffold | 6 | ✓ |
+| 21 | Clear the Track | Clocktower | A work cart that stops on the main track must be moved on | 4 | ✓ |
+| 22 | Lantern Cart | Clocktower | Cross-family scaffold: glass wakes a solar work cart that opens a groove | 4 | ✓ |
+| 23 | Twin Bridges | Clocktower | Two scaffolds in series; ordered gap supply | 6 | ✓ |
+| 24 | Clockwork Heart | Clocktower | Lantern cart + recycled grooves + reused glass | 5 | ✓ |
 
 "Force-divergent" = the conventional block-puzzle baseline solves it in fewer moves
 (`tools/equivalence_check.gd`). Design rule from v0.2.0: every new batch should be ≥ 50% divergent.
@@ -81,7 +85,7 @@ Difficulty analysis: `reports/difficulty_analysis.md`. Level 16 is a deliberate 
 * The title screen animation loops the same idea in 3.4 s (designed as a store/short-form clip).
 
 ## 8. Restoration meta
-Three dioramas (Lighthouse 10 parts, Railway 5, Greenhouse 5). Each solved level lights one part; the
+Four dioramas (Lighthouse 10 parts, Railway 5, Greenhouse 5, Clocktower 4). Each solved level lights one part; the
 completion card shows the part pulsing. Procedural vector art, no external assets.
 
 ## 9. Visual & audio direction

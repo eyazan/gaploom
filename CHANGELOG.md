@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0 — 2026-11-22
+- New world **The Clocktower** (levels 21–24) with procedural clock-tower diorama; all four levels force-divergent
+  with new structures (blocking work cart, cross-family "lantern cart" scaffold, double scaffold). 12/24 divergent.
+- GitHub repository + GitHub Actions workflow: tests, web export, GitHub Pages deploy.
+
 ## 0.2.0 — 2026-11-22
 - Originality: levels 8, 9, 14, 15, 17, 20 redesigned around scaffolding; force-divergent levels 2/20 → 8/20.
   Removed "Crossing", old "Switchyard", "Look Through"; new "Borrowed Lens", "Work Cart", "Switchyard", "Sun Scaffold".

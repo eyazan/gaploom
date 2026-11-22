@@ -1,4 +1,4 @@
-# Status — 2026-11-22 (v0.2.0)
+# Status — 2026-11-22 (v0.3.0)
 
 **Milestone: P0 complete; P1 started (originality depth + iPhone readiness). Awaiting first device test.**
 
@@ -13,11 +13,12 @@
 | Gate | State | Evidence |
 |---|---|---|
 | Game launches | ✅ | Desktop (Xvfb), Web (Chromium desktop + iPhone 13 emulation) |
-| 20 levels playable & solver-verified | ✅ | `reports/solver_metrics.csv`, par = optimum |
-| Signature mechanic | ✅ | 462 automated checks pass |
+| 24 levels playable & solver-verified | ✅ | `reports/solver_metrics.csv`, par = optimum |
+| Signature mechanic | ✅ | 530 automated checks pass |
 | Tutorial / completion / undo / restart / save | ✅ | Test suites + screenshots |
 | Deterministic rules | ✅ | Determinism suite |
 | Reproducible build | ✅ | Web, Linux; iOS Xcode project (needs Mac to build) |
 | Device test | ❌ | Waiting for owner's iPhone test — `docs/testing/IOS_TESTING.md` |
 | Human playtests | ❌ | Not started |
-| Repository on GitHub | ❌ | Session cannot create repositories; owner must create empty private `gaploom` repo |
+| Repository on GitHub | ✅ | https://github.com/eyazan/gaploom (public) |
+| Web build on GitHub Pages | ⏳ | Workflow builds and tests OK; deploy waits for owner to set Settings → Pages → Source: GitHub Actions |
