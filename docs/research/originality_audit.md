@@ -70,10 +70,10 @@ force-specific reasoning. Whether players *perceive* that difference is a human 
 Remaining weaknesses found by the same measurement:
 * Levels 7, 8, 9 and 17 have **identical solver graphs** (7 states, 4 optimal solutions): they are the same
   scaffold structure in different orientations/families. Good for teaching, weak for variety.
-* Searching the generator output for divergent levels is currently **impractical at scale**: the baseline
-  (force rule removed) has very large state spaces, so `tools/find_divergent.gd` processed fewer than 2 000
-  candidates in ~15 minutes and was stopped. Earlier partial runs found 3 divergent levels (all mixed mode,
-  6–7 moves). Hand design (or a template generator for scaffold structures) is the realistic path for now.
+* Random generation almost never produces divergent levels: `tools/find_divergent.gd` (seed 31337, baseline
+  capped at 5 000 states) processed 10 000 candidates in 95 s and accepted **1** (mixed mode, 0.01%); the run then
+  stalled on a later candidate and was stopped. Hand design (or a template generator for scaffold structures)
+  is the realistic path for this content.
 
 ## 4. Redesign directions (status)
 
