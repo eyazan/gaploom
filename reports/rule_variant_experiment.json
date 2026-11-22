@@ -1,0 +1,16 @@
+{
+ "active_sources": {
+  "accepted": 0,
+  "avg_min_moves": 0.0,
+  "candidates": 6000,
+  "divergent": 0,
+  "divergent_share_of_accepted": 0.0
+ },
+ "p0_frontier": {
+  "accepted": 182,
+  "avg_min_moves": 3.3,
+  "candidates": 6000,
+  "divergent": 1,
+  "divergent_share_of_accepted": 0.005
+ }
+}

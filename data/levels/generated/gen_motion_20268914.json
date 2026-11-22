@@ -1,0 +1,14 @@
+{
+ "format": 1,
+ "id": "gen_motion_20268914",
+ "name": "",
+ "par": 4,
+ "rows": [
+  ".. .. ao ao .. ..",
+  "S> .. .. ao .. D.",
+  "D. .. bo bo bo S<",
+  "eo eM .. .. .. co",
+  ".. .. do dM .. co"
+ ],
+ "world": "generated"
+}

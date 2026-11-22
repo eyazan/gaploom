@@ -16,6 +16,15 @@ const ERR_NOT_SOLID := "not_solid"
 const ERR_NOT_REACHED := "not_reached"
 const ERR_SPLIT := "would_split"
 
+## Analysis-only switch: when true the frontier rule is ignored, turning the game
+## into a conventional "move a hole to any solid cell" token puzzle. Used by
+## tools/equivalence_check.gd to measure how much the functional rule matters.
+static var relaxed_frontier := false
+## Analysis-only experimental variant ("active sources"): a gap can only be taken
+## from a cell its own force currently touches (light passing through it, or the
+## wake of an active shuttle). Evaluated by tools/equivalence_check.gd; not used in play.
+static var active_sources_only := false
+
 
 static func validate(lv: LevelDefinition, st: BoardState, sim: Dictionary, src: int, dst: int) -> String:
 	var n := lv.cell_count()
@@ -28,9 +37,13 @@ static func validate(lv: LevelDefinition, st: BoardState, sim: Dictionary, src: 
 		return ERR_NO_GAP
 	if st.shuttle_at(src) >= 0:
 		return ERR_OCCUPIED
+	if active_sources_only:
+		var touch: Dictionary = sim.light_passed if fam == VoidProperty.Family.LIGHT else sim.motion_reach
+		if not touch.has(src):
+			return ERR_NOT_REACHED
 	if st.mat[dst] != Mat.SOLID or lv.object_of[dst] < 0:
 		return ERR_NOT_SOLID
-	if not FunctionalSimulation.frontier_for(sim, fam).has(dst):
+	if not relaxed_frontier and not FunctionalSimulation.frontier_for(sim, fam).has(dst):
 		return ERR_NOT_REACHED
 	var after := st.mat.duplicate()
 	after[dst] = st.mat[src]
@@ -58,6 +71,11 @@ static func destinations(lv: LevelDefinition, st: BoardState, sim: Dictionary, s
 	if fam < 0:
 		return out
 	var keys: Array = FunctionalSimulation.frontier_for(sim, fam).keys()
+	if relaxed_frontier:
+		keys = []
+		for i in st.mat.size():
+			if st.mat[i] == Mat.SOLID:
+				keys.append(i)
 	keys.sort()
 	for dst in keys:
 		if validate(lv, st, sim, src, dst) == OK:

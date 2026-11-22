@@ -1,0 +1,29 @@
+{
+ "level_01": {
+  "avg_fps_uncapped": 65.2,
+  "avg_frame_ms": 15.34,
+  "draw_calls": 160.0,
+  "objects": 1542.0,
+  "worst_frame_ms": 36.39
+ },
+ "level_10": {
+  "avg_fps_uncapped": 55.6,
+  "avg_frame_ms": 17.97,
+  "draw_calls": 230.0,
+  "objects": 1547.0,
+  "worst_frame_ms": 24.71
+ },
+ "level_20": {
+  "avg_fps_uncapped": 57.8,
+  "avg_frame_ms": 17.3,
+  "draw_calls": 212.0,
+  "objects": 1547.0,
+  "worst_frame_ms": 65.4
+ },
+ "main_ready_after_ms": 85,
+ "process_ticks_at_script_start_ms": 360,
+ "renderer": "llvmpipe (LLVM 20.1.2, 256 bits)",
+ "static_memory_mb": 33.04,
+ "static_memory_peak_mb": 35.74,
+ "video_memory_mb": 14.64
+}

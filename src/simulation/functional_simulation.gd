@@ -16,6 +16,7 @@ const Static = LevelDefinition.Static
 static func trace_light(lv: LevelDefinition, st: BoardState) -> Dictionary:
 	var lit: Dictionary = {}
 	var frontier: Dictionary = {}
+	var passed: Dictionary = {}
 	var beams: Array = []
 	for e in lv.emitters:
 		var d: Vector2i = lv.emitter_dir[e]
@@ -55,6 +56,7 @@ static func trace_light(lv: LevelDefinition, st: BoardState) -> Dictionary:
 				d = Dir.reflect_backslash(d)
 				continue
 			var m := st.mat[i]
+			passed[i] = true
 			if m == Mat.SOLID:
 				frontier[i] = true
 				pts.append(Vector2(np) - Vector2(d) * 0.5)
@@ -63,7 +65,7 @@ static func trace_light(lv: LevelDefinition, st: BoardState) -> Dictionary:
 				pts.append(Vector2(np) - Vector2(d) * 0.5)
 				break
 		beams.append(pts)
-	return {"lit": lit, "frontier": frontier, "beams": beams}
+	return {"lit": lit, "frontier": frontier, "beams": beams, "passed": passed}
 
 
 static func can_enter(lv: LevelDefinition, st: BoardState, cell: int) -> bool:
@@ -120,6 +122,7 @@ static func settle(lv: LevelDefinition, st: BoardState) -> Array[PackedInt32Arra
 static func evaluate(lv: LevelDefinition, st: BoardState) -> Dictionary:
 	var light := trace_light(lv, st)
 	var motion_frontier: Dictionary = {}
+	var motion_reach: Dictionary = {}
 	var active: Array[bool] = []
 	for k in st.shuttle_cells.size():
 		var a := shuttle_active(lv, st, k, light.lit)
@@ -129,7 +132,17 @@ static func evaluate(lv: LevelDefinition, st: BoardState) -> Dictionary:
 		var nc := next_cell(lv, st, k)
 		if nc >= 0 and st.mat[nc] == Mat.SOLID:
 			motion_frontier[nc] = true
+		# Cells directly behind an active shuttle (its wake), up to the first blocker.
+		var bp := lv.pos(st.shuttle_cells[k]) - (lv.shuttles[k].dir as Vector2i)
+		while lv.in_bounds(bp):
+			var bi := lv.idx_v(bp)
+			if not VoidProperty.passes_motion(st.mat[bi]) or (lv.static_cells[bi] != Static.EMPTY and lv.static_cells[bi] != Static.DOCK):
+				break
+			motion_reach[bi] = true
+			bp -= (lv.shuttles[k].dir as Vector2i)
 	return {
+		"light_passed": light.passed,
+		"motion_reach": motion_reach,
 		"lit": light.lit,
 		"beams": light.beams,
 		"frontier_light": light.frontier,

@@ -1,0 +1,16 @@
+{
+ "format": 1,
+ "id": "gen_light_20265295",
+ "name": "",
+ "par": 3,
+ "rows": [
+  ".. .. .. .. .. ..",
+  ".. .. .. R. .. ..",
+  ".. .. .. do do ..",
+  ".. .. .. ao do ..",
+  ".. bo .. ao aL ..",
+  "bL bo bo .. ## ..",
+  "cL co .. E^ .. .."
+ ],
+ "world": "generated"
+}

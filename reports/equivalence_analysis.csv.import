@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://sixs6j0ae2le"
+
+[deps]
+
+files=["res://reports/equivalence_analysis.min.translation", "res://reports/equivalence_analysis.min.translation", "res://reports/equivalence_analysis.optimal.translation", "res://reports/equivalence_analysis.optimal.translation", "res://reports/equivalence_analysis.states.translation", "res://reports/equivalence_analysis.states.translation", "res://reports/equivalence_analysis.first.translation", "res://reports/equivalence_analysis.first.translation", "res://reports/equivalence_analysis.gaploom.translation", "res://reports/equivalence_analysis.baseline.translation"]
+
+source_file="res://reports/equivalence_analysis.csv"
+dest_files=["res://reports/equivalence_analysis.min.translation", "res://reports/equivalence_analysis.min.translation", "res://reports/equivalence_analysis.optimal.translation", "res://reports/equivalence_analysis.optimal.translation", "res://reports/equivalence_analysis.states.translation", "res://reports/equivalence_analysis.states.translation", "res://reports/equivalence_analysis.first.translation", "res://reports/equivalence_analysis.first.translation", "res://reports/equivalence_analysis.gaploom.translation", "res://reports/equivalence_analysis.baseline.translation"]
+
+[params]
+
+compress=true
+delimiter=0

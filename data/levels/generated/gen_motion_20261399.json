@@ -1,0 +1,15 @@
+{
+ "format": 1,
+ "id": "gen_motion_20261399",
+ "name": "",
+ "par": 5,
+ "rows": [
+  ".. ## Sv Sv .. bM",
+  ".. .. ao ao bo bo",
+  ".. .. ao ao bo ..",
+  ".. cM co cM .. ..",
+  ".. .. .. D. .. ..",
+  ".. .. D. do .. .."
+ ],
+ "world": "generated"
+}
