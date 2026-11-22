@@ -1,0 +1,16 @@
+{
+ "format": 1,
+ "id": "level_05",
+ "name": "Turning Point",
+ "world": "lighthouse",
+ "tutorial": "tut_mirror",
+ "par": 2,
+ "rows": [
+  ".. .. .. .. .. ..",
+  "E> .. .. .. .. \\.",
+  "cL co cL .. ao ao",
+  ".. .. .. .. .. ..",
+  ".. .. bo .. .. ..",
+  "R. .. bo .. .. /."
+ ]
+}

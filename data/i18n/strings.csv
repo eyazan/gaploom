@@ -1,0 +1,21 @@
+keys,en,tr
+APP_TAGLINE,Nothing changes everything.,Hiçlik her şeyi değiştirir.
+BTN_PLAY,Play,Oyna
+BTN_BACK,Back,Geri
+BTN_NEXT,Next,Sonraki
+BTN_RETRY,Retry,Tekrar
+BTN_LEVELS,Levels,Bölümler
+LBL_MOVES,Moves,Hamle
+LBL_RESTORED,Restored!,Onarıldı!
+WORLD_LIGHTHOUSE,The Lighthouse,Deniz Feneri
+WORLD_RAILWAY,The Little Railway,Küçük Demiryolu
+WORLD_GREENHOUSE,The Greenhouse,Sera
+tut_drag,Drag the glass gap into the light.,Cam boşluğu ışığa sürükle.
+tut_order,Light opens the way one pane at a time.,Işık yolu her seferinde bir camı açar.
+tut_close,A gap leaves solid stone behind.,Taşınan boşluk geride taş bırakır.
+tut_split,A slab must stay in one piece.,Her levha tek parça kalmalı.
+tut_mirror,Mirrors bend the light.,Aynalar ışığı kırar.
+tut_motion,Groove gaps let carts pass.,Oluk boşlukları vagonu geçirir.
+tut_recycle,A cart leaves its groove free to reuse.,Geçen vagon oluğu yeniden kullanıma bırakır.
+tut_shadow,Carts cast shadows.,Vagonlar gölge düşürür.
+tut_solar,Sun carts roll only in light.,Güneş vagonu yalnızca ışıkta ilerler.

@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_08",
+ "name": "Long Way Round",
+ "world": "lighthouse",
+ "tutorial": "",
+ "par": 3,
+ "rows": [
+  ".. .. .. .. .. ..",
+  "E> .. ao .. .. \\.",
+  ".. .. ao .. .. ..",
+  ".. .. .. .. bo bo",
+  ".. .. .. .. .. ..",
+  "R. .. co .. .. /.",
+  "gL go co hL hL ho"
+ ]
+}

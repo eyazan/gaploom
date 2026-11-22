@@ -1,0 +1,14 @@
+{
+ "format": 1,
+ "id": "level_13",
+ "name": "Close Quarters",
+ "world": "railway",
+ "tutorial": "",
+ "par": 2,
+ "rows": [
+  ".. .. ao bo .. ..",
+  "S> .. ao bo .. D.",
+  ".. .. .. .. .. ..",
+  ".. cM co cM .. .."
+ ]
+}

@@ -1,0 +1,16 @@
+{
+ "format": 1,
+ "id": "level_14",
+ "name": "Crossing",
+ "world": "railway",
+ "tutorial": "",
+ "par": 3,
+ "rows": [
+  ".. .. .. Sv .. ..",
+  ".. .. .. .. .. ..",
+  "S> bo .. .. ao D.",
+  ".. bo co co ao ..",
+  ".. .. .. .. .. ..",
+  "gM go .. D. .. .."
+ ]
+}

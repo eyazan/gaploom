@@ -1,0 +1,14 @@
+{
+ "format": 1,
+ "id": "level_01",
+ "name": "First Light",
+ "world": "lighthouse",
+ "tutorial": "tut_drag",
+ "par": 1,
+ "rows": [
+  ".. .. ao .. ..",
+  "E> .. ao .. R.",
+  ".. .. .. .. ..",
+  ".. bL bo .. .."
+ ]
+}

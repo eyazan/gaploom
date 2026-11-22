@@ -1,0 +1,12 @@
+{
+ "format": 1,
+ "id": "level_17",
+ "name": "Sun Cart",
+ "world": "greenhouse",
+ "tutorial": "tut_solar",
+ "par": 1,
+ "rows": [
+  "E> .. ao s> .. .. D.",
+  ".. .. aL .. .. .. .."
+ ]
+}

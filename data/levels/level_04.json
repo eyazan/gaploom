@@ -1,0 +1,15 @@
+{
+ "format": 1,
+ "id": "level_04",
+ "name": "One Piece",
+ "world": "lighthouse",
+ "tutorial": "tut_split",
+ "par": 2,
+ "rows": [
+  "E> .. ao .. .. ..",
+  "E> .. ao .. .. R.",
+  ".. .. ao .. .. ..",
+  ".. .. .. .. .. ..",
+  ".. bL bo bL .. .."
+ ]
+}

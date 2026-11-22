@@ -1,0 +1,14 @@
+{
+ "format": 1,
+ "id": "level_12",
+ "name": "Recycled Groove",
+ "world": "railway",
+ "tutorial": "tut_recycle",
+ "par": 2,
+ "rows": [
+  ".. .. ao .. .. bo .. ..",
+  "S> .. ao .. .. bo .. D.",
+  ".. .. .. .. .. .. .. ..",
+  ".. cM co .. .. .. .. .."
+ ]
+}

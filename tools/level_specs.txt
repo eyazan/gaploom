@@ -1,0 +1,166 @@
+L(1, "First Light", "lighthouse", "tut_drag", """
+.. .. ao .. ..
+E> .. ao .. R.
+.. .. .. .. ..
+.. bL bo .. ..
+""")
+
+L(2, "Two Panes", "lighthouse", "tut_order", """
+.. .. ao .. bo .. ..
+E> .. ao .. bo .. R.
+.. .. .. .. .. .. ..
+.. .. cL co cL .. ..
+""")
+
+L(3, "Borrowed Light", "lighthouse", "tut_close", """
+.. .. ao .. bo .. ..
+E> .. aL .. bo .. R.
+.. .. .. .. .. .. ..
+.. .. .. cL co .. ..
+""")
+
+L(4, "One Piece", "lighthouse", "tut_split", """
+E> .. ao .. .. ..
+E> .. ao .. .. R.
+.. .. ao .. .. ..
+.. .. .. .. .. ..
+.. bL bo bL .. ..
+""")
+
+L(5, "Turning Point", "lighthouse", "tut_mirror", """
+.. .. .. .. .. ..
+E> .. .. .. .. \\.
+cL co cL .. ao ao
+.. .. .. .. .. ..
+.. .. bo .. .. ..
+R. .. bo .. .. /.
+""")
+
+L(11, "First Track", "railway", "tut_motion", """
+.. .. .. .. .. ..
+S> .. ao .. .. D.
+.. .. ao .. .. ..
+.. bM bo .. .. ..
+""")
+
+L(12, "Recycled Groove", "railway", "tut_recycle", """
+.. .. ao .. .. bo .. ..
+S> .. ao .. .. bo .. D.
+.. .. .. .. .. .. .. ..
+.. cM co .. .. .. .. ..
+""")
+
+L(13, "Close Quarters", "railway", "", """
+.. .. ao bo .. ..
+S> .. ao bo .. D.
+.. .. .. .. .. ..
+.. cM co cM .. ..
+""")
+
+L(16, "Shadow Cart", "greenhouse", "tut_shadow", """
+.. .. .. ao ao ..
+E> .. .. S^ .. R.
+.. .. .. .. .. ..
+.. bM bo .. .. ..
+""")
+
+L(17, "Sun Cart", "greenhouse", "tut_solar", """
+E> .. ao s> .. .. D.
+.. .. aL .. .. .. ..
+""")
+
+L(6, "Inside Out", "lighthouse", "", """
+.. .. .. .. .. .. ..
+E> .. ao .. bo .. R.
+.. .. ao .. bo .. ..
+.. .. .. .. .. .. ..
+co cL cL .. .. .. ..
+""")
+
+L(7, "Scaffold", "lighthouse", "tut_scaffold", """
+.. .. .. Ev .. ..
+.. .. .. xo xo ..
+.. .. .. .. .. ..
+E> .. qo qo .. R.
+.. .. qo .. .. ..
+.. .. qo .. .. gL
+.. .. .. .. gL go
+""")
+
+L(8, "Long Way Round", "lighthouse", "", """
+.. .. .. .. .. ..
+E> .. ao .. .. \\.
+.. .. ao .. .. ..
+.. .. .. .. bo bo
+.. .. .. .. .. ..
+R. .. co .. .. /.
+gL go co hL hL ho
+""")
+
+L(9, "Look Through", "lighthouse", "tut_lookthrough", """
+eL eo .. Ev fL fo
+.. .. .. .. .. ..
+.. .. ao dL do ..
+E> .. ao .. .. R.
+.. .. .. .. .. ..
+E> co R. bo bo ..
+.. co .. R. gL go
+""")
+
+L(10, "Keeper's Lamp", "lighthouse", "", """
+.. .. Ev .. .. ..
+.. .. xo xo .. ..
+.. .. .. .. .. ..
+E> qo qo .. .. \\.
+.. qo .. .. .. ..
+.. qo .. .. ko ..
+R. .. .. .. ko /.
+gL go gL .. hL ho
+""")
+
+L(14, "Crossing", "railway", "", """
+.. .. .. Sv .. ..
+.. .. .. .. .. ..
+S> bo .. .. ao D.
+.. bo co co ao ..
+.. .. .. .. .. ..
+gM go .. D. .. ..
+""")
+
+L(15, "Switchyard", "railway", "", """
+.. .. Sv .. .. ..
+.. .. ao ao .. ..
+S> bo .. co co D.
+.. bo .. .. co ..
+.. .. .. .. .. ..
+.. .. D. dM dM do
+""")
+
+L(19, "Glass and Groove", "greenhouse", "", """
+.. .. Sv .. .. fL
+.. .. .. .. .. fo
+.. .. .. .. .. ..
+E> .. ao ao .. R.
+.. .. .. ao eo ..
+S> .. .. .. eo D.
+gL go D. hM ho ..
+""")
+
+L(18, "Airlock", "greenhouse", "tut_airlock", """
+.. .. .. .. Sv .. ..
+E> s> .. ao .. .. D.
+.. .. .. ao .. .. ..
+gL go .. .. bo bo ..
+.. .. hM .. .. .. ..
+.. .. ho .. D. .. ..
+""")
+
+L(20, "Greenhouse Heart", "greenhouse", "", """
+.. .. .. .. .. .. ..
+E> s> .. ao .. .. D.
+.. .. bo ao .. .. ..
+E> .. bo .. Sv .. R.
+hM ho .. .. co co ..
+gL go .. .. .. .. ..
+.. gL .. .. D. .. ..
+""")

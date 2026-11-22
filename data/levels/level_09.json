@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_09",
+ "name": "Look Through",
+ "world": "lighthouse",
+ "tutorial": "tut_lookthrough",
+ "par": 3,
+ "rows": [
+  "eL eo .. Ev fL fo",
+  ".. .. .. .. .. ..",
+  ".. .. ao dL do ..",
+  "E> .. ao .. .. R.",
+  ".. .. .. .. .. ..",
+  "E> co R. bo bo ..",
+  ".. co .. R. gL go"
+ ]
+}

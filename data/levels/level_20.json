@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_20",
+ "name": "Greenhouse Heart",
+ "world": "greenhouse",
+ "tutorial": "",
+ "par": 4,
+ "rows": [
+  ".. .. .. .. .. .. ..",
+  "E> s> .. ao .. .. D.",
+  ".. .. bo ao .. .. ..",
+  "E> .. bo .. Sv .. R.",
+  "hM ho .. .. co co ..",
+  "gL go .. .. .. .. ..",
+  ".. gL .. .. D. .. .."
+ ]
+}

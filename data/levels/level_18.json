@@ -1,0 +1,16 @@
+{
+ "format": 1,
+ "id": "level_18",
+ "name": "Airlock",
+ "world": "greenhouse",
+ "tutorial": "tut_airlock",
+ "par": 3,
+ "rows": [
+  ".. .. .. .. Sv .. ..",
+  "E> s> .. ao .. .. D.",
+  ".. .. .. ao .. .. ..",
+  "gL go .. .. bo bo ..",
+  ".. .. hM .. .. .. ..",
+  ".. .. ho .. D. .. .."
+ ]
+}

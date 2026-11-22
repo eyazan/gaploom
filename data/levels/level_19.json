@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_19",
+ "name": "Glass and Groove",
+ "world": "greenhouse",
+ "tutorial": "",
+ "par": 4,
+ "rows": [
+  ".. .. Sv .. .. fL",
+  ".. .. .. .. .. fo",
+  ".. .. .. .. .. ..",
+  "E> .. ao ao .. R.",
+  ".. .. .. ao eo ..",
+  "S> .. .. .. eo D.",
+  "gL go D. hM ho .."
+ ]
+}

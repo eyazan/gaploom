@@ -1,0 +1,14 @@
+{
+ "format": 1,
+ "id": "level_03",
+ "name": "Borrowed Light",
+ "world": "lighthouse",
+ "tutorial": "tut_close",
+ "par": 1,
+ "rows": [
+  ".. .. ao .. bo .. ..",
+  "E> .. aL .. bo .. R.",
+  ".. .. .. .. .. .. ..",
+  ".. .. .. cL co .. .."
+ ]
+}
