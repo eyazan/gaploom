@@ -21,4 +21,4 @@
 | Device test | ❌ | Waiting for owner's iPhone test — `docs/testing/IOS_TESTING.md` |
 | Human playtests | ❌ | Not started |
 | Repository on GitHub | ✅ | https://github.com/eyazan/gaploom (public) |
-| Web build on GitHub Pages | ⏳ | Workflow builds and tests OK; deploy waits for owner to set Settings → Pages → Source: GitHub Actions |
+| Web build on GitHub Pages | ✅ | https://eyazan.github.io/gaploom/ (auto-deployed on every push) |

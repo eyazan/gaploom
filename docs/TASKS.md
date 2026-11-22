@@ -6,7 +6,7 @@
 
 ## Waiting on owner
 1. [x] GitHub repo created; history pushed
-1. [ ] Enable GitHub Pages (Settings → Pages → Source: GitHub Actions)
+1. [x] GitHub Pages enabled
 2. [ ] iPhone test via `docs/testing/IOS_TESTING.md` Path A, report findings
 3. [ ] Decide whether to publish a restricted (secret-link) web build for testers (itch.io draft / Pages)
 
