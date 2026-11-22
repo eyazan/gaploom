@@ -519,3 +519,24 @@ func _on_hint() -> void:
 func _on_rejected(reason: String) -> void:
 	if REASON_KEYS.has(reason):
 		_show_tip(tr(REASON_KEYS[reason]), true)
+
+
+## Desktop shortcuts (Steam / web with keyboard): Z or Ctrl+Z undo, R restart, H hint, Esc back.
+func _unhandled_key_input(event: InputEvent) -> void:
+	var k := event as InputEventKey
+	if k == null or not k.pressed or k.echo:
+		return
+	if screen_game.visible and not overlay.visible:
+		match k.keycode:
+			KEY_Z:
+				_on_undo()
+			KEY_R:
+				_on_restart()
+			KEY_H:
+				_on_hint()
+			KEY_ESCAPE:
+				open_select()
+	elif overlay.visible and (k.keycode == KEY_ENTER or k.keycode == KEY_SPACE):
+		_on_next()
+	elif screen_select.visible and k.keycode == KEY_ESCAPE:
+		show_screen(screen_title)

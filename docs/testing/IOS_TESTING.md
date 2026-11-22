@@ -1,6 +1,28 @@
 # Testing GAPLOOM on an iPhone
 
-There are two ways. **Path A needs no Mac** and is the recommended first test.
+Three ways. **Path C (cable, no Mac)** installs a real app; **Path A (web)** is the quickest.
+
+---
+
+## Path C — Real app over a USB cable, no Mac (Windows or Mac computer)
+
+GitHub's macOS runners build an **unsigned** `GAPLOOM-unsigned.ipa` on every push
+(workflow "Platform builds", artifact `gaploom-ios-unsigned`). A sideloading tool re-signs it with
+**your own free Apple ID** and installs it over the cable.
+
+1. Download the ipa: https://github.com/eyazan/gaploom/actions → latest "Platform builds" run →
+   *Artifacts* → `gaploom-ios-unsigned` (a zip containing the .ipa; unzip it).
+2. Install **Sideloadly** (free, Windows/macOS, https://sideloadly.io). On Windows also install iTunes and
+   iCloud from Apple's website (not the Microsoft Store versions) so the iPhone driver is present.
+3. Connect the iPhone with the cable, unlock it, tap *Trust this computer*.
+4. In Sideloadly: drag the .ipa in, enter your Apple ID, press **Start**. (Sideloadly sends your Apple ID only
+   to Apple to create a free signing certificate. If you prefer, create a separate Apple ID for this.)
+5. On the iPhone: *Settings → General → VPN & Device Management* → trust your Apple ID;
+   iOS 16+: *Settings → Privacy & Security → Developer Mode* → on, restart.
+6. Open GAPLOOM from the home screen.
+
+Limits of a free Apple ID: the app stops opening after **7 days** (re-run Sideloadly to refresh); max 3
+sideloaded apps. Third-party tool — Anthropic/Claude has no affiliation with it.
 
 ---
 
