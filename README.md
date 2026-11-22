@@ -21,7 +21,8 @@ godot --headless --export-release "Web" build/web/index.html      # needs 4.5.1 
 godot --headless --export-release "Linux" build/linux/gaploom.x86_64
 cd build/web && python3 -m http.server 8000                        # open http://localhost:8000
 ```
-The web export is single-threaded (no special server headers needed).
+The web export is single-threaded (no special server headers needed) and installable as a PWA.
+iPhone testing: see `docs/testing/IOS_TESTING.md`.
 
 ## Test
 ```bash

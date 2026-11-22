@@ -1,12 +1,15 @@
 {
  "format": 1,
  "id": "level_17",
- "name": "Sun Cart",
+ "name": "Sun Scaffold",
  "world": "greenhouse",
  "tutorial": "tut_solar",
- "par": 1,
+ "par": 3,
  "rows": [
-  "E> .. ao s> .. .. D.",
-  ".. .. aL .. .. .. .."
+  ".. .. Ev .. .. hL ho",
+  ".. .. xo xo .. .. ..",
+  "E> qo qo s> .. .. D.",
+  ".. qo .. .. .. .. ..",
+  ".. qo .. .. .. gL go"
  ]
 }

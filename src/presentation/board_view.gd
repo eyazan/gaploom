@@ -137,6 +137,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_press(pos: Vector2) -> void:
+	Engine.max_fps = 60
 	if phase != "":
 		finish_animation()
 	var c := cell_at(pos)
@@ -330,7 +331,22 @@ func _process(delta: float) -> void:
 	shake_t = maxf(0.0, shake_t - delta)
 	if win_t >= 0.0:
 		win_t += delta
+	_update_fps_cap()
 	queue_redraw()
+
+
+## Battery: only ambient pulses run while idle, which look fine at 30 FPS.
+## Anything the player is touching or watching resolve runs at 60 FPS.
+func _update_fps_cap() -> void:
+	if not is_visible_in_tree():
+		Engine.max_fps = 60  # menus scroll; they are cheap to draw
+		return
+	var animating := phase != "" or dragging or selected >= 0 or (win_t >= 0.0 and win_t < 2.0) or shake_t > 0.0 or beam_reveal < 1.0
+	for r in bloom:
+		var target_b := 1.0 if shown_lit.has(r) else 0.0
+		if absf(float(bloom[r]) - target_b) > 0.001:
+			animating = true
+	Engine.max_fps = 60 if animating else 30
 
 
 # ---------------------------------------------------------------- drawing
@@ -436,6 +452,8 @@ func _draw_slabs() -> void:
 			_sb.corner_radius_bottom_left = int(rad) if (l and b) else 0
 			_sb.corner_radius_bottom_right = int(rad) if (rt and b) else 0
 			if pass_i == 0:
+				if not b:
+					continue  # only exposed bottom edges cast the slab's drop edge
 				# Neighbours that cover our shadow from below would leave a notch; pull the shadow in there.
 				var sl := 0.0 if (l or not _same_solid(lv.idx_v(lv.pos(i) + Dir.LEFT), Dir.DOWN)) else ins
 				var sr := 0.0 if (rt or not _same_solid(lv.idx_v(lv.pos(i) + Dir.RIGHT), Dir.DOWN)) else ins

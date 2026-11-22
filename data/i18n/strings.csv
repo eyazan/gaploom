@@ -20,7 +20,7 @@ tut_recycle,A cart leaves its groove free to reuse.,Geçen vagon oluğu yeniden 
 tut_shadow,Carts cast shadows.,Vagonlar gölge düşürür.
 tut_solar,Sun carts roll only in light.,Güneş vagonu yalnızca ışıkta ilerler.
 tut_scaffold,"Open a pane, place a gap beyond it, then take it back.","Bir camı aç, ardındakine boşluk koy, sonra geri al."
-tut_lookthrough,Don't take the gap you are looking through.,İçinden baktığın boşluğu alma.
+tut_workcart,Let one cart open the way for another.,Bir vagon diğerine yol açsın.
 tut_airlock,"A groove blocks light. Swap it for glass.","Oluk ışığı keser. Onu camla değiştir."
 MSG_NOT_REACHED,Gaps only go where their force touches.,Boşluk yalnızca kendi kuvvetinin dokunduğu yere gider.
 MSG_SPLIT,That would break the slab in two.,Bu levhayı ikiye böler.

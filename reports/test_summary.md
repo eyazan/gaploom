@@ -1,6 +1,6 @@
 # Test Summary
 
-Run: 2026-11-22, Godot 4.5.1 stable, headless, `godot --headless -s tests/run_tests.gd`.
+Run: 2026-11-22 (re-run for v0.2.0 levels), Godot 4.5.1 stable, headless, `godot --headless -s tests/run_tests.gd`.
 Raw output: `reports/test_results.json`. **Result: 462 checks passed, 0 failed (≈1.6 s).**
 
 | Suite | Checks | What it covers |
@@ -29,6 +29,9 @@ Raw output: `reports/test_results.json`. **Result: 462 checks passed, 0 failed (
 * **Web build in a real browser**: headless Chromium (Playwright) loaded `build/web/index.html`, performed a
   real mouse drag of the gap in Level 1 and reached the completion card (`reports/screenshots/web_0*.png`).
   This caught and fixed one layout bug (tutorial text drawn over the board on web).
+* **iPhone emulation (v0.2.0)**: Chromium with the Playwright "iPhone 13" profile (390×664, touch, DPR 3)
+  loaded the PWA web build and solved Level 1 with **touch taps** (tap gap → tap destination)
+  (`reports/screenshots/iphone_0*.png`). This is Chromium, not Safari/WebKit; a real iPhone test is pending.
 
 ## Not tested (honest gaps)
 * Physical Android/iOS devices, real touchscreens, multi-touch hardware quirks, notches/safe areas.

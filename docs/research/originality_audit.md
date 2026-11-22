@@ -40,44 +40,50 @@ Sokoban is "moving tokens" too — the question the directive asks is whether **
   This is exactly "pick up a stone from anywhere and drop it into a hole", i.e. the conventional block-puzzle
   equivalent with the same functional tiles.
 
-**Results (measured, `reports/equivalence_analysis.csv`):**
+**Results — v0.1.0 level set (first P0 build):** the baseline found a strictly shorter solution in only
+**2 / 20** levels (7, 10); in 19/20 levels it had more first-move options; over 293 generated levels only
+1 (0.3%) diverged. Verdict then: **PARTIAL** — the force rule mostly pruned irrelevant options instead of
+creating new reasoning.
+
+**Results — v0.2.0 level set (current, `reports/equivalence_analysis.csv`):**
 
 | Metric | Result |
 |---|---|
-| Levels where the baseline has **more first-move options** | 19 / 20 (2×–10× more) |
-| State-space size, GAPLOOM vs baseline | 2–35 states vs 2–1635 states; ratio up to ~80× (level 19: 14 vs 1114, level 20: 20 vs 1635) |
-| Levels where the baseline finds a **strictly shorter** solution | **2 / 20** (levels 7 and 10, the "scaffold" levels) |
-| Levels whose GAPLOOM optimal solution is also legal in the baseline | 20 / 20 (by construction: GAPLOOM moves ⊂ baseline moves) |
+| Levels where the baseline has a **strictly shorter** solution ("force-divergent") | **8 / 20** — levels 7, 8, 9, 10, 14, 15, 17, 20 |
+| Levels where the baseline has more first-move options | 20 / 20 |
+| State-space size, GAPLOOM vs baseline | 2–130 vs 4–19 922 states |
 
-**Interpretation (honest):**
-* The force rule **changes what the player can do** in every level (fewer, physically motivated options; the
-  hot-spots show where a gap may go).
-* But in **18 / 20 levels the optimal plan is the same plan a conventional block puzzle would accept**. In those
-  levels the force rule mostly prunes irrelevant options instead of creating new reasoning. The decisions that
-  matter there come from the *functions* (light vs motion permeability, cart shadows, solar carts, groove↔glass
-  swaps) — which a block puzzle with typed tiles could also express.
-* In **2 / 20 levels (7 "Scaffold", 10 "Keeper's Lamp")** the force rule creates reasoning that does not exist in
-  the baseline: you must open a pane temporarily so the light can carry a gap deeper, then take that pane's
-  gap back. This "scaffolding" is the strongest evidence of a genuinely void-specific mechanic.
-* Over the procedurally generated pool the divergence is rarer: **1 of 293** accepted levels (0.3%) and 1 of 182
-  in a second 6 000-candidate run (`reports/rule_variant_experiment.json`).
+What changed: six levels were redesigned around **scaffolding** — a gap must be placed temporarily so a
+force can reach a cell, then taken back:
+* Light (7, 8, 9, 10): a "work light" passes through a temporary pane to open a cell that the main beam cannot
+  open first, because opening it in the natural order would split the slab.
+* Motion (14 "Work Cart", 15 "Switchyard"): an *empty* cart is driven through a temporary groove so that it
+  stands in front of the cell the real cart needs, then that groove is reused.
+* Mixed (17 "Sun Scaffold", 20 "Greenhouse Heart"): the same idea feeding a solar cart and a flower.
 
-**Verdict for P0: PARTIAL.** The mechanic is *not* fully equivalent to a block puzzle, but the distinctive part
-(force-gated placement → scaffolding) is under-used by the current content. Per the directive this is a design
-risk that must be addressed before content production, not hidden.
+These moves have no counterpart in a block puzzle: in the baseline the player simply drops a block where it
+is needed; in GAPLOOM the *function* of the gap decides who can deliver it there.
 
-## 4. Redesign directions (prioritised, not yet adopted)
+**Verdict for v0.2.0: SUFFICIENT FOR TESTING, NOT PROVEN.** The solver shows that 40% of the levels need
+force-specific reasoning. Whether players *perceive* that difference is a human question (playtest item).
 
-1. **Curate for divergence (cheap, keeps the rule).** Add "baseline is shorter" as a generator acceptance
-   criterion and a design checklist item, and raise the share of scaffold-type levels from 2/20 to ≥ 8/20 in
-   P1. The generator would need path-aware placement of *temporary* panes to hit this more than 0.3% of the time.
-2. **Active-source variant (rule change).** A gap may only be *taken* from a cell its own force currently
-   touches (light passing through it / the wake of an active cart). Implemented as an analysis-only switch
-   (`TransferValidator.active_sources_only`). **Result so far inconclusive:** the current generator produced 0
-   accepted levels under this rule from 6 000 candidates, because it never places stored gaps inside a force
-   path. A dedicated generator is needed before judging it.
-3. **Gap memory / composition (P2 direction).** Functional composition (e.g. glass + groove adjacent → a "window
-   cart" rail) as described in the directive; only after players master the two families.
+Remaining weaknesses found by the same measurement:
+* Levels 7, 8, 9 and 17 have **identical solver graphs** (7 states, 4 optimal solutions): they are the same
+  scaffold structure in different orientations/families. Good for teaching, weak for variety.
+* A 120 000-candidate search with the divergence filter (`tools/find_divergent.gd`) finds divergent levels only
+  rarely and mostly in mixed mode (see `reports/rule_variant_experiment.json` and STATUS); hand design is still
+  required for this kind of content.
+
+## 4. Redesign directions (status)
+
+1. **Curate for divergence — ADOPTED in v0.2.0.** Divergence is now an optional generator criterion
+   (`LevelGenerator.evaluate(..., require_divergence=true)`) and a design checklist item. Target for the next
+   content batch: ≥ 50% divergent, with more structural variety than the four clones above.
+2. **Active-source variant (rule change) — PARKED.** Analysis-only switch
+   `TransferValidator.active_sources_only`. The current generator produced 0 accepted levels under it from
+   6 000 candidates; it needs its own generator before it can be judged. Revisit only if playtests show that
+   players read GAPLOOM as "just a block puzzle".
+3. **Functional composition — P2**, after players master the two families.
 
 ## 5. Residual originality risks
 

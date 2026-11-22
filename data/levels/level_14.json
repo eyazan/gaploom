@@ -1,16 +1,17 @@
 {
  "format": 1,
  "id": "level_14",
- "name": "Crossing",
+ "name": "Work Cart",
  "world": "railway",
- "tutorial": "",
+ "tutorial": "tut_workcart",
  "par": 3,
  "rows": [
   ".. .. .. Sv .. ..",
+  ".. .. .. xo xo ..",
   ".. .. .. .. .. ..",
-  "S> bo .. .. ao D.",
-  ".. bo co co ao ..",
-  ".. .. .. .. .. ..",
-  "gM go .. D. .. .."
+  "S> .. qo qo .. D.",
+  ".. .. qo .. .. ..",
+  "gM go qo .. .. ..",
+  ".. hM ho .. .. .."
  ]
 }

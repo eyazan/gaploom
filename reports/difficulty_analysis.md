@@ -14,32 +14,32 @@ Difficulty score = heuristic in `src/solver/difficulty_estimator.gd`
 | 5 | 2 | 2 | 6 | 2.00 | 0.00 | 2/0 | 2.50 | 1 |
 | 6 | 2 | 1 | 4 | 1.67 | 0.00 | 2/0 | 2.70 | 1 |
 | 7 | 3 | 4 | 7 | 2.17 | 0.00 | 3/0 | 3.18 | 2 |
-| 8 | 3 | 3 | 12 | 2.73 | 0.00 | 3/0 | 3.62 | 2 |
-| 9 | 3 | 36 | 35 | 6.47 | 0.00 | 3/0 | 2.73 | 1 |
+| 8 | 3 | 4 | 7 | 2.17 | 0.00 | 3/0 | 3.18 | 2 |
+| 9 | 3 | 4 | 7 | 2.17 | 0.00 | 3/0 | 3.18 | 2 |
 | 10 | 4 | 18 | 22 | 4.00 | 0.00 | 4/0 | 3.89 | 2 |
 | 11 | 1 | 1 | 2 | 1.00 | 0.00 | 0/1 | 1.35 | 1 |
 | 12 | 2 | 1 | 3 | 1.00 | 0.00 | 0/2 | 2.55 | 1 |
 | 13 | 2 | 2 | 4 | 1.33 | 0.00 | 0/2 | 2.30 | 1 |
-| 14 | 3 | 2 | 6 | 1.20 | 0.00 | 0/3 | 3.50 | 2 |
-| 15 | 4 | 10 | 15 | 1.69 | 0.00 | 0/4 | 4.04 | 2 |
+| 14 | 3 | 4 | 7 | 1.50 | 0.00 | 0/3 | 3.18 | 2 |
+| 15 | 4 | 2 | 6 | 1.20 | 0.00 | 0/4 | 4.50 | 2 |
 | 16 | 1 | 1 | 2 | 1.00 | 0.00 | 0/1 | 1.35 | 1 |
-| 17 | 1 | 1 | 2 | 1.00 | 0.00 | 1/0 | 1.35 | 1 |
+| 17 | 3 | 4 | 7 | 2.17 | 0.00 | 3/0 | 3.18 | 2 |
 | 18 | 3 | 1 | 6 | 1.00 | 0.33 | 1/2 | 5.90 | 3 |
 | 19 | 4 | 2 | 14 | 1.46 | 0.57 | 2/2 | 7.65 | 4 |
-| 20 | 4 | 10 | 20 | 1.88 | 0.30 | 2/2 | 6.08 | 3 |
+| 20 | 6 | 558 | 130 | 4.60 | 0.29 | 4/2 | 6.69 | 3 |
 
-## Curve vs. plan
+## Curve vs. plan (v0.2.0)
 Planned: 1–5 basics, 6–10 light, 11–15 motion, 16–20 combined.
 
-* The curve **rises within each world** and resets at each new family (11, 16), which is intentional
-  for concept introduction but produces visible dips (9, 11, 16, 17).
-* **Level 9 is easier than its slot** (36 optimal solutions, branching 6.5). It works as a breather, but
-  the score says tier 1.
-* **Only levels 18–20 have dead ends** (states from which no solution exists). Earlier levels are fully
-  forgiving — every state can still be solved — which suits a cozy tutorial arc but limits tension.
-* **All levels are short** (max optimal length 4). Total solver states over all 20 levels: 175. This is
-  appropriate for a first session, but a commercial premium release needs deeper levels (5–10 moves,
-  hundreds of states) — see `docs/ROADMAP.md`.
+* The curve rises within each world and resets at each new family (11, 16) — intentional for concept
+  introduction, with visible dips at 11 and 16.
+* v0.2.0 replaced the easiest mid-world levels with scaffold levels; level 9 is no longer a 36-solution outlier.
+* **Levels 7, 8, 9 and 17 have identical solver graphs** (7 states, 4 optimal solutions) — the same scaffold
+  structure in different clothes. Variety risk; next content batch must break this pattern.
+* **Level 20 has 558 optimal solutions** (6 moves, 130 states): many interchangeable orders. Fine as a
+  relaxed finale, but it lowers tension.
+* Dead ends exist only in 18–20. Earlier levels are fully forgiving.
+* All levels are still short (max optimal length 6; 255 states in total). Deeper levels remain a P1 need.
 
 ## Generated pool (10 000 candidates)
 Accepted 293; optimal-length histogram {3: 216, 4: 53, 5: 17, 6: 7}; tier histogram {1: 51, 2: 203, 3: 28, 4: 11}.

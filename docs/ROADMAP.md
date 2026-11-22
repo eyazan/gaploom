@@ -4,7 +4,7 @@
 Core rule, 2 families, 20 levels, solver, generator, tutorial, save, web build, tests.
 
 ## P0.5 — Validation (next; needs owner)
-1. Owner plays the web build and one Android device build.
+1. Owner plays the web build on iPhone (PWA) — `docs/testing/IOS_TESTING.md`.
 2. Fix device issues (safe area, touch feel, battery).
 3. 10–30 external playtesters, record: tutorial completion, levels 1–5 completion, session length, verbal
    recognition of "moving the gap", where they get stuck.
@@ -15,7 +15,7 @@ Core rule, 2 families, 20 levels, solver, generator, tutorial, save, web build, 
   or adopt a tested rule variant.
 * 40–60 levels, 5–10 move optima, more dead-end tension in late levels.
 * Safe-area HUD, idle-FPS cap, custom slim export template.
-* Android + iOS builds, store pages (approval needed before publishing).
+* iOS native build on a Mac (TestFlight needs the paid Apple program — approval needed); Android later.
 
 ## P2 — Advanced (post-validation)
 * Functional composition (e.g. glass + heat → heat beam), third family.

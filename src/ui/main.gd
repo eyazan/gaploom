@@ -318,11 +318,27 @@ func _build_overlay() -> void:
 
 # ---------------------------------------------------------------- layout
 
+## Safe-area insets (notch, Dynamic Island, home indicator) in viewport units.
+## Returns Rect2(left, top, right, bottom) packed as position=(left, top), size=(right, bottom).
+## Only applied on native mobile; on web the browser already keeps content inside the safe area
+## because the shell's viewport meta does not use viewport-fit=cover.
+func safe_insets(view_size: Vector2) -> Rect2:
+	if not OS.has_feature("mobile") or OS.has_feature("web"):
+		return Rect2()
+	var sa := DisplayServer.get_display_safe_area()
+	var ws := Vector2(DisplayServer.window_get_size())
+	if sa.size.x <= 0 or ws.x <= 0:
+		return Rect2()
+	var k := view_size / ws
+	return Rect2(sa.position.x * k.x, sa.position.y * k.y, (ws.x - sa.end.x) * k.x, (ws.y - sa.end.y) * k.y)
+
+
 func _layout() -> void:
 	var s := size
 	if s.x <= 0:
 		s = get_viewport_rect().size
-	var top := 24.0
+	var safe := safe_insets(s)
+	var top := 24.0 + safe.position.y
 	var back := screen_game.get_node("Back") as Control
 	back.position = Vector2(24, top)
 	lbl_level.position = Vector2(116, top)
@@ -336,7 +352,7 @@ func _layout() -> void:
 	lbl_tip.custom_minimum_size = Vector2(maxf(100.0, s.x - 80), 0)
 	lbl_tip.size = Vector2(maxf(100.0, s.x - 80), 0)
 	lbl_tip.reset_size()
-	var bottom_h := 190.0
+	var bottom_h := 190.0 + safe.size.y
 	var by := s.y - bottom_h + 20
 	var cx := s.x * 0.5
 	btn_undo.position = Vector2(cx - 52 - 150, by)
@@ -349,7 +365,7 @@ func _layout() -> void:
 	var ow := minf(s.x - 48, 660)
 	overlay.custom_minimum_size = Vector2(ow, 0)
 	overlay.reset_size()
-	overlay.position = Vector2((s.x - overlay.size.x) * 0.5, s.y - overlay.size.y - 32)
+	overlay.position = Vector2((s.x - overlay.size.x) * 0.5, s.y - overlay.size.y - 32 - safe.size.y)
 
 
 # ---------------------------------------------------------------- flow

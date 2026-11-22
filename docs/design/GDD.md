@@ -43,33 +43,35 @@ restart are free; a solver-backed hint shows the next optimal move from the curr
 One finger. Drag a gap onto a highlighted cell, or tap gap → tap destination. Mouse identical.
 Invalid drops shake the target and show a one-line reason (e.g. "That would break the slab in two.").
 
-## 6. Content (P0: 20 handcrafted levels, all solver-verified)
+## 6. Content (v0.2.0: 20 handcrafted levels, all solver-verified)
 
-| # | Name | World | Teaches | Par |
-|---|---|---|---|---|
-| 1 | First Light | Lighthouse | Drag a gap into the light (ghost hand) | 1 |
-| 2 | Two Panes | Lighthouse | Light advances one pane at a time | 2 |
-| 3 | Borrowed Light | Lighthouse | Taking a gap leaves stone behind | 1 |
-| 4 | One Piece | Lighthouse | Integrity: a slab can't be split | 2 |
-| 5 | Turning Point | Lighthouse | Mirrors | 2 |
-| 6 | Inside Out | Lighthouse | Source order (no floating chunks) | 2 |
-| 7 | Scaffold | Lighthouse | Temporary pane, take it back | 3 |
-| 8 | Long Way Round | Lighthouse | Multi-mirror route + source order | 3 |
-| 9 | Look Through | Lighthouse | Don't take the gap you look through | 3 |
-| 10 | Keeper's Lamp | Lighthouse | Scaffold + mirrors | 4 |
-| 11 | First Track | Railway | Groove gaps let carts pass | 1 |
-| 12 | Recycled Groove | Railway | A passed groove can be reused | 2 |
-| 13 | Close Quarters | Railway | Adjacent walls need two grooves | 2 |
-| 14 | Crossing | Railway | Two carts, crossing order | 3 |
-| 15 | Switchyard | Railway | Recycling + integrity | 4 |
-| 16 | Shadow Cart | Greenhouse | Carts cast shadows | 1 |
-| 17 | Sun Cart | Greenhouse | Solar carts need light | 1 |
-| 18 | Airlock | Greenhouse | Groove → glass swap behind a solar cart | 3 |
-| 19 | Glass and Groove | Greenhouse | Same cell needs both families, in order | 4 |
-| 20 | Greenhouse Heart | Greenhouse | Everything; trap order | 4 |
+| # | Name | World | Teaches | Par | Force-divergent |
+|---|---|---|---|---|---|
+| 1 | First Light | Lighthouse | Drag a gap into the light (ghost hand) | 1 | |
+| 2 | Two Panes | Lighthouse | Light advances one pane at a time | 2 | |
+| 3 | Borrowed Light | Lighthouse | Taking a gap leaves stone behind | 1 | |
+| 4 | One Piece | Lighthouse | Integrity: a slab can't be split | 2 | |
+| 5 | Turning Point | Lighthouse | Mirrors | 2 | |
+| 6 | Inside Out | Lighthouse | Source order (no floating chunks) | 2 | |
+| 7 | Scaffold | Lighthouse | Temporary pane, take it back | 3 | ✓ |
+| 8 | Long Way Round | Lighthouse | Scaffold through two mirrors | 3 | ✓ |
+| 9 | Borrowed Lens | Lighthouse | Scaffold, sideways work light | 3 | ✓ |
+| 10 | Keeper's Lamp | Lighthouse | Scaffold + mirrors | 4 | ✓ |
+| 11 | First Track | Railway | Groove gaps let carts pass | 1 | |
+| 12 | Recycled Groove | Railway | A passed groove can be reused | 2 | |
+| 13 | Close Quarters | Railway | Adjacent walls need two grooves | 2 | |
+| 14 | Work Cart | Railway | An empty cart delivers a groove for another | 3 | ✓ |
+| 15 | Switchyard | Railway | Work cart + recycling | 4 | ✓ |
+| 16 | Shadow Cart | Greenhouse | Carts cast shadows | 1 | |
+| 17 | Sun Scaffold | Greenhouse | Solar carts need light; scaffold to wake one | 3 | ✓ |
+| 18 | Airlock | Greenhouse | Groove → glass swap behind a solar cart | 3 | |
+| 19 | Glass and Groove | Greenhouse | Same cell needs both families, in order | 4 | |
+| 20 | Greenhouse Heart | Greenhouse | Airlock + shadow + scaffold | 6 | ✓ |
 
-Difficulty analysis: `reports/difficulty_analysis.md`. Levels 16–17 are deliberate 1-move concept intros
-inside the hardest world; 18–20 carry the combined reasoning.
+"Force-divergent" = the conventional block-puzzle baseline solves it in fewer moves
+(`tools/equivalence_check.gd`). Design rule from v0.2.0: every new batch should be ≥ 50% divergent.
+
+Difficulty analysis: `reports/difficulty_analysis.md`. Level 16 is a deliberate 1-move concept intro inside the hardest world.
 
 ## 7. First 10 seconds / first minute
 * **0–10 s:** First launch skips menus and opens Level 1. A ghost hand drags the glass ring into the beam's

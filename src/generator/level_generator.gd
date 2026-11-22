@@ -227,7 +227,7 @@ func _solids_connected(grid: Array, cells: Array) -> bool:
 
 
 ## Validates one candidate dict. Returns {"accepted": bool, "reason": String, "level": LevelDefinition, "report": Dictionary}
-func evaluate(d: Dictionary, known_keys: Dictionary, min_moves: int = 3) -> Dictionary:
+func evaluate(d: Dictionary, known_keys: Dictionary, min_moves: int = 3, require_divergence: bool = false) -> Dictionary:
 	if d.is_empty():
 		return {"accepted": false, "reason": "construction_failed"}
 	var lv := LevelDefinition.from_dict(d)
@@ -255,5 +255,16 @@ func evaluate(d: Dictionary, known_keys: Dictionary, min_moves: int = 3) -> Dict
 	var fam: Dictionary = r.solution_families
 	if (gaps.x > 0 and lv.has_light() and fam.light == 0 and not lv.has_motion()) or (gaps.y > 0 and lv.has_motion() and fam.motion == 0 and not lv.has_light()):
 		return {"accepted": false, "reason": "unused_family", "report": r}
+	# Functional divergence: the conventional baseline (force rule removed) needs fewer moves,
+	# i.e. the level cannot be solved without reasoning about where forces press.
+	var baseline_min := -1
+	if require_divergence:
+		TransferValidator.relaxed_frontier = true
+		var b := PuzzleSolver.solve(lv, max_states)
+		TransferValidator.relaxed_frontier = false
+		baseline_min = int(b.min_moves) if b.status == PuzzleSolver.STATUS_SOLVED else -1
+		if baseline_min < 0 or baseline_min >= int(r.min_moves):
+			return {"accepted": false, "reason": "not_divergent", "report": r}
+	r["baseline_min_moves"] = baseline_min
 	lv.par = r.min_moves
 	return {"accepted": true, "reason": "", "level": lv, "report": r}

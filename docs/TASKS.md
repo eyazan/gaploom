@@ -1,20 +1,18 @@
 # Tasks
 
-## Done (P0)
-- [x] Engine: level format, state, simulation, transfer rule, conservation, integrity
-- [x] Solver (BFS) + difficulty estimator + hints
-- [x] Seeded generator + 10k validation run
-- [x] 20 handcrafted levels, par from solver
-- [x] Board renderer, animations, touch/mouse input, HUD, level select, dioramas, completion card
-- [x] Procedural SFX, save/load v1, en/tr strings
-- [x] 462-check headless test suite, screenshots, web + linux export
-- [x] Research, originality/equivalence audit, docs, reports
+## Done
+- [x] P0: engine, solver, generator, 20 levels, UI, audio, save, tests, web/linux export, docs
+- [x] v0.2.0: 8/20 force-divergent levels, divergence-aware generator, PWA + iOS preset, safe area, idle FPS cap
 
-## Next (P0.5) — prioritised
-1. [ ] Android export preset + device test (owner device)
-2. [ ] Safe-area insets in HUD
-3. [ ] Idle redraw throttling
-4. [ ] Playtest script + feedback form
-5. [ ] Divergence criterion in generator; draft 5 new scaffold-style levels
-6. [ ] Brand font (OFL) + asset_licenses update
-7. [ ] Measure web startup on a real connection
+## Waiting on owner
+1. [ ] Create empty private GitHub repo `gaploom` (session cannot create repos) → Claude pushes history
+2. [ ] iPhone test via `docs/testing/IOS_TESTING.md` Path A, report findings
+3. [ ] Decide whether to publish a restricted (secret-link) web build for testers (itch.io draft / Pages)
+
+## Next (P1) — prioritised
+1. [ ] Fix whatever the iPhone test finds (touch feel, layout, audio, load time)
+2. [ ] Second content batch: 10 levels, ≥50% divergent, new scaffold structures (not clones of 7/8/9/17), 5–8 moves
+3. [ ] Template-based generator for scaffold structures
+4. [ ] Playtest kit: 5-question form + session checklist (docs/testing/TEST_PLAN.md)
+5. [ ] Brand font (OFL) + asset_licenses update
+6. [ ] Slim web/iOS export template (remove 3D/physics modules)

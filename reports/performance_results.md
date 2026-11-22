@@ -14,7 +14,7 @@ Targets (60 FPS on mid-range phones, fast startup, low battery use) remain **unv
 | Static memory (test process) | 22.2 MB (peak 32.0 MB) |
 
 ## Rendering (software renderer, `tools/perf.gd` → `reports/performance_raw.json`)
-Uncapped, VSync off, 720×1280, while playing the solution:
+Uncapped, VSync off, 720×1280, while playing the solution (measured on v0.1.0, before the v0.2.0 idle 30 FPS cap):
 | Level | Avg FPS | Avg frame | Worst frame | Draw calls |
 |---|---|---|---|---|
 | 1 | 65.2 | 15.3 ms | 36.4 ms | 160 |
@@ -29,6 +29,8 @@ Uncapped, VSync off, 720×1280, while playing the solution:
   (includes the editor-capable binary, Mesa and Xvfb client libs).
 
 ## Startup
+* v0.2.0, web, iPhone 13 emulation in headless Chromium, local HTTP server: the engine reported its renderer
+  ~1.1 s after navigation. Local network only — not representative of mobile data.
 * Main scene ready 85 ms after the script started (desktop binary, warm disk).
 * Web: the measurement script waited on a DOM condition that never fired and fell through a 60 s timeout, so
   **no valid web startup time was measured**. The page was interactive when screenshots were taken.

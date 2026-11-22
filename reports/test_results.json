@@ -1,17 +1,17 @@
 {
- "elapsed_ms": 1601,
+ "elapsed_ms": 2461,
  "engine": "4.5.1-stable (official)",
  "failed": 0,
  "failures": [],
  "metrics": {
-  "destinations_us": 26.97,
-  "evaluate_us": 25.17,
-  "invalid_moves_checked": 5991,
-  "random_moves_played": 3977,
-  "solve_all_handcrafted_ms": 25.8,
-  "solve_all_states": 175,
-  "static_memory_mb": 22.24,
-  "static_memory_peak_mb": 32.08
+  "destinations_us": 25.51,
+  "evaluate_us": 25.8,
+  "invalid_moves_checked": 5995,
+  "random_moves_played": 6980,
+  "solve_all_handcrafted_ms": 53.6,
+  "solve_all_states": 249,
+  "static_memory_mb": 22.26,
+  "static_memory_peak_mb": 32.22
  },
  "passed": 462,
  "suites": {
@@ -76,5 +76,5 @@
    "passed": 60
   }
  },
- "timestamp_unix": 1795341961
+ "timestamp_unix": 1795345218
 }

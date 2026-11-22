@@ -1,3 +1,5 @@
+# Handcrafted level specs. Row tokens: see src/core/level_definition.gd.
+
 L(1, "First Light", "lighthouse", "tut_drag", """
 .. .. ao .. ..
 E> .. ao .. R.
@@ -36,6 +38,55 @@ cL co cL .. ao ao
 R. .. bo .. .. /.
 """)
 
+L(6, "Inside Out", "lighthouse", "", """
+.. .. .. .. .. .. ..
+E> .. ao .. bo .. R.
+.. .. ao .. bo .. ..
+.. .. .. .. .. .. ..
+co cL cL .. .. .. ..
+""")
+
+L(7, "Scaffold", "lighthouse", "tut_scaffold", """
+.. .. .. Ev .. ..
+.. .. .. xo xo ..
+.. .. .. .. .. ..
+E> .. qo qo .. R.
+.. .. qo .. .. ..
+.. .. qo .. .. gL
+.. .. .. .. gL go
+""")
+
+L(8, "Long Way Round", "lighthouse", "", """
+.. .. .. .. xo Ev
+.. .. .. /. xo /.
+.. .. .. .. .. ..
+.. .. qo .. .. ..
+.. .. qo .. .. ..
+E> .. qo qo .. R.
+gL go .. .. ho hL
+""")
+
+L(9, "Borrowed Lens", "lighthouse", "", """
+.. Ev .. .. .. ..
+.. .. .. .. gL go
+.. .. .. .. .. ..
+.. qo qo qo .. ..
+.. qo .. xo .. E<
+.. .. .. xo .. ..
+.. R. .. .. hL ho
+""")
+
+L(10, "Keeper's Lamp", "lighthouse", "", """
+.. .. Ev .. .. ..
+.. .. xo xo .. ..
+.. .. .. .. .. ..
+E> qo qo .. .. \\.
+.. qo .. .. .. ..
+.. qo .. .. ko ..
+R. .. .. .. ko /.
+gL go gL .. hL ho
+""")
+
 L(11, "First Track", "railway", "tut_motion", """
 .. .. .. .. .. ..
 S> .. ao .. .. D.
@@ -57,6 +108,26 @@ S> .. ao bo .. D.
 .. cM co cM .. ..
 """)
 
+L(14, "Work Cart", "railway", "tut_workcart", """
+.. .. .. Sv .. ..
+.. .. .. xo xo ..
+.. .. .. .. .. ..
+S> .. qo qo .. D.
+.. .. qo .. .. ..
+gM go qo .. .. ..
+.. hM ho .. .. ..
+""")
+
+L(15, "Switchyard", "railway", "", """
+.. .. .. Sv .. .. ..
+.. .. .. xo xo .. ..
+.. .. .. .. .. .. ..
+S> .. qo qo .. wo D.
+.. .. qo .. .. wo ..
+gM gM qo .. .. .. ..
+go .. .. .. .. .. ..
+""")
+
 L(16, "Shadow Cart", "greenhouse", "tut_shadow", """
 .. .. .. ao ao ..
 E> .. .. S^ .. R.
@@ -64,76 +135,21 @@ E> .. .. S^ .. R.
 .. bM bo .. .. ..
 """)
 
-L(17, "Sun Cart", "greenhouse", "tut_solar", """
-E> .. ao s> .. .. D.
-.. .. aL .. .. .. ..
+L(17, "Sun Scaffold", "greenhouse", "tut_solar", """
+.. .. Ev .. .. hL ho
+.. .. xo xo .. .. ..
+E> qo qo s> .. .. D.
+.. qo .. .. .. .. ..
+.. qo .. .. .. gL go
 """)
 
-L(6, "Inside Out", "lighthouse", "", """
-.. .. .. .. .. .. ..
-E> .. ao .. bo .. R.
-.. .. ao .. bo .. ..
-.. .. .. .. .. .. ..
-co cL cL .. .. .. ..
-""")
-
-L(7, "Scaffold", "lighthouse", "tut_scaffold", """
-.. .. .. Ev .. ..
-.. .. .. xo xo ..
-.. .. .. .. .. ..
-E> .. qo qo .. R.
-.. .. qo .. .. ..
-.. .. qo .. .. gL
-.. .. .. .. gL go
-""")
-
-L(8, "Long Way Round", "lighthouse", "", """
-.. .. .. .. .. ..
-E> .. ao .. .. \\.
-.. .. ao .. .. ..
-.. .. .. .. bo bo
-.. .. .. .. .. ..
-R. .. co .. .. /.
-gL go co hL hL ho
-""")
-
-L(9, "Look Through", "lighthouse", "tut_lookthrough", """
-eL eo .. Ev fL fo
-.. .. .. .. .. ..
-.. .. ao dL do ..
-E> .. ao .. .. R.
-.. .. .. .. .. ..
-E> co R. bo bo ..
-.. co .. R. gL go
-""")
-
-L(10, "Keeper's Lamp", "lighthouse", "", """
-.. .. Ev .. .. ..
-.. .. xo xo .. ..
-.. .. .. .. .. ..
-E> qo qo .. .. \\.
-.. qo .. .. .. ..
-.. qo .. .. ko ..
-R. .. .. .. ko /.
-gL go gL .. hL ho
-""")
-
-L(14, "Crossing", "railway", "", """
-.. .. .. Sv .. ..
-.. .. .. .. .. ..
-S> bo .. .. ao D.
-.. bo co co ao ..
-.. .. .. .. .. ..
-gM go .. D. .. ..
-""")
-
-L(15, "Switchyard", "railway", "", """
-.. .. Sv .. .. ..
-.. .. ao ao .. ..
-S> bo .. co co D.
-.. bo .. .. co ..
-.. .. .. .. .. ..
-.. .. D. dM dM do
+L(18, "Airlock", "greenhouse", "tut_airlock", """
+.. .. .. .. Sv .. ..
+E> s> .. ao .. .. D.
+.. .. .. ao .. .. ..
+gL go .. .. bo bo ..
+.. .. hM .. .. .. ..
+.. .. ho .. D. .. ..
 """)
 
 L(19, "Glass and Groove", "greenhouse", "", """
@@ -146,21 +162,12 @@ S> .. .. .. eo D.
 gL go D. hM ho ..
 """)
 
-L(18, "Airlock", "greenhouse", "tut_airlock", """
-.. .. .. .. Sv .. ..
-E> s> .. ao .. .. D.
-.. .. .. ao .. .. ..
-gL go .. .. bo bo ..
-.. .. hM .. .. .. ..
-.. .. ho .. D. .. ..
-""")
-
 L(20, "Greenhouse Heart", "greenhouse", "", """
 .. .. .. .. .. .. ..
 E> s> .. ao .. .. D.
 .. .. bo ao .. .. ..
-E> .. bo .. Sv .. R.
+E> .. bo bo Sv .. R.
 hM ho .. .. co co ..
-gL go .. .. .. .. ..
-.. gL .. .. D. .. ..
+gL go xo xo .. .. fL
+.. gL .. E^ D. .. fo
 """)

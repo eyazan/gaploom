@@ -1,17 +1,17 @@
 {
  "format": 1,
  "id": "level_09",
- "name": "Look Through",
+ "name": "Borrowed Lens",
  "world": "lighthouse",
- "tutorial": "tut_lookthrough",
+ "tutorial": "",
  "par": 3,
  "rows": [
-  "eL eo .. Ev fL fo",
+  ".. Ev .. .. .. ..",
+  ".. .. .. .. gL go",
   ".. .. .. .. .. ..",
-  ".. .. ao dL do ..",
-  "E> .. ao .. .. R.",
-  ".. .. .. .. .. ..",
-  "E> co R. bo bo ..",
-  ".. co .. R. gL go"
+  ".. qo qo qo .. ..",
+  ".. qo .. xo .. E<",
+  ".. .. .. xo .. ..",
+  ".. R. .. .. hL ho"
  ]
 }

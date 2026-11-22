@@ -14,3 +14,7 @@
 | D10 | 2026-11-22 | No fail state, free undo/restart, stars vs par | Cozy target audience; avoids frustration-driven monetization | Move limits |
 | D11 | 2026-11-22 | Keep P0 rule despite PARTIAL equivalence verdict; record as top design risk | Changing the core rule now would discard all validated content before any human feedback; the variant experiment was inconclusive | Switch to active-source variant now |
 | D12 | 2026-11-22 | Generated levels kept as a curation pool, excluded from the shipped build | Handcrafted quality for intro; generated boards look cluttered | Ship generated levels |
+| D13 | 2026-11-22 | Raise force-divergent content to ≥ 40% (8/20) by redesigning levels 8, 9, 14, 15, 17, 20 around scaffolding; drop "Crossing", old "Switchyard" and "Look Through" | Directly addresses the PARTIAL equivalence verdict without changing the core rule | Active-source rule variant (parked: no generator support yet) |
+| D14 | 2026-11-22 | iPhone first: test via PWA web build in Safari (no Mac needed); native iOS via Xcode project as optional path | Owner has an iPhone, no Android device; web needs no Apple account or spending | Native-only (needs Mac + signing) |
+| D15 | 2026-11-22 | Idle game screen capped at 30 FPS, 60 FPS while animating or touched | Battery on phones; pulses look fine at 30 | Low-processor mode (would stop pulses) |
+
