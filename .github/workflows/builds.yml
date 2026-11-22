@@ -1,0 +1,122 @@
+name: Platform builds (iOS ipa + desktop)
+
+# Produces downloadable artifacts:
+#   gaploom-ios-unsigned  -> GAPLOOM-unsigned.ipa (sideload with your own Apple ID, e.g. Sideloadly)
+#   gaploom-windows / gaploom-macos / gaploom-linux -> desktop builds (Steam candidates)
+# Nothing is published anywhere; artifacts are only visible on the repository's Actions page.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  GODOT_VERSION: 4.5.1
+
+jobs:
+  desktop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Godot (Linux) and full export templates
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/godot
+            ~/.local/share/godot/export_templates
+          key: godot-full-${{ env.GODOT_VERSION }}
+
+      - name: Install Godot + templates
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ~/godot ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          cd ~/godot
+          curl -sSL -o godot.zip https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip
+          unzip -q godot.zip && rm godot.zip
+          curl -sSL -o tpl.tpz https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+          unzip -q tpl.tpz "templates/version.txt" "templates/windows_release_x86_64.exe" "templates/linux_release.x86_64" "templates/macos.zip"
+          mv templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/
+          rm -rf tpl.tpz templates
+
+      - name: Import, test, export
+        run: |
+          G=~/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64
+          $G --headless --import || true
+          $G --headless -s tests/run_tests.gd
+          mkdir -p build/windows build/linux build/macos
+          $G --headless --export-release "Windows" build/windows/GAPLOOM.exe
+          $G --headless --export-release "Linux" build/linux/gaploom.x86_64
+          $G --headless --export-release "macOS" build/macos/GAPLOOM.zip
+          ls -la build/*
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gaploom-windows
+          path: build/windows/GAPLOOM.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gaploom-linux
+          path: build/linux/gaploom.x86_64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gaploom-macos
+          path: build/macos/GAPLOOM.zip
+
+  ios:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Godot (macOS) and iOS template
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/godot
+            ~/Library/Application Support/Godot/export_templates
+          key: godot-macos-ios-${{ env.GODOT_VERSION }}
+
+      - name: Install Godot + iOS template
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          TPL="$HOME/Library/Application Support/Godot/export_templates/${GODOT_VERSION}.stable"
+          mkdir -p ~/godot "$TPL"
+          cd ~/godot
+          curl -sSL -o godot.zip https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_macos.universal.zip
+          unzip -q godot.zip && rm godot.zip
+          curl -sSL -o tpl.tpz https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+          unzip -q tpl.tpz "templates/version.txt" "templates/ios.zip"
+          mv templates/* "$TPL/"
+          rm -rf tpl.tpz templates
+
+      - name: Export Xcode project
+        run: |
+          G=~/godot/Godot.app/Contents/MacOS/Godot
+          $G --headless --import || true
+          mkdir -p build/ios
+          $G --headless --export-release "iOS" build/ios/gaploom.ipa || true
+          ls -la build/ios
+          test -d build/ios/gaploom.xcodeproj
+
+      - name: Build unsigned app and package ipa
+        run: |
+          cd build/ios
+          xcodebuild -list -project gaploom.xcodeproj
+          xcodebuild -project gaploom.xcodeproj -target gaploom -configuration Release -sdk iphoneos \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            SYMROOT="$PWD/out" build | tail -n 40
+          APP=$(find out -maxdepth 3 -name "*.app" -type d | head -1)
+          echo "app: $APP"
+          mkdir -p Payload && cp -R "$APP" Payload/
+          zip -qry GAPLOOM-unsigned.ipa Payload
+          ls -la GAPLOOM-unsigned.ipa
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gaploom-ios-unsigned
+          path: build/ios/GAPLOOM-unsigned.ipa
