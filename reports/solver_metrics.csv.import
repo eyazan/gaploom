@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bijqreljngson"
+
+[deps]
+
+files=["res://reports/solver_metrics.status.translation", "res://reports/solver_metrics.min.translation", "res://reports/solver_metrics.par.translation", "res://reports/solver_metrics.optimal.translation", "res://reports/solver_metrics.states.translation", "res://reports/solver_metrics.expanded.translation", "res://reports/solver_metrics.edges.translation", "res://reports/solver_metrics.avg.translation", "res://reports/solver_metrics.dead.translation", "res://reports/solver_metrics.dead.translation", "res://reports/solver_metrics.self.translation", "res://reports/solver_metrics.backtrack.translation", "res://reports/solver_metrics.light.translation", "res://reports/solver_metrics.motion.translation", "res://reports/solver_metrics.difficulty.translation", "res://reports/solver_metrics.tier.translation", "res://reports/solver_metrics.time.translation"]
+
+source_file="res://reports/solver_metrics.csv"
+dest_files=["res://reports/solver_metrics.status.translation", "res://reports/solver_metrics.min.translation", "res://reports/solver_metrics.par.translation", "res://reports/solver_metrics.optimal.translation", "res://reports/solver_metrics.states.translation", "res://reports/solver_metrics.expanded.translation", "res://reports/solver_metrics.edges.translation", "res://reports/solver_metrics.avg.translation", "res://reports/solver_metrics.dead.translation", "res://reports/solver_metrics.dead.translation", "res://reports/solver_metrics.self.translation", "res://reports/solver_metrics.backtrack.translation", "res://reports/solver_metrics.light.translation", "res://reports/solver_metrics.motion.translation", "res://reports/solver_metrics.difficulty.translation", "res://reports/solver_metrics.tier.translation", "res://reports/solver_metrics.time.translation"]
+
+[params]
+
+compress=true
+delimiter=0

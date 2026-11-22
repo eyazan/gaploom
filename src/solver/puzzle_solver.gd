@@ -14,11 +14,15 @@ const STATUS_INCONCLUSIVE := "inconclusive"
 const STATUS_INVALID := "invalid"
 
 
-static func solve(lv: LevelDefinition, max_states: int = 200000, count_cap: int = 1000000) -> Dictionary:
+static func solve(lv: LevelDefinition, max_states: int = 200000, count_cap: int = 1000000, from_state: BoardState = null) -> Dictionary:
 	var t0 := Time.get_ticks_usec()
 	if not lv.error.is_empty():
 		return {"status": STATUS_INVALID, "error": lv.error}
-	var start := BoardState.initial(lv)
+	var start: BoardState
+	if from_state != null:
+		start = from_state.copy()
+	else:
+		start = BoardState.initial(lv)
 	FunctionalSimulation.settle(lv, start)
 
 	var states: Array[BoardState] = [start]
@@ -164,3 +168,11 @@ static func _dead_ends(children: Array[PackedInt32Array], is_goal: PackedByteArr
 		if good[i] == 0:
 			dead += 1
 	return dead
+
+
+## Next optimal move from an arbitrary (settled) state, or Vector2i(-1,-1).
+static func hint(lv: LevelDefinition, st: BoardState, max_states: int = 50000) -> Vector2i:
+	var r := solve(lv, max_states, 1, st)
+	if r.status != STATUS_SOLVED or r.solution.is_empty():
+		return Vector2i(-1, -1)
+	return Vector2i(r.solution[0][0], r.solution[0][1])

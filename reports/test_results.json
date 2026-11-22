@@ -1,0 +1,80 @@
+{
+ "elapsed_ms": 1427,
+ "engine": "4.5.1-stable (official)",
+ "failed": 0,
+ "failures": [],
+ "metrics": {
+  "destinations_us": 25.43,
+  "evaluate_us": 14.52,
+  "invalid_moves_checked": 5991,
+  "random_moves_played": 3977,
+  "solve_all_handcrafted_ms": 20.5,
+  "solve_all_states": 175,
+  "static_memory_mb": 22.22,
+  "static_memory_peak_mb": 31.99
+ },
+ "passed": 462,
+ "suites": {
+  "board_view": {
+   "failed": 0,
+   "passed": 16
+  },
+  "canonical": {
+   "failed": 0,
+   "passed": 61
+  },
+  "conservation_random": {
+   "failed": 0,
+   "passed": 20
+  },
+  "determinism": {
+   "failed": 0,
+   "passed": 60
+  },
+  "generator": {
+   "failed": 0,
+   "passed": 47
+  },
+  "input_adapter": {
+   "failed": 0,
+   "passed": 6
+  },
+  "light": {
+   "failed": 0,
+   "passed": 7
+  },
+  "motion": {
+   "failed": 0,
+   "passed": 13
+  },
+  "parsing": {
+   "failed": 0,
+   "passed": 30
+  },
+  "performance": {
+   "failed": 0,
+   "passed": 2
+  },
+  "save_load": {
+   "failed": 0,
+   "passed": 11
+  },
+  "solver": {
+   "failed": 0,
+   "passed": 103
+  },
+  "solver_limits": {
+   "failed": 0,
+   "passed": 3
+  },
+  "transfer_validity": {
+   "failed": 0,
+   "passed": 23
+  },
+  "undo_restart": {
+   "failed": 0,
+   "passed": 60
+  }
+ },
+ "timestamp_unix": 1795341169
+}
