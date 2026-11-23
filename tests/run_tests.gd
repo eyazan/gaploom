@@ -464,17 +464,35 @@ func test_save_load() -> void:
 
 func test_input_adapter() -> void:
 	begin("input_adapter")
+	InputAdapter.reset()
 	var t := InputEventScreenTouch.new()
 	t.pressed = true
 	t.position = Vector2(10, 20)
-	check(InputAdapter.convert(t).kind == "press", "touch press")
+	check(InputAdapter.convert(t).kind == "press", "touch press (index 0)")
 	var t2 := InputEventScreenTouch.new()
 	t2.index = 1
 	t2.pressed = true
-	check(InputAdapter.convert(t2).is_empty(), "second finger ignored")
+	check(InputAdapter.convert(t2).is_empty(), "second finger ignored while first is down")
 	var d := InputEventScreenDrag.new()
 	d.position = Vector2(5, 5)
-	check(InputAdapter.convert(d).kind == "move", "touch drag")
+	check(InputAdapter.convert(d).kind == "move", "touch drag of primary finger")
+	var up := InputEventScreenTouch.new()
+	up.pressed = false
+	check(InputAdapter.convert(up).kind == "release", "primary release")
+	# iOS Safari: large, non-zero identifiers must still work.
+	InputAdapter.reset()
+	var ios := InputEventScreenTouch.new()
+	ios.index = 1234567
+	ios.pressed = true
+	check(InputAdapter.convert(ios).kind == "press", "iOS-style touch id accepted as primary")
+	var ios_d := InputEventScreenDrag.new()
+	ios_d.index = 1234567
+	check(InputAdapter.convert(ios_d).kind == "move", "iOS-style drag accepted")
+	var ios_up := InputEventScreenTouch.new()
+	ios_up.index = 1234567
+	ios_up.pressed = false
+	check(InputAdapter.convert(ios_up).kind == "release", "iOS-style release accepted")
+	InputAdapter.reset()
 	var m := InputEventMouseButton.new()
 	m.button_index = MOUSE_BUTTON_LEFT
 	m.pressed = false
@@ -505,6 +523,7 @@ func _drag(view: BoardView, pos: Vector2) -> void:
 
 func test_board_view() -> void:
 	begin("board_view")
+	InputAdapter.reset()
 	var sfx := Sfx.new()
 	root.add_child(sfx)
 	for size in [Vector2(720, 1280), Vector2(1080, 2400), Vector2(1280, 720), Vector2(320, 480)]:

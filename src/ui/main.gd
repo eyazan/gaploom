@@ -540,3 +540,41 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		_on_next()
 	elif screen_select.visible and k.keycode == KEY_ESCAPE:
 		show_screen(screen_title)
+
+
+
+# ---------------------------------------------------------------- iOS touch fix
+## Godot only emulates mouse clicks for touch index 0, but iOS Safari gives touches large
+## identifiers, so buttons never received clicks. For a primary touch with a non-zero index we
+## synthesize the (touch-emulated) mouse events ourselves, in viewport coordinates.
+var _gui_touch := -1
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		var t := event as InputEventScreenTouch
+		if t.pressed and _gui_touch == -1 and t.index != 0:
+			_gui_touch = t.index
+		if t.index != _gui_touch or t.index == 0:
+			return
+		var mb := InputEventMouseButton.new()
+		mb.device = InputEvent.DEVICE_ID_EMULATION
+		mb.button_index = MOUSE_BUTTON_LEFT
+		mb.pressed = t.pressed
+		mb.button_mask = MOUSE_BUTTON_MASK_LEFT if t.pressed else 0
+		mb.position = t.position
+		mb.global_position = t.position
+		if not t.pressed:
+			_gui_touch = -1
+		get_viewport().push_input.call_deferred(mb, true)
+	elif event is InputEventScreenDrag:
+		var d := event as InputEventScreenDrag
+		if d.index != _gui_touch or d.index == 0:
+			return
+		var mm := InputEventMouseMotion.new()
+		mm.device = InputEvent.DEVICE_ID_EMULATION
+		mm.button_mask = MOUSE_BUTTON_MASK_LEFT
+		mm.position = d.position
+		mm.global_position = d.position
+		mm.relative = d.relative
+		get_viewport().push_input.call_deferred(mm, true)

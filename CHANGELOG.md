@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1 — 2026-11-23
+- **Fix (critical, iPhone):** the web build ignored every touch on iOS Safari. iOS gives touches large non-zero
+  identifiers; the board only accepted touch index 0 and Godot only emulates mouse clicks (buttons) for index 0.
+  The first finger down is now the primary touch whatever its id, and button clicks are synthesized for it.
+  Reproduced and verified in Chromium with iOS-style touch ids (`tools/web_ios_touch_test.js`).
+
 ## 0.3.0 — 2026-11-22
 - New world **The Clocktower** (levels 21–24) with procedural clock-tower diorama; all four levels force-divergent
   with new structures (blocking work cart, cross-family "lantern cart" scaffold, double scaffold). 12/24 divergent.
