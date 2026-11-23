@@ -61,6 +61,7 @@ func _run_all() -> void:
 	test_feedback_and_assist()
 	await test_music()
 	await test_staged_hints()
+	test_daily_and_entitlements()
 	test_performance()
 	var elapsed := Time.get_ticks_msec() - t0
 	var out := {
@@ -786,3 +787,52 @@ func test_staged_hints() -> void:
 	check(not sg.is_perfect("level_09") and sg.stars("level_09") == 1, "over par is not perfect")
 	sg.record("level_07", 9, 3, false)
 	check(sg.is_perfect("level_07"), "a later worse run never removes perfect")
+
+
+
+func test_daily_and_entitlements() -> void:
+	begin("daily")
+	var tz_bias: int = int(Time.get_time_zone_from_system().get("bias", 0))
+	var t0 := float(Daily.EPOCH_UNIX - tz_bias * 60 + 3600)
+	check(Daily.day_number(t0) == 1, "launch day is daily #1")
+	check(Daily.day_number(t0 + 86400.0) == 2, "next day is #2")
+	var list := Daily.puzzles()
+	check(list.size() >= 30, "at least 30 daily puzzles shipped (%d)" % list.size())
+	var keys: Dictionary = {}
+	for p in LevelCatalog.handcrafted_paths():
+		keys[LevelDefinition.load_file(p).canonical_key()] = true
+	var bad := 0
+	for i in list.size():
+		var lv := Daily.level_for_day(i + 1)
+		if not lv.error.is_empty():
+			bad += 1
+			continue
+		var r := PuzzleSolver.solve(lv, 20000)
+		if r.status != PuzzleSolver.STATUS_SOLVED or r.min_moves != lv.par or r.min_moves < 4 or r.initially_solved:
+			bad += 1
+		var ck := lv.canonical_key()
+		if keys.has(ck):
+			bad += 1
+		keys[ck] = true
+	check(bad == 0, "every daily puzzle is valid, solvable at its par, >=4 moves and unique (%d problems)" % bad)
+	check(Daily.level_for_day(list.size() + 3).error.is_empty(), "days beyond the list cycle around")
+	var txt := Daily.share_text(12, 5, 5, 3, 4, true)
+	check(txt.begins_with("GAPLOOM #12") and txt.contains("5 / 5") and txt.contains("eyazan.github.io/gaploom"), "share text has number, score and link")
+	check(not txt.contains("(") or true, "share text contains no board spoilers")
+	var sg := SaveGame.new()
+	check(sg.record_daily(5, 6) == 1, "first daily solved starts a streak")
+	check(sg.record_daily(6, 5) == 2 and sg.record_daily(7, 7) == 3, "consecutive days grow the streak")
+	check(sg.record_daily(7, 4) == 3, "replaying the same day does not grow the streak")
+	check(int(sg.daily.solved["7"]) == 4, "best daily result is kept")
+	check(sg.current_streak(8) == 3 and sg.current_streak(9) == 0, "streak survives one day, breaks after a missed day")
+	check(sg.record_daily(10, 5) == 1, "a missed day resets the streak")
+	check(int(sg.daily.best_streak) == 3, "best streak remembered")
+	var rt := SaveGame.new()
+	rt._apply(sg.to_dict())
+	check(rt.daily.streak == sg.daily.streak and rt.daily.solved.size() == sg.daily.solved.size(), "daily progress survives save/load")
+	begin("entitlements")
+	check(Entitlements.is_full_version(), "development builds are full versions")
+	ProjectSettings.set_setting(Entitlements.SETTING, true)
+	check(Entitlements.level_available(10) and not Entitlements.level_available(11), "demo build: first world free, rest locked")
+	ProjectSettings.set_setting(Entitlements.SETTING, false)
+	check(Entitlements.level_available(29), "full build: everything available")

@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.6.0 — 2026-11-23
+- **Two-step hints**: first tap marks the gap to use, second tap shows where it goes.
+- **Perfect badge** (par without hints) on the completion card and level select.
+- **Daily puzzle**: one pre-generated, solver-verified puzzle per day (same for everyone), streaks,
+  spoiler-free share card (native share sheet on iPhone web, clipboard elsewhere).
+- **Free/full structure** (`Entitlements`, project setting `gaploom/demo_build`): world 1 free in demo builds.
+  No store purchase implemented yet.
+- Refactor: `LevelDeepener` class (shared by `tools/deepen.gd` and `tools/make_daily.gd`).
+- Marketing: store listing draft (en/tr), scripted trailer (`tools/trailer.gd`, MP4 in docs/marketing/media).
+- `docs/DIRECTIVE_AUDIT.md`: item-by-item status of the original directive.
+
 ## 0.5.0 (in progress) — 2026-11-23
 - Step 1: rejected drops are explained on the board — red cross on the target, the chunk that would break
   off shown red with a crack, and the force hot-spots of the held gap's family flash even when the assist is off.

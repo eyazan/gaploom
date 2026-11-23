@@ -13,6 +13,7 @@ var path := DEFAULT_PATH
 var levels: Dictionary = {}
 var settings: Dictionary = {"sfx": true, "music": true, "assist": "auto"}
 var first_launch := true
+var daily: Dictionary = {"last_day": 0, "streak": 0, "best_streak": 0, "solved": {}}
 
 
 static func load_from(p: String = DEFAULT_PATH) -> SaveGame:
@@ -51,6 +52,13 @@ func _apply(d: Dictionary) -> void:
 			var e: Variant = lv[k]
 			if typeof(e) == TYPE_DICTIONARY:
 				levels[str(k)] = {"done": bool(e.get("done", false)), "best": int(e.get("best", 0)), "stars": clampi(int(e.get("stars", 0)), 0, 3), "perfect": bool(e.get("perfect", false))}
+	var dl: Variant = d.get("daily", {})
+	if typeof(dl) == TYPE_DICTIONARY:
+		daily["last_day"] = int(dl.get("last_day", 0))
+		daily["streak"] = int(dl.get("streak", 0))
+		daily["best_streak"] = int(dl.get("best_streak", 0))
+		var sv: Variant = dl.get("solved", {})
+		daily["solved"] = sv if typeof(sv) == TYPE_DICTIONARY else {}
 	var st: Variant = d.get("settings", {})
 	if typeof(st) == TYPE_DICTIONARY:
 		settings["sfx"] = bool(st.get("sfx", true))
@@ -60,7 +68,7 @@ func _apply(d: Dictionary) -> void:
 
 
 func to_dict() -> Dictionary:
-	return {"version": VERSION, "levels": levels, "settings": settings}
+	return {"version": VERSION, "levels": levels, "settings": settings, "daily": daily}
 
 
 func save() -> bool:
@@ -122,3 +130,32 @@ func hotspots_for_level(n: int) -> bool:
 		"off":
 			return false
 	return n <= ASSIST_AUTO_LAST_LEVEL
+
+
+
+## Records a solved daily puzzle; returns the current streak (consecutive days).
+func record_daily(day: int, moves: int) -> int:
+	var key := str(day)
+	var solved: Dictionary = daily["solved"]
+	var first_today := not solved.has(key)
+	if first_today or moves < int(solved[key]):
+		solved[key] = moves
+	if first_today:
+		var last := int(daily["last_day"])
+		if last == day - 1:
+			daily["streak"] = int(daily["streak"]) + 1
+		elif last != day:
+			daily["streak"] = 1
+		daily["last_day"] = day
+		daily["best_streak"] = maxi(int(daily["best_streak"]), int(daily["streak"]))
+	return int(daily["streak"])
+
+
+func daily_solved(day: int) -> bool:
+	return daily["solved"].has(str(day))
+
+
+## The streak shown on the title screen: it survives until a day is missed.
+func current_streak(today: int) -> int:
+	var last := int(daily["last_day"])
+	return int(daily["streak"]) if (last == today or last == today - 1) else 0

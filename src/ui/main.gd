@@ -36,6 +36,9 @@ var howto: HowTo
 var tip_tween: Tween
 var win_pending := false
 var hints_used := 0
+var daily_day := 0          # > 0 while playing the daily puzzle
+var btn_daily: Button
+var lbl_daily: Label
 var hint_key := ""
 
 
@@ -168,6 +171,14 @@ func _build_title() -> void:
 	play.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	play.pressed.connect(func(): Sfx.play("tap"); start_level(_next_unsolved()))
 	box.add_child(play)
+	btn_daily = Button.new()
+	btn_daily.custom_minimum_size = Vector2(340, 0)
+	btn_daily.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	btn_daily.add_theme_color_override("font_color", Palette.ACCENT)
+	btn_daily.pressed.connect(func(): Sfx.play("tap"); start_daily())
+	box.add_child(btn_daily)
+	lbl_daily = _label("", 24, Palette.TEXT_DIM)
+	box.add_child(lbl_daily)
 	var levels := Button.new()
 	levels.text = tr("BTN_LEVELS")
 	levels.custom_minimum_size = Vector2(340, 0)
@@ -348,6 +359,14 @@ func _build_overlay() -> void:
 	var info := _label("", 26, Palette.TEXT_DIM)
 	info.name = "Info"
 	v.add_child(info)
+	var share := Button.new()
+	share.name = "Share"
+	share.text = tr("BTN_SHARE")
+	share.custom_minimum_size = Vector2(300, 0)
+	share.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	share.visible = false
+	share.pressed.connect(func(): Sfx.play("tap"); share_daily(int(share.get_meta("stars", 3))))
+	v.add_child(share)
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
 	row.add_theme_constant_override("separation", 24)
@@ -421,7 +440,25 @@ func _layout() -> void:
 
 # ---------------------------------------------------------------- flow
 
+func _refresh_daily_button() -> void:
+	if btn_daily == null:
+		return
+	var day := Daily.day_number()
+	btn_daily.text = tr("BTN_DAILY") % day
+	btn_daily.visible = not Daily.puzzles().is_empty()
+	var parts: PackedStringArray = []
+	if save.daily_solved(day):
+		parts.append(tr("LBL_DAILY_DONE"))
+	var streak := save.current_streak(day)
+	if streak > 0:
+		parts.append(tr("LBL_STREAK") % streak)
+	lbl_daily.text = "   ·   ".join(parts)
+	lbl_daily.visible = not parts.is_empty()
+
+
 func show_screen(sc: Control) -> void:
+	if sc == screen_title:
+		_refresh_daily_button()
 	for x in [screen_title, screen_select, screen_game]:
 		x.visible = x == sc
 	board.interactive = sc == screen_game
@@ -435,6 +472,8 @@ func open_select() -> void:
 
 
 func _unlocked(n: int) -> bool:
+	if not Entitlements.level_available(n):
+		return false
 	return n == 1 or save.is_done("level_%02d" % n) or save.is_done("level_%02d" % (n - 1))
 
 
@@ -451,16 +490,32 @@ func start_level(n: int) -> void:
 		push_error("level %d invalid: %s" % [n, lv.error])
 		return
 	current = n
+	daily_day = 0
+	_begin(lv, "%d · %s" % [n, lv.name], str(LevelCatalog.world_of(n).id), save.hotspots_for_level(n))
+
+
+func start_daily() -> void:
+	var day := Daily.day_number()
+	var lv := Daily.level_for_day(day)
+	if not lv.error.is_empty():
+		push_error("daily invalid: %s" % lv.error)
+		return
+	daily_day = day
+	current = 0
+	_begin(lv, tr("BTN_DAILY") % day, "glassworks", str(save.settings.get("assist", "auto")) == "on")
+
+
+func _begin(lv: LevelDefinition, title: String, world: String, hotspots: bool) -> void:
 	hints_used = 0
 	hint_key = ""
-	music.play(str(LevelCatalog.world_of(n).id))
+	music.play(world)
 	game = PuzzleGame.new(lv)
 	board.setup(game)
 	overlay.visible = false
 	win_pending = false
-	lbl_level.text = "%d · %s" % [n, lv.name]
+	lbl_level.text = title
 	_show_tip(tr(lv.tutorial) if not lv.tutorial.is_empty() else "", false)
-	board.show_hotspots = save.hotspots_for_level(n)
+	board.show_hotspots = hotspots
 	var first_encounter := lv.tutorial == "tut_drag" or lv.tutorial == "tut_motion"
 	board.show_destinations = first_encounter
 	if first_encounter:
@@ -511,6 +566,9 @@ func _on_board_settled() -> void:
 		board.win_t = 0.0
 		Sfx.play("win")
 		var stars := save.record(game.level.id, game.moves, game.level.par, hints_used == 0)
+		if daily_day > 0:
+			save.levels.erase(game.level.id)   # dailies are tracked separately
+			save.record_daily(daily_day, game.moves)
 		save.save()
 		var t := create_tween()
 		t.tween_interval(0.9)
@@ -518,8 +576,12 @@ func _on_board_settled() -> void:
 
 
 func _show_overlay(stars: int) -> void:
-	var w := LevelCatalog.world_of(current)
+	var share := overlay.get_node("V/Share") as Button
+	share.visible = daily_day > 0
+	share.set_meta("stars", stars)
+	var w := LevelCatalog.world_of(maxi(current, 1))
 	var dio := overlay.get_node("V/Dio") as Diorama
+	dio.visible = daily_day == 0
 	dio.world_id = w.id
 	var flags: Array[bool] = []
 	for n in range(w.first, w.last + 1):
@@ -542,7 +604,10 @@ func _show_overlay(stars: int) -> void:
 func _on_next() -> void:
 	Sfx.play("tap")
 	overlay.visible = false
-	if current < LevelCatalog.COUNT:
+	if daily_day > 0:
+		daily_day = 0
+		show_screen(screen_title)
+	elif current < LevelCatalog.COUNT and Entitlements.level_available(current + 1):
 		start_level(current + 1)
 	else:
 		open_select()
@@ -670,3 +735,19 @@ func _on_howto_closed() -> void:
 
 func _assist_label() -> String:
 	return "%s: %s" % [tr("LBL_ASSIST"), tr("ASSIST_" + str(save.settings.get("assist", "auto")).to_upper())]
+
+
+
+# ---------------------------------------------------------------- sharing
+func share_daily(stars: int) -> String:
+	var perfect := hints_used == 0 and game.moves <= game.level.par
+	var text := Daily.share_text(daily_day, game.moves, game.level.par, stars, save.current_streak(daily_day), perfect)
+	DisplayServer.clipboard_set(text)
+	var shared := false
+	if OS.has_feature("web"):
+		# iOS/Android browsers: open the native share sheet when available.
+		var res: Variant = JavaScriptBridge.eval("(function(t){ if (navigator.share) { navigator.share({text: t}).catch(function(){}); return 'share'; } return 'none'; })(%s)" % JSON.stringify(text), true)
+		shared = str(res) == "share"
+	if not shared:
+		_show_tip(tr("MSG_COPIED"), true)
+	return text
