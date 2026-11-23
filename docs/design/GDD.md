@@ -78,7 +78,7 @@ Invalid drops shake the target and show a one-line reason (e.g. "That would brea
 Difficulty analysis: `reports/difficulty_analysis.md`. Level 16 is a deliberate 1-move concept intro inside the hardest world.
 
 ### v0.5.0 additions
-* Levels 8–10, 12–15, 19, 20, 23, 24 deepened (now 4–8 moves); Lighthouse 9 renamed content kept.
+* Levels 8–10, 12–15, 19, 20, 23, 24 deepened (now 4–8 moves).
 * World 5 **The Glassworks** (25 First Tint, 26 Wrong Pane, 27 Rose Scaffold, 28 Two Lanterns, 29 Rose Window).
 * **Coloured glass:** red glass turns white or red light red and blocks blue light; blue glass the reverse;
   clear glass keeps the colour. Red/blue flowers open only in their colour; white flowers accept any light.
