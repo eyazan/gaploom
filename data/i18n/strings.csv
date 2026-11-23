@@ -43,3 +43,7 @@ HOW_5,"Glass lets light through but stops carts. A groove lets carts through but
 HOW_T6,"The scaffold trick","İskele hilesi"
 HOW_6,"Sometimes you open a pane only so a light can reach further, then take that gap back to use it elsewhere. Stuck? Undo, restart or ask for a hint.","Bazen bir camı yalnızca ışık daha ileri ulaşsın diye açarsın, sonra o boşluğu geri alıp başka yerde kullanırsın. Takıldın mı? Geri al, baştan başla ya da ipucu iste."
 BTN_HOWTO,"How to play","Nasıl Oynanır"
+LBL_ASSIST,"Helper glow","Yardım ışığı"
+ASSIST_AUTO,"Auto","Otomatik"
+ASSIST_ON,"On","Açık"
+ASSIST_OFF,"Off","Kapalı"

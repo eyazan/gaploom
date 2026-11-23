@@ -173,6 +173,19 @@ func _build_title() -> void:
 	howto_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	howto_btn.pressed.connect(func(): Sfx.play("tap"); open_howto())
 	box.add_child(howto_btn)
+	var assist_btn := Button.new()
+	assist_btn.custom_minimum_size = Vector2(340, 0)
+	assist_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	assist_btn.add_theme_font_size_override("font_size", 26)
+	assist_btn.text = _assist_label()
+	assist_btn.pressed.connect(func():
+		var modes: Array = SaveGame.ASSIST_MODES
+		var i := modes.find(str(save.settings.get("assist", "auto")))
+		save.settings["assist"] = modes[(i + 1) % modes.size()]
+		save.save()
+		assist_btn.text = _assist_label()
+		Sfx.play("tap"))
+	box.add_child(assist_btn)
 	var snd := IconButton.new("sound_on" if sfx.enabled else "sound_off", 84)
 	snd.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	snd.pressed.connect(func():
@@ -422,6 +435,7 @@ func start_level(n: int) -> void:
 	win_pending = false
 	lbl_level.text = "%d · %s" % [n, lv.name]
 	_show_tip(tr(lv.tutorial) if not lv.tutorial.is_empty() else "", false)
+	board.show_hotspots = save.hotspots_for_level(n)
 	var first_encounter := lv.tutorial == "tut_drag" or lv.tutorial == "tut_motion"
 	board.show_destinations = first_encounter
 	if first_encounter:
@@ -613,3 +627,8 @@ func open_howto() -> void:
 
 func _on_howto_closed() -> void:
 	board.interactive = screen_game.visible and not win_pending
+
+
+
+func _assist_label() -> String:
+	return "%s: %s" % [tr("LBL_ASSIST"), tr("ASSIST_" + str(save.settings.get("assist", "auto")).to_upper())]

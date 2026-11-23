@@ -57,6 +57,7 @@ func _run_all() -> void:
 	test_howto_pages()
 	test_input_adapter()
 	await test_board_view()
+	test_feedback_and_assist()
 	test_performance()
 	var elapsed := Time.get_ticks_msec() - t0
 	var out := {
@@ -629,3 +630,54 @@ func test_performance() -> void:
 	check(solve_ms < 5000.0, "solving all 20 levels under 5 s (%.1f ms)" % solve_ms)
 	metrics["static_memory_mb"] = snappedf(OS.get_static_memory_usage() / 1048576.0, 0.01)
 	metrics["static_memory_peak_mb"] = snappedf(OS.get_static_memory_peak_usage() / 1048576.0, 0.01)
+
+
+
+func test_feedback_and_assist() -> void:
+	begin("feedback_assist")
+	InputAdapter.reset()
+	# Split rejection marks the chunk that would break off.
+	var lv4 := LevelCatalog.load_level(4)
+	var g4 := PuzzleGame.new(lv4)
+	var v := BoardView.new()
+	v.silent = true
+	root.add_child(v)
+	v.setup(g4)
+	v.fit(Rect2(Vector2.ZERO, Vector2(720, 900)))
+	var src := lv4.idx(1, 4)
+	var dst := lv4.idx(2, 1)
+	_press(v, v.cell_center(src), true)
+	_drag(v, v.cell_center(dst))
+	_press(v, v.cell_center(dst), false)
+	check(v.reject_reason == TransferValidator.ERR_SPLIT, "level 4 middle drop is a split (%s)" % v.reject_reason)
+	check(v.reject_orphans.size() == 1 and (v.reject_orphans.has(lv4.idx(2, 0)) or v.reject_orphans.has(lv4.idx(2, 2))), "one broken-off chunk is highlighted (%s)" % str(v.reject_orphans))
+	check(v.reject_t > 0.0, "rejection visual is active")
+	check(g4.moves == 0, "rejected drop did not count as a move")
+	# Not-reached rejection reveals the light hot-spots even with the assist off.
+	var lv1 := LevelCatalog.load_level(1)
+	var g1 := PuzzleGame.new(lv1)
+	v.setup(g1)
+	v.show_hotspots = false
+	var gap := lv1.idx(1, 3)
+	var far := lv1.idx(2, 3)
+	_press(v, v.cell_center(gap), true)
+	_drag(v, v.cell_center(far))
+	_press(v, v.cell_center(far), false)
+	check(v.reject_reason == TransferValidator.ERR_NOT_REACHED, "drop away from the light is not_reached (%s)" % v.reject_reason)
+	check(v.reveal_t > 0.0 and v.reveal_family == VoidProperty.Family.LIGHT, "light hot-spots revealed after the mistake")
+	v.queue_free()
+	# Assist setting
+	var path := "user://test_assist.json"
+	var sg := SaveGame.load_from(path)
+	check(str(sg.settings.assist) == "auto", "assist defaults to auto")
+	check(sg.hotspots_for_level(1) and sg.hotspots_for_level(6) and not sg.hotspots_for_level(7), "auto shows hot-spots only in levels 1-6")
+	sg.settings["assist"] = "off"
+	sg.save()
+	var sl := SaveGame.load_from(path)
+	check(str(sl.settings.assist) == "off" and not sl.hotspots_for_level(1), "assist off persists and hides hot-spots")
+	sl.settings["assist"] = "on"
+	check(sl.hotspots_for_level(20), "assist on shows hot-spots everywhere")
+	var bad := SaveGame.new()
+	bad._apply({"settings": {"assist": "banana"}})
+	check(str(bad.settings.assist) == "auto", "unknown assist value falls back to auto")
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))

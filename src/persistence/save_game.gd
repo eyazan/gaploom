@@ -5,10 +5,13 @@ extends RefCounted
 
 const VERSION := 1
 const DEFAULT_PATH := "user://progress.json"
+## Force hot-spot assist: "auto" = only in the first levels, "on" = always, "off" = never.
+const ASSIST_MODES := ["auto", "on", "off"]
+const ASSIST_AUTO_LAST_LEVEL := 6
 
 var path := DEFAULT_PATH
 var levels: Dictionary = {}
-var settings: Dictionary = {"sfx": true}
+var settings: Dictionary = {"sfx": true, "music": true, "assist": "auto"}
 var first_launch := true
 
 
@@ -51,6 +54,9 @@ func _apply(d: Dictionary) -> void:
 	var st: Variant = d.get("settings", {})
 	if typeof(st) == TYPE_DICTIONARY:
 		settings["sfx"] = bool(st.get("sfx", true))
+		settings["music"] = bool(st.get("music", true))
+		var a := str(st.get("assist", "auto"))
+		settings["assist"] = a if a in ASSIST_MODES else "auto"
 
 
 func to_dict() -> Dictionary:
@@ -100,3 +106,13 @@ func completed_count() -> int:
 		if levels[k].done:
 			n += 1
 	return n
+
+
+
+func hotspots_for_level(n: int) -> bool:
+	match str(settings.get("assist", "auto")):
+		"on":
+			return true
+		"off":
+			return false
+	return n <= ASSIST_AUTO_LAST_LEVEL

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0 (in progress) — 2026-11-23
+- Step 1: rejected drops are explained on the board — red cross on the target, the chunk that would break
+  off shown red with a crack, and the force hot-spots of the held gap's family flash even when the assist is off.
+- Helper-glow setting on the title screen: Auto (only levels 1–6) / On / Off, saved in progress.
+
 ## 0.4.0 — 2026-11-23
 - **How to play** screen (title screen button and "?" in the game HUD): six pages, each with a small
   self-playing board and a one-paragraph explanation (English + Turkish). States plainly that light and

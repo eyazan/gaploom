@@ -26,6 +26,13 @@ var interactive := true
 var show_destinations := false
 ## Demo boards (How to play) are silent and do not touch the global FPS cap.
 var silent := false
+## Force hot-spots (glow where a beam / cart presses). The assist setting turns them off
+## after the first levels; a rejected move always reveals them briefly.
+var show_hotspots := true
+var reveal_t := 0.0
+var reveal_family := -1
+var reject_t := 0.0
+var reject_orphans := PackedInt32Array()
 
 # Display state
 var shown_mat := PackedByteArray()
@@ -213,6 +220,22 @@ func _reject_at(c: int) -> void:
 	shake_t = 0.4
 	reject_cell = c
 	reject_reason = reason
+	reject_t = 1.6
+	reject_orphans = PackedInt32Array()
+	# Explain on the board, not only in text.
+	if reason == TransferValidator.ERR_NOT_REACHED or reason == TransferValidator.ERR_NOT_SOLID:
+		reveal_t = 1.8
+		reveal_family = VoidProperty.family_of(game.state.mat[selected])
+	elif reason == TransferValidator.ERR_SPLIT:
+		var after := game.state.mat.duplicate()
+		after[c] = game.state.mat[selected]
+		after[selected] = Mat.SOLID
+		for o in [lv.object_of[c], lv.object_of[selected]]:
+			if o < 0:
+				continue
+			var comps := GeometryObject.solid_components(lv, after, o)
+			for k in range(1, comps.size()):
+				reject_orphans.append_array(comps[k])
 	_sfx("invalid")
 	rejected.emit(reason)
 
@@ -334,6 +357,8 @@ func _process(delta: float) -> void:
 		else:
 			dock_glow.erase(d)
 	shake_t = maxf(0.0, shake_t - delta)
+	reveal_t = maxf(0.0, reveal_t - delta)
+	reject_t = maxf(0.0, reject_t - delta)
 	if win_t >= 0.0:
 		win_t += delta
 	_update_fps_cap()
@@ -392,8 +417,10 @@ func _draw() -> void:
 	_draw_beams(shown_beams, 1.0, beam_reveal)
 	for k in shown_shuttles.size():
 		_draw_cart(k)
-	if phase == "" and selected < 0:
+	if phase == "" and selected < 0 and (show_hotspots or reveal_t > 0.0):
 		_draw_hotspots()
+	if reject_t > 0.0:
+		_draw_rejection()
 	_draw_selection()
 	if phase == "fly":
 		var e := ease(anim_t, -2.2)
@@ -655,7 +682,13 @@ func _draw_cart(k: int) -> void:
 
 func _draw_hotspots() -> void:
 	var pulse := 0.5 + 0.5 * sin(time * 4.0)
-	for pts in shown_beams:
+	var revealing := reveal_t > 0.0 and not show_hotspots
+	if revealing:
+		pulse = 0.5 + 0.5 * sin(time * 10.0)
+	var boost := 1.6 if reveal_t > 0.0 else 1.0
+	var show_light := not revealing or reveal_family == VoidProperty.Family.LIGHT
+	var show_motion := not revealing or reveal_family == VoidProperty.Family.MOTION
+	for pts in (shown_beams if show_light else []):
 		var p: PackedVector2Array = pts
 		if p.size() < 2:
 			continue
@@ -665,11 +698,11 @@ func _draw_hotspots() -> void:
 		if not lv.in_bounds(cell) or not shown_frontier_light.has(lv.idx_v(cell)):
 			continue
 		var s := grid_to_screen(end)
-		draw_circle(s, cs * (0.16 + 0.08 * pulse), Color(Palette.LIGHT, 0.35 + 0.3 * pulse))
+		draw_circle(s, cs * (0.16 + 0.08 * pulse) * boost, Color(Palette.LIGHT, 0.35 + 0.3 * pulse))
 		for k in 3:
 			var a := time * 2.0 + k * TAU / 3.0
 			draw_circle(s + Vector2(cos(a), sin(a)) * cs * 0.22, cs * 0.03, Color(Palette.LIGHT_CORE, 0.7))
-	for k in shown_shuttles.size():
+	for k in (range(shown_shuttles.size()) if show_motion else []):
 		if k >= shown_active.size() or not shown_active[k]:
 			continue
 		var d: Vector2i = lv.shuttles[k].dir
@@ -737,3 +770,21 @@ func _draw_win() -> void:
 			var dist := cs * (0.4 + t * 1.6)
 			var pc: Vector2 = c + Vector2(cos(ang), sin(ang)) * dist + Vector2(0, t * t * cs * 0.8)
 			draw_circle(pc, cs * 0.05 * a, Palette.slab(k).lightened(0.3) if k % 2 == 0 else Color(Palette.LIGHT, a))
+
+
+
+## Visual reason for a rejected drop: a red cross on the target and, for a split,
+## the chunk that would break off shown in red with a crack.
+func _draw_rejection() -> void:
+	var a := clampf(reject_t / 0.6, 0.0, 1.0)
+	if reject_cell >= 0:
+		var c := cell_center(reject_cell)
+		var r := cs * 0.22
+		var col := Color(Palette.DANGER, 0.85 * a)
+		draw_line(c + Vector2(-r, -r), c + Vector2(r, r), col, maxf(3.0, cs * 0.07), true)
+		draw_line(c + Vector2(r, -r), c + Vector2(-r, r), col, maxf(3.0, cs * 0.07), true)
+	for o in reject_orphans:
+		var rr := _cell_rect(o).grow(-cs * 0.08)
+		_rounded(rr, Color(Palette.DANGER, 0.32 * a), cs * 0.16, Color(Palette.DANGER, 0.9 * a), maxi(2, int(cs * 0.05)))
+		var p0 := rr.position + Vector2(rr.size.x * 0.2, 0)
+		draw_polyline(PackedVector2Array([p0, p0 + Vector2(rr.size.x * 0.25, rr.size.y * 0.35), p0 + Vector2(rr.size.x * 0.1, rr.size.y * 0.6), p0 + Vector2(rr.size.x * 0.4, rr.size.y)]), Color(Palette.BG_TOP, 0.9 * a), maxf(2.0, cs * 0.04), true)
