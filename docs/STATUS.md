@@ -1,4 +1,4 @@
-# Status — 2026-11-22 (v0.3.0)
+# Status — 2026-11-23 (v0.5.0)
 
 **Milestone: P0 complete; P1 started (originality depth + iPhone readiness). Awaiting first device test.**
 
@@ -13,12 +13,12 @@
 | Gate | State | Evidence |
 |---|---|---|
 | Game launches | ✅ | Desktop (Xvfb), Web (Chromium desktop + iPhone 13 emulation) |
-| 24 levels playable & solver-verified | ✅ | `reports/solver_metrics.csv`, par = optimum |
-| Signature mechanic | ✅ | 530 automated checks pass |
+| 29 levels (5 worlds) playable & solver-verified | ✅ | `reports/solver_metrics.csv`, par = optimum |
+| Signature mechanic | ✅ | 687 automated checks pass |
 | Tutorial / completion / undo / restart / save | ✅ | Test suites + screenshots |
 | Deterministic rules | ✅ | Determinism suite |
 | Reproducible build | ✅ | CI builds Web, Windows, macOS, Linux and an unsigned iOS .ipa on every push |
-| Device test | ❌ | Waiting for owner's iPhone test — `docs/testing/IOS_TESTING.md` |
+| Device test | ⏳ | Owner played v0.3.x on iPhone (touch bug found and fixed); v0.5.0 untested on device |
 | Human playtests | ❌ | Not started |
 | Repository on GitHub | ✅ | https://github.com/eyazan/gaploom (public) |
 | Web build on GitHub Pages | ✅ | https://eyazan.github.io/gaploom/ (auto-deployed on every push) |

@@ -5,8 +5,8 @@ iPhone-13 emulation).
 
 | # | Severity | Issue | Notes / next step |
 |---|---|---|---|
-| 1 | Medium (design) | 12/24 levels are force-divergent (was 2/20 in v0.1). Levels 7, 8, 9, 17 still share one solver graph. Whether players *notice* the difference is untested. | `docs/research/originality_audit.md`. Next batch ≥50% divergent with new structures; playtest question. |
-| 2 | High (content) | Levels are short (optimal 1–6 moves, 302 states total). Fine for onboarding, too shallow for a premium product. | Deeper levels needed. |
+| 1 | Medium (design) | 15/29 levels are force-divergent; several share the scaffold structure. Whether players *notice* the difference is untested. | `docs/research/originality_audit.md`. |
+| 2 | Medium (content) | Deeper since v0.5.0 (late levels 4–8 moves, 695 states total) but still below the 6–12-move target for the hardest levels; ~1–1.5 h of play estimated, untested. | New structures for depth. |
 | 3 | **High (validation)** | First real-iPhone test (v0.3.0) found that no touch worked (fixed in 0.3.1, verified only in Chromium with iOS-style touch ids). Real Safari still needs a re-test. | Owner iPhone test: `docs/testing/IOS_TESTING.md`. |
 | 4 | Medium | iOS preset exports an Xcode project on Linux but cannot be built/signed here; Team ID is a placeholder. No Android preset (no Android test device). | Build on a Mac with Xcode (Path B). |
 | 5 | Low | Game screen is capped at 30 FPS while idle and 60 FPS while anything moves; redraw is still continuous. | Measure battery on device. |
@@ -17,6 +17,6 @@ iPhone-13 emulation).
 | 10 | Low | Level 20 has 558 optimal solutions (many interchangeable orders). | Tighten if playtests find it loose. |
 | 11 | Low | Hints are free and unlimited. | Product decision. |
 | 12 | Low | Uses Godot's built-in fallback font; no brand font. | Choose an OFL font. |
-| 13 | Low | Audio only verified in Godot's dummy driver. | Listen on device (also with the mute switch). |
+| 13 | Medium | Music and SFX are synthesized and verified only by objective checks (no clipping, no silent gaps, seamless loop step < typical step) and by playback in Godot's dummy driver — **nobody has listened to them yet**. | Owner listens on iPhone; adjust mix in tools/make_music.py. |
 | 14 | Info | Difficulty score is an uncalibrated heuristic. | Calibrate with playtest data. |
 | 15 | Info | `TransferValidator` has two analysis-only static switches (`relaxed_frontier`, `active_sources_only`), default off, reset by tools. | — |

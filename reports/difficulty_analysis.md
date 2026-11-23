@@ -14,37 +14,38 @@ Difficulty score = heuristic in `src/solver/difficulty_estimator.gd`
 | 5 | 2 | 2 | 6 | 2.00 | 0.00 | 2/0 | 2.50 | 1 |
 | 6 | 2 | 1 | 4 | 1.67 | 0.00 | 2/0 | 2.70 | 1 |
 | 7 | 3 | 4 | 7 | 2.17 | 0.00 | 3/0 | 3.18 | 2 |
-| 8 | 3 | 4 | 7 | 2.17 | 0.00 | 3/0 | 3.18 | 2 |
-| 9 | 3 | 4 | 7 | 2.17 | 0.00 | 3/0 | 3.18 | 2 |
-| 10 | 4 | 18 | 22 | 4.00 | 0.00 | 4/0 | 3.89 | 2 |
+| 8 | 7 | 36 | 27 | 4.46 | 0.00 | 7/0 | 6.60 | 3 |
+| 9 | 6 | 9 | 21 | 3.45 | 0.00 | 6/0 | 6.27 | 3 |
+| 10 | 6 | 12 | 15 | 2.46 | 0.00 | 6/0 | 5.93 | 3 |
 | 11 | 1 | 1 | 2 | 1.00 | 0.00 | 0/1 | 1.35 | 1 |
-| 12 | 2 | 1 | 3 | 1.00 | 0.00 | 0/2 | 2.55 | 1 |
-| 13 | 2 | 2 | 4 | 1.33 | 0.00 | 0/2 | 2.30 | 1 |
-| 14 | 3 | 4 | 7 | 1.50 | 0.00 | 0/3 | 3.18 | 2 |
-| 15 | 4 | 2 | 6 | 1.20 | 0.00 | 0/4 | 4.50 | 2 |
+| 12 | 5 | 1 | 6 | 1.00 | 0.00 | 0/5 | 5.90 | 3 |
+| 13 | 4 | 1 | 5 | 1.00 | 0.00 | 0/4 | 4.81 | 2 |
+| 14 | 7 | 4 | 13 | 1.25 | 0.23 | 0/7 | 8.19 | 4 |
+| 15 | 6 | 1 | 7 | 1.00 | 0.00 | 0/6 | 6.98 | 3 |
 | 16 | 1 | 1 | 2 | 1.00 | 0.00 | 0/1 | 1.35 | 1 |
 | 17 | 3 | 4 | 7 | 2.17 | 0.00 | 3/0 | 3.18 | 2 |
 | 18 | 3 | 1 | 6 | 1.00 | 0.33 | 1/2 | 5.90 | 3 |
-| 19 | 4 | 2 | 14 | 1.46 | 0.57 | 2/2 | 7.65 | 4 |
-| 20 | 6 | 558 | 130 | 4.60 | 0.29 | 4/2 | 6.69 | 3 |
+| 19 | 8 | 4 | 127 | 2.93 | 0.89 | 4/4 | 13.32 | 5 |
+| 20 | 8 | 12 | 148 | 5.00 | 0.32 | 6/2 | 11.06 | 5 |
 | 21 | 4 | 2 | 7 | 1.33 | 0.14 | 0/4 | 5.01 | 3 |
 | 22 | 4 | 2 | 7 | 1.67 | 0.00 | 2/2 | 5.58 | 3 |
-| 23 | 6 | 88 | 30 | 5.07 | 0.00 | 6/0 | 5.13 | 3 |
-| 24 | 5 | 3 | 9 | 1.75 | 0.00 | 2/3 | 6.48 | 3 |
+| 23 | 8 | 3 | 48 | 3.62 | 0.29 | 8/0 | 10.20 | 5 |
+| 24 | 6 | 4 | 12 | 1.91 | 0.00 | 2/4 | 7.45 | 4 |
+| 25 | 1 | 1 | 2 | 1.00 | 0.00 | 1/0 | 1.35 | 1 |
+| 26 | 2 | 1 | 4 | 1.33 | 0.25 | 2/0 | 3.45 | 2 |
+| 27 | 4 | 2 | 11 | 2.33 | 0.00 | 4/0 | 4.81 | 2 |
+| 28 | 6 | 4 | 108 | 2.70 | 0.53 | 6/0 | 9.15 | 5 |
+| 29 | 6 | 7 | 78 | 2.37 | 0.54 | 6/0 | 8.69 | 4 |
 
-## Curve vs. plan (v0.2.0)
-Planned: 1–5 basics, 6–10 light, 11–15 motion, 16–20 combined.
-
-* The curve rises within each world and resets at each new family (11, 16) — intentional for concept
-  introduction, with visible dips at 11 and 16.
-* v0.2.0 replaced the easiest mid-world levels with scaffold levels; level 9 is no longer a 36-solution outlier.
-* **Levels 7, 8, 9 and 17 have identical solver graphs** (7 states, 4 optimal solutions) — the same scaffold
-  structure in different clothes. Variety risk; next content batch must break this pattern.
-* **Level 20 has 558 optimal solutions** (6 moves, 130 states): many interchangeable orders. Fine as a
-  relaxed finale, but it lowers tension.
-* Clocktower (21–24, v0.3.0): 4–6 moves, 2–88 optimal solutions, all force-divergent.
-* Dead ends exist only in 18–21. Earlier levels are fully forgiving.
-* All levels are still short (max optimal length 6; 302 states in total over 24 levels). Deeper levels remain a P1 need.
+## Curve (v0.5.0, 29 levels)
+* Each world opens with 1–3-move concept levels and then rises: Lighthouse 1→7, Railway 1→7,
+  Greenhouse 1→8, Clocktower 4→8, Glassworks 1→6.
+* v0.5.0 deepened levels 8–10, 12–15, 19, 20, 23, 24 with `tools/deepen.gd` (solver-guided edits + clean-up).
+  Mid/late levels now need 4–8 optimal moves (previously 2–6). Total states over 29 levels: 695.
+* Dead ends now occur in 10 levels (previously 3), giving late levels real "point of no return" moments
+  (undo and hint remain available).
+* Still short of the 6–12-move target for the hardest levels; the deepening search rarely found >8 moves
+  under the clutter budget. Further depth needs new structures, not only search.
 
 ## Generated pool (10 000 candidates)
 Accepted 293; optimal-length histogram {3: 216, 4: 53, 5: 17, 6: 7}; tier histogram {1: 51, 2: 203, 3: 28, 4: 11}.

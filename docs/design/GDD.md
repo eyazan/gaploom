@@ -77,6 +77,16 @@ Invalid drops shake the target and show a one-line reason (e.g. "That would brea
 
 Difficulty analysis: `reports/difficulty_analysis.md`. Level 16 is a deliberate 1-move concept intro inside the hardest world.
 
+### v0.5.0 additions
+* Levels 8–10, 12–15, 19, 20, 23, 24 deepened (now 4–8 moves); Lighthouse 9 renamed content kept.
+* World 5 **The Glassworks** (25 First Tint, 26 Wrong Pane, 27 Rose Scaffold, 28 Two Lanterns, 29 Rose Window).
+* **Coloured glass:** red glass turns white or red light red and blocks blue light; blue glass the reverse;
+  clear glass keeps the colour. Red/blue flowers open only in their colour; white flowers accept any light.
+  Tinted gaps follow the same placement rule as clear glass. Markers: triangle = red, square = blue.
+* **Readability:** rejected drops show a red cross, the chunk that would break off, and flash the relevant
+  force hot-spots. Helper glow setting: Auto (levels 1–6) / On / Off.
+* **Music:** one ambient loop per world, crossfaded.
+
 ## 7. First 10 seconds / first minute
 * **0–10 s:** First launch skips menus and opens Level 1. A ghost hand drags the glass ring into the beam's
   hot-spot; the flower is visibly dark. One move → beam passes → flower blooms → "Restored!".

@@ -18,4 +18,7 @@
 | D14 | 2026-11-22 | iPhone first: test via PWA web build in Safari (no Mac needed); native iOS via Xcode project as optional path | Owner has an iPhone, no Android device; web needs no Apple account or spending | Native-only (needs Mac + signing) |
 | D16 | 2026-11-23 | Destination highlights off by default (only levels 1, 11) | Owner playtest on iPhone: showing valid cells made puzzles trivial | Setting toggle (possible later) |
 | D15 | 2026-11-22 | Idle game screen capped at 30 FPS, 60 FPS while animating or touched | Battery on phones; pulses look fine at 30 | Low-processor mode (would stop pulses) |
+| D17 | 2026-11-23 | Deepen levels with a solver-guided local search + greedy clean-up instead of random generation | Keeps the hand-designed structure and visual cleanliness; random generation produced cluttered boards and almost no divergent levels | Hand redesign of every level (slower), random generation |
+| D18 | 2026-11-23 | Coloured glass (red/blue tints, coloured flowers) as the next void family variant | Adds decisions about *which* gap goes where, stays inside "move the emptiness", needs no new input; shapes (triangle/square) for colour-blind players | Movable mirrors (would turn it into a laser puzzle), functional composition (later) |
+| D19 | 2026-11-23 | Music synthesized offline into WAV loops (QOA-compressed on import) | Zero licensing risk, deterministic, ~1.3 MB in the build; runtime synthesis would cost seconds on the web | Licensed music (cost/approval), runtime AudioStreamGenerator |
 
