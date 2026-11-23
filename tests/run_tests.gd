@@ -54,6 +54,7 @@ func _run_all() -> void:
 	test_canonical()
 	test_generator()
 	test_save_load()
+	test_howto_pages()
 	test_input_adapter()
 	await test_board_view()
 	test_performance()
@@ -430,6 +431,17 @@ func test_generator() -> void:
 	var first := dup.evaluate(d, k2)
 	var second := dup.evaluate(d, k2)
 	check(first.reason != "duplicate" and second.reason == "duplicate", "duplicates are rejected")
+
+
+func test_howto_pages() -> void:
+	begin("howto")
+	for i in HowTo.PAGES.size():
+		var p: Dictionary = HowTo.PAGES[i]
+		var lv := LevelDefinition.from_dict({"id": "howto_%d" % i, "rows": p.rows})
+		check(lv.error.is_empty(), "how-to page %d board is valid (%s)" % [i, lv.error])
+		var r := PuzzleSolver.solve(lv)
+		check(r.status == PuzzleSolver.STATUS_SOLVED and r.min_moves >= 1, "how-to page %d demo is solvable" % i)
+		check(TranslationServer.translate(p.text) != p.text or OS.has_feature("editor"), "how-to page %d text key exists" % i)
 
 
 func test_save_load() -> void:

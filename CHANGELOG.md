@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0 — 2026-11-23
+- **How to play** screen (title screen button and "?" in the game HUD): six pages, each with a small
+  self-playing board and a one-paragraph explanation (English + Turkish). States plainly that light and
+  mirrors cannot be moved — only gaps.
+
 ## 0.3.2 — 2026-11-23 (first iPhone feedback)
 - Holding a gap no longer highlights where it may go (owner feedback: "too easy"). Kept only on the two
   first-encounter tutorial levels (1, 11). Force hot-spots at beam ends / cart fronts remain.

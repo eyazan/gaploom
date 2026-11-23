@@ -30,3 +30,16 @@ MSG_STUCK,No way forward from here. Try undo.,Buradan çıkış yok. Geri almay�
 WORLD_CLOCKTOWER,The Clocktower,Saat Kulesi
 tut_cleartrack,A cart that stops on the track blocks everyone.,Rayda duran vagon herkesin yolunu keser.
 tut_lantern,Light can wake a cart that clears the way.,"Işık, yolu açacak vagonu uyandırabilir."
+HOW_T1,"Move the gaps, not the blocks","Blokları değil, boşlukları taşı"
+HOW_1,"Light can't be moved — lanterns and mirrors are fixed. You move the glowing GAPS. Hold a gap and drop it where the light hits a slab: the light passes through and the flower blooms.","Işık taşınmaz; fenerler ve aynalar sabittir. Sen parlayan BOŞLUKLARI taşırsın. Bir boşluğu tut ve ışığın levhaya çarptığı yere bırak: ışık içinden geçer, çiçek açar."
+HOW_T2,"Only where the light presses","Sadece ışığın dayandığı yere"
+HOW_2,"A glass gap can only go to the solid cell the light is hitting right now. Open the first pane, then the light reaches the next one.","Cam boşluk yalnızca ışığın o an çarptığı dolu hücreye konabilir. İlk camı aç; ışık bir sonrakine ulaşır."
+HOW_T3,"Grooves are for carts","Oluklar vagonlar içindir"
+HOW_3,"A groove gap (rails) lets a cart pass. It can only go where a cart's nose is pressing. Bring every cart to its flag.","Oluk boşluk (raylı kare) vagonu geçirir. Yalnızca bir vagonun burnunun dayandığı yere konabilir. Her vagonu bayrağına götür."
+HOW_T4,"Every move costs something","Her hamlenin bir bedeli var"
+HOW_4,"Where you take a gap from turns solid. The number of gaps never changes. And a slab may never break in two — open the far piece first.","Boşluğu aldığın yer taşa döner. Boşluk sayısı hiç değişmez. Bir levha asla ikiye bölünemez; önce uçtaki parçayı aç."
+HOW_T5,"Glass and groove","Cam ve oluk"
+HOW_5,"Glass lets light through but stops carts. A groove lets carts through but blocks light. Carts cast shadows. A blue sun cart only rolls while it is lit.","Cam ışığı geçirir ama vagonu durdurur. Oluk vagonu geçirir ama ışığı keser. Vagonlar gölge yapar. Mavi güneş vagonu yalnızca ışık alırken ilerler."
+HOW_T6,"The scaffold trick","İskele hilesi"
+HOW_6,"Sometimes you open a pane only so a light can reach further, then take that gap back to use it elsewhere. Stuck? Undo, restart or ask for a hint.","Bazen bir camı yalnızca ışık daha ileri ulaşsın diye açarsın, sonra o boşluğu geri alıp başka yerde kullanırsın. Takıldın mı? Geri al, baştan başla ya da ipucu iste."
+BTN_HOWTO,"How to play","Nasıl Oynanır"

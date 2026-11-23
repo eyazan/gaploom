@@ -1,19 +1,19 @@
 {
- "elapsed_ms": 4531,
+ "elapsed_ms": 4168,
  "engine": "4.5.1-stable (official)",
  "failed": 0,
  "failures": [],
  "metrics": {
-  "destinations_us": 66.18,
-  "evaluate_us": 56.4,
+  "destinations_us": 28.49,
+  "evaluate_us": 40.48,
   "invalid_moves_checked": 7195,
   "random_moves_played": 10120,
-  "solve_all_handcrafted_ms": 149.5,
+  "solve_all_handcrafted_ms": 105.7,
   "solve_all_states": 302,
-  "static_memory_mb": 22.3,
-  "static_memory_peak_mb": 32.31
+  "static_memory_mb": 22.46,
+  "static_memory_peak_mb": 32.7
  },
- "passed": 534,
+ "passed": 552,
  "suites": {
   "board_view": {
    "failed": 0,
@@ -34,6 +34,10 @@
   "generator": {
    "failed": 0,
    "passed": 47
+  },
+  "howto": {
+   "failed": 0,
+   "passed": 18
   },
   "input_adapter": {
    "failed": 0,
@@ -76,5 +80,5 @@
    "passed": 72
   }
  },
- "timestamp_unix": 1795425814
+ "timestamp_unix": 1795430940
 }

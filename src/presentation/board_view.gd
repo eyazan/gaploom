@@ -24,6 +24,8 @@ var interactive := true
 ## When false (default since 0.3.2) a held gap does NOT reveal where it may go; the player must
 ## read the forces. Only the first-encounter tutorial levels turn it on.
 var show_destinations := false
+## Demo boards (How to play) are silent and do not touch the global FPS cap.
+var silent := false
 
 # Display state
 var shown_mat := PackedByteArray()
@@ -194,7 +196,7 @@ func _is_gap(c: int) -> bool:
 func _select(c: int) -> void:
 	selected = c
 	dests = game.destinations(c)
-	Sfx.play("pick", 1.0 if game.state.mat[c] == Mat.LIGHT_GAP else 0.8)
+	_sfx("pick", 1.0 if game.state.mat[c] == Mat.LIGHT_GAP else 0.8)
 
 
 func _deselect() -> void:
@@ -211,7 +213,7 @@ func _reject_at(c: int) -> void:
 	shake_t = 0.4
 	reject_cell = c
 	reject_reason = reason
-	Sfx.play("invalid")
+	_sfx("invalid")
 	rejected.emit(reason)
 
 
@@ -233,7 +235,7 @@ func _transfer(src: int, dst: int) -> void:
 	var res := game.try_transfer(src, dst)
 	_deselect()
 	if not res.ok:
-		Sfx.play("invalid")
+		_sfx("invalid")
 		rejected.emit(res.reason)
 		return
 	hint_move = Vector2i(-1, -1)
@@ -246,7 +248,7 @@ func _transfer(src: int, dst: int) -> void:
 	anim_t = 0.0
 	old_beams = shown_beams
 	old_beam_alpha = 1.0
-	Sfx.play("drop", 1.0 if fly_mat == Mat.LIGHT_GAP else 0.85)
+	_sfx("drop", 1.0 if fly_mat == Mat.LIGHT_GAP else 0.85)
 	set_meta("lit_before", lit_before)
 	transferred.emit(res)
 
@@ -286,7 +288,7 @@ func _process(delta: float) -> void:
 			shown_mat = game.state.mat.duplicate()
 			_retrace()
 			if shown_lit.size() > int(get_meta("lit_before", 0)):
-				Sfx.play("light")
+				_sfx("light")
 			if frames.is_empty():
 				phase = ""
 				animation_finished.emit()
@@ -304,18 +306,18 @@ func _process(delta: float) -> void:
 			frame_i += 1
 			anim_t = 0.0
 			frame_from = shown_shuttles.duplicate()
-			Sfx.play("roll", 0.9 + 0.2 * (frame_i % 3))
+			_sfx("roll", 0.9 + 0.2 * (frame_i % 3))
 			var lit_n := shown_lit.size()
 			_retrace()
 			beam_reveal = 1.0
 			if shown_lit.size() > lit_n:
-				Sfx.play("light")
+				_sfx("light")
 			if frame_i >= frames.size():
 				phase = ""
 				sync_from_game()
 				for d in lv.docks:
 					if game.state.shuttle_at(d) >= 0 and not dock_glow.has(d):
-						Sfx.play("dock")
+						_sfx("dock")
 				animation_finished.emit()
 	beam_reveal = minf(1.0, beam_reveal + delta / 0.22)
 	old_beam_alpha = maxf(0.0, old_beam_alpha - delta / 0.18)
@@ -340,7 +342,14 @@ func _process(delta: float) -> void:
 
 ## Battery: only ambient pulses run while idle, which look fine at 30 FPS.
 ## Anything the player is touching or watching resolve runs at 60 FPS.
+func _sfx(name: String, pitch: float = 1.0) -> void:
+	if not silent:
+		Sfx.play(name, pitch)
+
+
 func _update_fps_cap() -> void:
+	if silent:
+		return
 	if not is_visible_in_tree():
 		Engine.max_fps = 60  # menus scroll; they are cheap to draw
 		return

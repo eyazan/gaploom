@@ -56,6 +56,13 @@ func _draw() -> void:
 				draw_line(c + Vector2(s * 1.0, -s * 0.4), c + Vector2(s * 0.4, s * 0.4), col, w * 0.7, true)
 		"next":
 			draw_polyline(PackedVector2Array([c + Vector2(-s * 0.3, -s * 0.7), c + Vector2(s * 0.4, 0), c + Vector2(-s * 0.3, s * 0.7)]), col, w, true)
+		"help":
+			draw_arc(c + Vector2(0, -s * 0.3), s * 0.42, PI * 1.0, PI * 2.35, 20, col, w, true)
+			draw_line(c + Vector2(s * 0.05, -s * 0.02), c + Vector2(0, s * 0.3), col, w, true)
+			draw_circle(c + Vector2(0, s * 0.72), w * 0.7, col)
+		"close":
+			draw_line(c + Vector2(-s * 0.6, -s * 0.6), c + Vector2(s * 0.6, s * 0.6), col, w, true)
+			draw_line(c + Vector2(s * 0.6, -s * 0.6), c + Vector2(-s * 0.6, s * 0.6), col, w, true)
 		"grid":
 			for yy in 2:
 				for xx in 2:

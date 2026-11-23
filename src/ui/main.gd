@@ -30,6 +30,8 @@ var gap_counter: GapCounter
 var btn_undo: IconButton
 var btn_restart: IconButton
 var btn_hint: IconButton
+var btn_help: IconButton
+var howto: HowTo
 var tip_tween: Tween
 var win_pending := false
 
@@ -47,6 +49,10 @@ func _ready() -> void:
 	_build_select()
 	_build_game()
 	_build_overlay()
+	howto = HowTo.new()
+	howto.visible = false
+	howto.closed.connect(_on_howto_closed)
+	add_child(howto)
 	resized.connect(_layout)
 	if save.first_launch:
 		start_level(1)
@@ -161,6 +167,12 @@ func _build_title() -> void:
 	levels.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	levels.pressed.connect(func(): Sfx.play("tap"); open_select())
 	box.add_child(levels)
+	var howto_btn := Button.new()
+	howto_btn.text = tr("BTN_HOWTO")
+	howto_btn.custom_minimum_size = Vector2(340, 0)
+	howto_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	howto_btn.pressed.connect(func(): Sfx.play("tap"); open_howto())
+	box.add_child(howto_btn)
 	var snd := IconButton.new("sound_on" if sfx.enabled else "sound_off", 84)
 	snd.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	snd.pressed.connect(func():
@@ -275,6 +287,9 @@ func _build_game() -> void:
 	btn_hint = IconButton.new("hint", 104)
 	btn_hint.pressed.connect(_on_hint)
 	screen_game.add_child(btn_hint)
+	btn_help = IconButton.new("help", 104)
+	btn_help.pressed.connect(func(): Sfx.play("tap"); open_howto())
+	screen_game.add_child(btn_help)
 
 
 func _build_overlay() -> void:
@@ -355,9 +370,10 @@ func _layout() -> void:
 	var bottom_h := 190.0 + safe.size.y
 	var by := s.y - bottom_h + 20
 	var cx := s.x * 0.5
-	btn_undo.position = Vector2(cx - 52 - 150, by)
-	btn_restart.position = Vector2(cx - 52, by)
-	btn_hint.position = Vector2(cx - 52 + 150, by)
+	btn_undo.position = Vector2(cx - 52 - 195, by)
+	btn_restart.position = Vector2(cx - 52 - 65, by)
+	btn_hint.position = Vector2(cx - 52 + 65, by)
+	btn_help.position = Vector2(cx - 52 + 195, by)
 	lbl_moves.position = Vector2(0, by + 112)
 	lbl_moves.size = Vector2(s.x, 44)
 	var board_rect := Rect2(Vector2(40, top + 190), Vector2(s.x - 80, by - (top + 190) - 40))
@@ -586,3 +602,14 @@ func _input(event: InputEvent) -> void:
 		mm.global_position = d.position
 		mm.relative = d.relative
 		get_viewport().push_input.call_deferred(mm, true)
+
+
+
+# ---------------------------------------------------------------- how to play
+func open_howto() -> void:
+	board.interactive = false
+	howto.open()
+
+
+func _on_howto_closed() -> void:
+	board.interactive = screen_game.visible and not win_pending
