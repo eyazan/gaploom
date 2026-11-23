@@ -406,7 +406,9 @@ func start_level(n: int) -> void:
 	win_pending = false
 	lbl_level.text = "%d · %s" % [n, lv.name]
 	_show_tip(tr(lv.tutorial) if not lv.tutorial.is_empty() else "", false)
-	if lv.tutorial == "tut_drag" or lv.tutorial == "tut_motion":
+	var first_encounter := lv.tutorial == "tut_drag" or lv.tutorial == "tut_motion"
+	board.show_destinations = first_encounter
+	if first_encounter:
 		board.hint_move = PuzzleSolver.hint(lv, game.state)
 	show_screen(screen_game)
 	_layout()
@@ -431,9 +433,15 @@ func _show_tip(text: String, transient: bool) -> void:
 	lbl_tip.text = text
 	lbl_tip.modulate = Color(1, 1, 1, 1)
 	if transient:
+		# Show the message, then bring back the level's own tip (it used to vanish for good).
+		var level_tip := ""
+		if game != null and not game.level.tutorial.is_empty():
+			level_tip = tr(game.level.tutorial)
 		tip_tween = create_tween()
-		tip_tween.tween_interval(1.8)
-		tip_tween.tween_property(lbl_tip, "modulate:a", 0.0, 0.6)
+		tip_tween.tween_interval(2.2)
+		tip_tween.tween_property(lbl_tip, "modulate:a", 0.0, 0.4)
+		tip_tween.tween_callback(func(): lbl_tip.text = level_tip)
+		tip_tween.tween_property(lbl_tip, "modulate:a", 1.0, 0.4)
 
 
 func _on_transferred(_res: Dictionary) -> void:

@@ -21,6 +21,9 @@ var cs := 80.0
 var origin := Vector2.ZERO
 var time := 0.0
 var interactive := true
+## When false (default since 0.3.2) a held gap does NOT reveal where it may go; the player must
+## read the forces. Only the first-encounter tutorial levels turn it on.
+var show_destinations := false
 
 # Display state
 var shown_mat := PackedByteArray()
@@ -678,15 +681,16 @@ func _draw_selection() -> void:
 	var m := game.state.mat[selected]
 	var col := Palette.LIGHT if m == Mat.LIGHT_GAP else Palette.MOTION
 	var pulse := 0.5 + 0.5 * sin(time * 6.0)
-	for d in dests:
-		var r := _cell_rect(d).grow(-cs * 0.06)
-		_rounded(r, Color(col, 0.12 + 0.1 * pulse), cs * 0.2, Color(col, 0.6 + 0.4 * pulse), maxi(2, int(cs * 0.05)))
-		_draw_token(r.get_center(), m, 0.8, 0.35 + 0.25 * pulse)
-	if dests.is_empty():
-		draw_arc(cell_center(selected), cs * 0.46, 0, TAU, 32, Color(Palette.DANGER, 0.5), 2.0, true)
+	if show_destinations:
+		for d in dests:
+			var r := _cell_rect(d).grow(-cs * 0.06)
+			_rounded(r, Color(col, 0.12 + 0.1 * pulse), cs * 0.2, Color(col, 0.6 + 0.4 * pulse), maxi(2, int(cs * 0.05)))
+			_draw_token(r.get_center(), m, 0.8, 0.35 + 0.25 * pulse)
+		if dests.is_empty():
+			draw_arc(cell_center(selected), cs * 0.46, 0, TAU, 32, Color(Palette.DANGER, 0.5), 2.0, true)
 	if dragging and drag_moved:
 		var hc := cell_at(drag_pos)
-		if hc >= 0 and dests.has(hc):
+		if show_destinations and hc >= 0 and dests.has(hc):
 			_rounded(_cell_rect(hc).grow(-cs * 0.02), Color(col, 0.25), cs * 0.22)
 		draw_circle(drag_pos + Vector2(0, cs * 0.12), cs * 0.25, Color(0, 0, 0, 0.25))
 		_draw_token(drag_pos, m, 1.25, 1.0)

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.2 — 2026-11-23 (first iPhone feedback)
+- Holding a gap no longer highlights where it may go (owner feedback: "too easy"). Kept only on the two
+  first-encounter tutorial levels (1, 11). Force hot-spots at beam ends / cart fronts remain.
+- Fix: after a rejection message the level's tip text disappeared permanently; it now returns.
+
 ## 0.3.1 — 2026-11-23
 - **Fix (critical, iPhone):** the web build ignored every touch on iOS Safari. iOS gives touches large non-zero
   identifiers; the board only accepted touch index 0 and Godot only emulates mouse clicks (buttons) for index 0.
