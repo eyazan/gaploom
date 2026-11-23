@@ -56,6 +56,15 @@ func _draw() -> void:
 				draw_line(c + Vector2(s * 1.0, -s * 0.4), c + Vector2(s * 0.4, s * 0.4), col, w * 0.7, true)
 		"next":
 			draw_polyline(PackedVector2Array([c + Vector2(-s * 0.3, -s * 0.7), c + Vector2(s * 0.4, 0), c + Vector2(-s * 0.3, s * 0.7)]), col, w, true)
+		"music_on", "music_off":
+			var nx := c + Vector2(-s * 0.35, s * 0.55)
+			draw_circle(nx, s * 0.28, col)
+			draw_circle(nx + Vector2(s * 0.85, -s * 0.15), s * 0.28, col)
+			draw_line(nx + Vector2(s * 0.24, 0), nx + Vector2(s * 0.24, -s * 1.2), col, w * 0.8, true)
+			draw_line(nx + Vector2(s * 1.09, -s * 0.15), nx + Vector2(s * 1.09, -s * 1.35), col, w * 0.8, true)
+			draw_line(nx + Vector2(s * 0.24, -s * 1.2), nx + Vector2(s * 1.09, -s * 1.35), col, w, true)
+			if icon_kind == "music_off":
+				draw_line(c + Vector2(-s * 0.9, -s * 0.9), c + Vector2(s * 0.9, s * 0.9), Palette.DANGER, w, true)
 		"help":
 			draw_arc(c + Vector2(0, -s * 0.3), s * 0.42, PI * 1.0, PI * 2.35, 20, col, w, true)
 			draw_line(c + Vector2(s * 0.05, -s * 0.02), c + Vector2(0, s * 0.3), col, w, true)

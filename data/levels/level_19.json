@@ -4,14 +4,14 @@
  "name": "Glass and Groove",
  "world": "greenhouse",
  "tutorial": "",
- "par": 4,
+ "par": 8,
  "rows": [
-  ".. .. Sv .. .. fL",
-  ".. .. .. .. .. fo",
+  ".. .. Sv .. .. fo",
+  ".. .. bo bo .. fL",
   ".. .. .. .. .. ..",
-  "E> .. ao ao .. R.",
-  ".. .. .. ao eo ..",
-  "S> .. .. .. eo D.",
-  "gL go D. hM ho .."
+  "E> ao ao ao eo R.",
+  ".. .. .. aL eL ..",
+  "S> gL .. .. eL D.",
+  ".. go D. ho hM .."
  ]
 }

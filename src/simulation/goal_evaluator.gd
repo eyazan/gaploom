@@ -12,7 +12,7 @@ static func is_solved(lv: LevelDefinition, st: BoardState, sim: Dictionary) -> b
 static func progress(lv: LevelDefinition, st: BoardState, sim: Dictionary) -> Vector2i:
 	var done := 0
 	for r in lv.receivers:
-		if sim.lit.has(r):
+		if FunctionalSimulation.receiver_satisfied(lv, sim.lit_hue, r):
 			done += 1
 	for dk in lv.docks:
 		if st.shuttle_at(dk) >= 0:

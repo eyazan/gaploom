@@ -10,7 +10,7 @@ enum Family { LIGHT, MOTION }
 
 
 static func family_of(mat: int) -> int:
-	if mat == Mat.LIGHT_GAP:
+	if mat == Mat.LIGHT_GAP or mat == Mat.LIGHT_RED or mat == Mat.LIGHT_BLUE:
 		return Family.LIGHT
 	if mat == Mat.MOTION_GAP:
 		return Family.MOTION
@@ -22,7 +22,21 @@ static func mat_of(family: int) -> int:
 
 
 static func passes_light(mat: int) -> bool:
-	return mat == Mat.NONE or mat == Mat.LIGHT_GAP
+	return mat == Mat.NONE or mat == Mat.LIGHT_GAP or mat == Mat.LIGHT_RED or mat == Mat.LIGHT_BLUE
+
+
+## Hue of light after passing a cell, or -1 if the cell blocks it.
+## Clear glass/air keep the hue; tinted glass turns white or same-hue light into its hue
+## and blocks the other hue.
+static func filter_hue(mat: int, hue: int) -> int:
+	const Hue = LevelDefinition.Hue
+	if mat == Mat.NONE or mat == Mat.LIGHT_GAP:
+		return hue
+	if mat == Mat.LIGHT_RED:
+		return Hue.RED if hue != Hue.BLUE else -1
+	if mat == Mat.LIGHT_BLUE:
+		return Hue.BLUE if hue != Hue.RED else -1
+	return -1
 
 
 static func passes_motion(mat: int) -> bool:

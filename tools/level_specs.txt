@@ -1,4 +1,5 @@
 # Handcrafted level specs. Row tokens: see src/core/level_definition.gd.
+# v0.5: levels 8-10, 12-15, 19-20, 22-24 deepened with tools/deepen.gd (solver-guided) and simplified.
 
 L(1, "First Light", "lighthouse", "tut_drag", """
 .. .. ao .. ..
@@ -57,34 +58,34 @@ E> .. qo qo .. R.
 """)
 
 L(8, "Long Way Round", "lighthouse", "", """
-.. .. .. .. xo Ev
-.. .. .. /. xo /.
-.. .. .. .. .. ..
+.. .. .. .. .. Ev
+.. .. .. /. ao /.
+.. bL .. ao ao ..
+.. bo co co .. ..
 .. .. qo .. .. ..
-.. .. qo .. .. ..
-E> .. qo qo .. R.
-gL go .. .. ho hL
+E> qL qo qo ho R.
+go gL .. .. .. hL
 """)
 
 L(9, "Borrowed Lens", "lighthouse", "", """
 .. Ev .. .. .. ..
-.. .. .. .. gL go
-.. .. .. .. .. ..
-.. qo qo qo .. ..
-.. qo .. xo .. E<
-.. .. .. xo .. ..
-.. R. .. .. hL ho
+.. .. .. ao .. ..
+.. qo aL aL .. ..
+.. qo qo .. .. ..
+.. qo bo xo xo E<
+.. .. bo xo .. ..
+.. R. .. .. ho hL
 """)
 
 L(10, "Keeper's Lamp", "lighthouse", "", """
 .. .. Ev .. .. ..
-.. .. xo xo .. ..
-.. .. .. .. .. ..
+.. xL xo xo .. ..
+.. .. ao ao .. ..
 E> qo qo .. .. \\.
 .. qo .. .. .. ..
-.. qo .. .. ko ..
-R. .. .. .. ko /.
-gL go gL .. hL ho
+.. .. .. .. ko ..
+R. .. go .. kL /.
+gL gL .. .. ho hL
 """)
 
 L(11, "First Track", "railway", "tut_motion", """
@@ -95,37 +96,37 @@ S> .. ao .. .. D.
 """)
 
 L(12, "Recycled Groove", "railway", "tut_recycle", """
-.. .. ao .. .. bo .. ..
-S> .. ao .. .. bo .. D.
+.. .. aM .. .. .. bM ..
+S> .. ao ao fo bo bo D.
+.. .. .. .. fo .. .. ..
 .. .. .. .. .. .. .. ..
-.. cM co .. .. .. .. ..
 """)
 
 L(13, "Close Quarters", "railway", "", """
-.. .. ao bo .. ..
-S> .. ao bo .. D.
+.. dM .. .. .. ..
+S> do bo bM bM D.
+.. do .. .. .. ..
 .. .. .. .. .. ..
-.. cM co cM .. ..
 """)
 
 L(14, "Work Cart", "railway", "tut_workcart", """
 .. .. .. Sv .. ..
 .. .. .. xo xo ..
-.. .. .. .. .. ..
-S> .. qo qo .. D.
-.. .. qo .. .. ..
-gM go qo .. .. ..
-.. hM ho .. .. ..
+.. .. .. ao ao ..
+S> .. qo qo cM D.
+.. .. qo co .. ..
+go gM .. do do ..
+.. .. ho hM .. ..
 """)
 
 L(15, "Switchyard", "railway", "", """
 .. .. .. Sv .. .. ..
 .. .. .. xo xo .. ..
-.. .. .. .. .. .. ..
-S> .. qo qo .. wo D.
+.. .. .. bo bo .. ..
+S> .. qo qo wo wo D.
 .. .. qo .. .. wo ..
-gM gM qo .. .. .. ..
-go .. .. .. .. .. ..
+gM go .. .. .. .. ..
+gM .. .. .. .. .. ..
 """)
 
 L(16, "Shadow Cart", "greenhouse", "tut_shadow", """
@@ -153,20 +154,20 @@ gL go .. .. bo bo ..
 """)
 
 L(19, "Glass and Groove", "greenhouse", "", """
-.. .. Sv .. .. fL
-.. .. .. .. .. fo
+.. .. Sv .. .. fo
+.. .. bo bo .. fL
 .. .. .. .. .. ..
-E> .. ao ao .. R.
-.. .. .. ao eo ..
-S> .. .. .. eo D.
-gL go D. hM ho ..
+E> ao ao ao eo R.
+.. .. .. aL eL ..
+S> gL .. .. eL D.
+.. go D. ho hM ..
 """)
 
 L(20, "Greenhouse Heart", "greenhouse", "", """
-.. .. .. .. .. .. ..
+.. .. .. ao .. .. ..
 E> s> .. ao .. .. D.
 .. .. bo ao .. .. ..
-E> .. bo bo Sv .. R.
+E> bo bo bo Sv .. R.
 hM ho .. .. co co ..
 gL go xo xo .. .. fL
 .. gL .. E^ D. .. fo
@@ -196,19 +197,64 @@ L(23, "Twin Bridges", "clocktower", "", """
 .. Ev .. .. .. .. ..
 .. .. .. .. .. .. ..
 qo qo .. .. .. .. ..
-.. qo .. .. xo .. E<
-.. .. .. .. xo .. ..
-.. po po .. yo .. ..
-.. po .. .. yo .. E<
+.. qo qo ao xo xo E<
+.. .. .. ao xo .. ..
+.. po pL .. .. .. ..
+.. po .. .. .. ## E<
 .. R. gL gL gL gL go
 """)
 
 L(24, "Clockwork Heart", "clocktower", "", """
-.. .. .. Ev .. hL ho
-.. .. qo xo xo .. ..
-.. .. qo sv .. .. ..
-S> .. qo qo .. ro D.
+.. .. .. Ev .. ho hL
+.. .. .. xo xo .. ..
+.. .. qo sv ao .. ..
+S> .. qo qo ao ro D.
 .. .. .. .. .. ro ..
 E> zo .. .. .. .. R.
 .. zo .. .. gM gM go
+""")
+
+L(25, "First Tint", "glassworks", "tut_tint", """
+.. .. ao .. .. ..
+E> .. ao .. .. Rr
+.. .. .. .. .. ..
+.. br bo .. .. ..
+""")
+
+L(26, "Wrong Pane", "glassworks", "tut_wrongpane", """
+.. .. .. .. .. ..
+E> .. ab .. .. Rr
+.. .. ao .. .. ..
+.. .. .. .. .. ..
+E> .. co .. .. Rb
+.. .. co .. .. ..
+.. gr go .. .. ..
+""")
+
+L(27, "Rose Scaffold", "glassworks", "", """
+.. .. .. Ev .. ..
+.. .. .. xo xo ..
+.. .. .. ao ao ..
+E> .. qo qo .. Rr
+.. .. qo .. .. ..
+.. .. .. .. .. go
+.. .. .. .. gL gr
+""")
+
+L(28, "Two Lanterns", "glassworks", "", """
+E> .. ar ao .. Rr
+.. bL ab .. .. ..
+E> bo co .. do Rb
+.. .. co .. .. dL
+.. go gb gr .. ..
+""")
+
+L(29, "Rose Window", "glassworks", "", """
+db do .. bL .. ..
+E> .. ao bo bo Rr
+.. .. ab .. .. ..
+.. .. .. eL .. ..
+E> .. co eo .. Rb
+.. cL .. .. .. ..
+.. gr go .. .. ..
 """)

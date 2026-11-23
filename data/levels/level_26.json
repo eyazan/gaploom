@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_26",
+ "name": "Wrong Pane",
+ "world": "glassworks",
+ "tutorial": "tut_wrongpane",
+ "par": 2,
+ "rows": [
+  ".. .. .. .. .. ..",
+  "E> .. ab .. .. Rr",
+  ".. .. ao .. .. ..",
+  ".. .. .. .. .. ..",
+  "E> .. co .. .. Rb",
+  ".. .. co .. .. ..",
+  ".. gr go .. .. .."
+ ]
+}

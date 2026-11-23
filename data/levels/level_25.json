@@ -1,0 +1,14 @@
+{
+ "format": 1,
+ "id": "level_25",
+ "name": "First Tint",
+ "world": "glassworks",
+ "tutorial": "tut_tint",
+ "par": 1,
+ "rows": [
+  ".. .. ao .. .. ..",
+  "E> .. ao .. .. Rr",
+  ".. .. .. .. .. ..",
+  ".. br bo .. .. .."
+ ]
+}

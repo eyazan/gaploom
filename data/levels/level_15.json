@@ -4,14 +4,14 @@
  "name": "Switchyard",
  "world": "railway",
  "tutorial": "",
- "par": 4,
+ "par": 6,
  "rows": [
   ".. .. .. Sv .. .. ..",
   ".. .. .. xo xo .. ..",
-  ".. .. .. .. .. .. ..",
-  "S> .. qo qo .. wo D.",
+  ".. .. .. bo bo .. ..",
+  "S> .. qo qo wo wo D.",
   ".. .. qo .. .. wo ..",
-  "gM gM qo .. .. .. ..",
-  "go .. .. .. .. .. .."
+  "gM go .. .. .. .. ..",
+  "gM .. .. .. .. .. .."
  ]
 }

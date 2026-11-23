@@ -4,6 +4,13 @@
 - Step 1: rejected drops are explained on the board — red cross on the target, the chunk that would break
   off shown red with a crack, and the force hot-spots of the held gap's family flash even when the assist is off.
 - Helper-glow setting on the title screen: Auto (only levels 1–6) / On / Off, saved in progress.
+- Step 2: levels 8–10, 12–15, 19, 20, 23, 24 deepened with a new solver-guided tool (`tools/deepen.gd`:
+  hill-climbing on slab/gap/wall edits + greedy clean-up). Mid/late levels now need 4–8 moves (was 2–6).
+- Step 3: **coloured glass** (red/blue tinted gaps, coloured flowers, colour-split beams; shape markers for
+  colour-blind players) and a new world **The Glassworks** (levels 25–29) with its own diorama.
+  How-to page 7 explains colours. 15/29 levels are force-divergent.
+- Step 4: **music** — five procedurally synthesized ambient loops (one per world, `tools/make_music.py`),
+  crossfade between worlds, music on/off on the title screen.
 
 ## 0.4.0 — 2026-11-23
 - **How to play** screen (title screen button and "?" in the game HUD): six pages, each with a small

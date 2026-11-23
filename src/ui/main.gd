@@ -11,6 +11,7 @@ const REASON_KEYS := {
 
 var save: SaveGame
 var sfx: Sfx
+var music: Music
 var theme_res: Theme
 var title_font: FontVariation
 
@@ -43,6 +44,9 @@ func _ready() -> void:
 	sfx = Sfx.new()
 	add_child(sfx)
 	sfx.enabled = bool(save.settings.get("sfx", true))
+	music = Music.new()
+	add_child(music)
+	music.enabled = bool(save.settings.get("music", true))
 	_build_theme()
 	_build_background()
 	_build_title()
@@ -58,6 +62,7 @@ func _ready() -> void:
 		start_level(1)
 	else:
 		show_screen(screen_title)
+		music.play("lighthouse")
 	_layout()
 
 
@@ -195,7 +200,21 @@ func _build_title() -> void:
 		snd.icon_kind = "sound_on" if sfx.enabled else "sound_off"
 		snd.queue_redraw()
 		Sfx.play("tap"))
-	box.add_child(snd)
+	var mus := IconButton.new("music_on" if music.enabled else "music_off", 84)
+	mus.pressed.connect(func():
+		music.set_enabled(not music.enabled)
+		save.settings["music"] = music.enabled
+		save.save()
+		mus.icon_kind = "music_on" if music.enabled else "music_off"
+		mus.queue_redraw()
+		Sfx.play("tap"))
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", 28)
+	row.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	box.add_child(row)
+	row.add_child(snd)
+	row.add_child(mus)
 
 
 func _build_select() -> void:
@@ -429,6 +448,7 @@ func start_level(n: int) -> void:
 		push_error("level %d invalid: %s" % [n, lv.error])
 		return
 	current = n
+	music.play(str(LevelCatalog.world_of(n).id))
 	game = PuzzleGame.new(lv)
 	board.setup(game)
 	overlay.visible = false

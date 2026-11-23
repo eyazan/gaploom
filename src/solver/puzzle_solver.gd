@@ -61,7 +61,7 @@ static func solve(lv: LevelDefinition, max_states: int = 200000, count_cap: int 
 		var moves := TransferValidator.legal_moves(lv, st, sim)
 		for mv in moves:
 			edges += 1
-			if st.mat[mv.x] == LevelDefinition.Mat.LIGHT_GAP:
+			if VoidProperty.family_of(st.mat[mv.x]) == VoidProperty.Family.LIGHT:
 				light_moves_total += 1
 			else:
 				motion_moves_total += 1

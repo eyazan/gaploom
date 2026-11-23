@@ -38,12 +38,15 @@ var reject_orphans := PackedInt32Array()
 var shown_mat := PackedByteArray()
 var shown_shuttles: Array[Vector2] = []
 var shown_beams: Array = []
+var shown_beam_hues: Array = []
+var shown_lit_hue: Dictionary = {}
 var shown_lit: Dictionary = {}
 var shown_frontier_light: Dictionary = {}
 var shown_frontier_motion: Dictionary = {}
 var shown_active: Array = []
 var beam_reveal := 1.0
 var old_beams: Array = []
+var old_beam_hues: Array = []
 var old_beam_alpha := 0.0
 var bloom: Dictionary = {}
 var dock_glow: Dictionary = {}
@@ -87,7 +90,7 @@ func setup(g: PuzzleGame) -> void:
 	dock_glow.clear()
 	sync_from_game()
 	for r in lv.receivers:
-		bloom[r] = 1.0 if shown_lit.has(r) else 0.0
+		bloom[r] = 1.0 if FunctionalSimulation.receiver_satisfied(lv, shown_lit_hue, r) else 0.0
 
 
 func sync_from_game() -> void:
@@ -197,13 +200,13 @@ func _on_release(pos: Vector2) -> void:
 
 
 func _is_gap(c: int) -> bool:
-	return game.state.mat[c] == Mat.LIGHT_GAP or game.state.mat[c] == Mat.MOTION_GAP
+	return VoidProperty.family_of(game.state.mat[c]) >= 0
 
 
 func _select(c: int) -> void:
 	selected = c
 	dests = game.destinations(c)
-	_sfx("pick", 1.0 if game.state.mat[c] == Mat.LIGHT_GAP else 0.8)
+	_sfx("pick", 1.0 if VoidProperty.family_of(game.state.mat[c]) == VoidProperty.Family.LIGHT else 0.8)
 
 
 func _deselect() -> void:
@@ -270,8 +273,9 @@ func _transfer(src: int, dst: int) -> void:
 	phase = "fly"
 	anim_t = 0.0
 	old_beams = shown_beams
+	old_beam_hues = shown_beam_hues
 	old_beam_alpha = 1.0
-	_sfx("drop", 1.0 if fly_mat == Mat.LIGHT_GAP else 0.85)
+	_sfx("drop", 1.0 if VoidProperty.family_of(fly_mat) == VoidProperty.Family.LIGHT else 0.85)
 	set_meta("lit_before", lit_before)
 	transferred.emit(res)
 
@@ -294,6 +298,8 @@ func _retrace() -> void:
 		tmp.shuttle_docked.append(1 if lv.static_cells[lv.idx_v(p)] == Static.DOCK else 0)
 	var sim := FunctionalSimulation.evaluate(lv, tmp)
 	shown_beams = sim.beams
+	shown_beam_hues = sim.beam_hues
+	shown_lit_hue = sim.lit_hue
 	shown_lit = sim.lit
 	shown_frontier_light = sim.frontier_light
 	shown_frontier_motion = sim.frontier_motion
@@ -345,7 +351,7 @@ func _process(delta: float) -> void:
 	beam_reveal = minf(1.0, beam_reveal + delta / 0.22)
 	old_beam_alpha = maxf(0.0, old_beam_alpha - delta / 0.18)
 	for r in lv.receivers:
-		var target_b := 1.0 if shown_lit.has(r) else 0.0
+		var target_b := 1.0 if FunctionalSimulation.receiver_satisfied(lv, shown_lit_hue, r) else 0.0
 		bloom[r] = move_toward(float(bloom.get(r, 0.0)), target_b, delta * 2.6)
 	for d in lv.docks:
 		var occ := false
@@ -380,7 +386,7 @@ func _update_fps_cap() -> void:
 		return
 	var animating := phase != "" or dragging or selected >= 0 or (win_t >= 0.0 and win_t < 2.0) or shake_t > 0.0 or beam_reveal < 1.0
 	for r in bloom:
-		var target_b := 1.0 if shown_lit.has(r) else 0.0
+		var target_b := 1.0 if FunctionalSimulation.receiver_satisfied(lv, shown_lit_hue, r) else 0.0
 		if absf(float(bloom[r]) - target_b) > 0.001:
 			animating = true
 	Engine.max_fps = 60 if animating else 30
@@ -413,8 +419,8 @@ func _draw() -> void:
 				_draw_emitter(i)
 			Static.RECEIVER:
 				_draw_flower(i)
-	_draw_beams(old_beams, old_beam_alpha, 1.0)
-	_draw_beams(shown_beams, 1.0, beam_reveal)
+	_draw_beams(old_beams, old_beam_hues, old_beam_alpha, 1.0)
+	_draw_beams(shown_beams, shown_beam_hues, 1.0, beam_reveal)
 	for k in shown_shuttles.size():
 		_draw_cart(k)
 	if phase == "" and selected < 0 and (show_hotspots or reveal_t > 0.0):
@@ -528,14 +534,34 @@ func _draw_socket(i: int, r: Rect2, col: Color, m: int) -> void:
 
 
 ## A gap token: functional emptiness. Light = glowing ring, Motion = grooved square.
+func _token_color(m: int) -> Color:
+	if m == Mat.LIGHT_RED:
+		return Palette.RED_GLASS
+	if m == Mat.LIGHT_BLUE:
+		return Palette.BLUE_GLASS
+	if m == Mat.MOTION_GAP:
+		return Palette.MOTION
+	return Palette.LIGHT
+
+
 func _draw_token(c: Vector2, m: int, sc: float, alpha: float) -> void:
 	var r := cs * 0.3 * sc
-	if m == Mat.LIGHT_GAP:
-		draw_circle(c, r * 1.45, Color(Palette.LIGHT_GLOW, Palette.LIGHT_GLOW.a * alpha))
-		draw_circle(c, r, Color(Palette.LIGHT, 0.22 * alpha))
-		draw_arc(c, r, 0, TAU, 40, Color(Palette.LIGHT, alpha), maxf(2.0, cs * 0.06), true)
-		draw_arc(c, r * 0.62, -PI * 0.85, -PI * 0.35, 12, Color(Palette.LIGHT_CORE, 0.9 * alpha), maxf(1.5, cs * 0.035), true)
-		draw_circle(c, r * 0.16, Color(Palette.LIGHT_CORE, alpha))
+	if VoidProperty.family_of(m) == VoidProperty.Family.LIGHT:
+		var col := _token_color(m)
+		var core := Palette.LIGHT_CORE if m == Mat.LIGHT_GAP else (Palette.RED_CORE if m == Mat.LIGHT_RED else Palette.BLUE_CORE)
+		draw_circle(c, r * 1.45, Color(col, 0.22 * alpha))
+		draw_circle(c, r, Color(col, (0.22 if m == Mat.LIGHT_GAP else 0.45) * alpha))
+		draw_arc(c, r, 0, TAU, 40, Color(col, alpha), maxf(2.0, cs * 0.06), true)
+		draw_arc(c, r * 0.62, -PI * 0.85, -PI * 0.35, 12, Color(core, 0.9 * alpha), maxf(1.5, cs * 0.035), true)
+		# Shape marker so colour is never the only cue: dot (clear), triangle (red), square (blue).
+		if m == Mat.LIGHT_RED:
+			var t := r * 0.32
+			draw_colored_polygon(PackedVector2Array([c + Vector2(0, -t), c + Vector2(t * 0.9, t * 0.7), c + Vector2(-t * 0.9, t * 0.7)]), Color(core, alpha))
+		elif m == Mat.LIGHT_BLUE:
+			var q := r * 0.24
+			draw_rect(Rect2(c - Vector2(q, q), Vector2(q, q) * 2.0), Color(core, alpha))
+		else:
+			draw_circle(c, r * 0.16, Color(core, alpha))
 	elif m == Mat.MOTION_GAP:
 		var h := r * 0.95
 		var rr := Rect2(c - Vector2(h, h), Vector2(h, h) * 2.0)
@@ -599,23 +625,34 @@ func _draw_flower(i: int) -> void:
 	var be := ease(b, -2.0)
 	draw_line(c + Vector2(0, cs * 0.1), c + Vector2(0, cs * 0.42), Color("6fbf8a"), maxf(2.0, cs * 0.05), true)
 	draw_colored_polygon(PackedVector2Array([c + Vector2(0, cs * 0.3), c + Vector2(cs * 0.18, cs * 0.2), c + Vector2(cs * 0.04, cs * 0.36)]), Color("6fbf8a"))
+	var need: int = lv.receiver_hue.get(i, 0)
+	var on_col := Palette.FLOWER_ON if need == 0 else (Palette.RED_GLASS if need == 1 else Palette.BLUE_GLASS)
 	if be > 0.01:
-		draw_circle(c, cs * (0.5 + 0.05 * sin(time * 3.0)) * be, Color(Palette.FLOWER_ON, 0.16 * be))
-	var col := Palette.FLOWER_OFF.lerp(Palette.FLOWER_ON, be)
+		draw_circle(c, cs * (0.5 + 0.05 * sin(time * 3.0)) * be, Color(on_col, 0.16 * be))
+	var col := Palette.FLOWER_OFF.lerp(on_col, maxf(be, 0.45 if need != 0 else 0.0))
 	var petals := 6
 	for k in petals:
 		var ang := TAU * k / petals + time * 0.3 * be
 		var off := Vector2(cos(ang), sin(ang)) * cs * (0.06 + 0.15 * be)
 		draw_circle(c + off, cs * (0.1 + 0.06 * be), col)
 	draw_circle(c, cs * (0.08 + 0.04 * be), Palette.FLOWER_OFF.darkened(0.2).lerp(Palette.FLOWER_CENTER, be))
+	if need != 0:
+		# Coloured flowers wear their colour (and shape) even before blooming.
+		var mk := Palette.RED_GLASS if need == 1 else Palette.BLUE_GLASS
+		var rr := cs * 0.065
+		if need == 1:
+			draw_colored_polygon(PackedVector2Array([c + Vector2(0, -rr * 1.2), c + Vector2(rr, rr * 0.8), c + Vector2(-rr, rr * 0.8)]), mk)
+		else:
+			draw_rect(Rect2(c - Vector2(rr, rr) * 0.85, Vector2(rr, rr) * 1.7), mk)
 
 
-func _draw_beams(beams: Array, alpha: float, reveal: float) -> void:
+func _draw_beams(beams: Array, hues: Array, alpha: float, reveal: float) -> void:
 	if alpha <= 0.01:
 		return
 	var flick := 0.9 + 0.1 * sin(time * 9.0)
-	for pts in beams:
-		var p: PackedVector2Array = pts
+	for bi in beams.size():
+		var p: PackedVector2Array = beams[bi]
+		var hc: Array[Color] = Palette.hue_colors(int(hues[bi]) if bi < hues.size() else 0)
 		if p.size() < 2:
 			continue
 		var scr := PackedVector2Array()
@@ -624,10 +661,10 @@ func _draw_beams(beams: Array, alpha: float, reveal: float) -> void:
 		scr = _cut_polyline(scr, reveal)
 		if scr.size() < 2:
 			continue
-		draw_polyline(scr, Color(Palette.LIGHT, 0.13 * alpha * flick), cs * 0.42, true)
-		draw_polyline(scr, Color(Palette.LIGHT, 0.4 * alpha), cs * 0.16, true)
-		draw_polyline(scr, Color(Palette.LIGHT_CORE, 0.95 * alpha), maxf(2.0, cs * 0.05), true)
-		draw_circle(scr[scr.size() - 1], cs * 0.09, Color(Palette.LIGHT_CORE, 0.8 * alpha))
+		draw_polyline(scr, Color(hc[0], 0.13 * alpha * flick), cs * 0.42, true)
+		draw_polyline(scr, Color(hc[0], 0.4 * alpha), cs * 0.16, true)
+		draw_polyline(scr, Color(hc[1], 0.95 * alpha), maxf(2.0, cs * 0.05), true)
+		draw_circle(scr[scr.size() - 1], cs * 0.09, Color(hc[1], 0.8 * alpha))
 
 
 func _cut_polyline(p: PackedVector2Array, f: float) -> PackedVector2Array:
@@ -721,7 +758,7 @@ func _draw_selection() -> void:
 	if selected < 0:
 		return
 	var m := game.state.mat[selected]
-	var col := Palette.LIGHT if m == Mat.LIGHT_GAP else Palette.MOTION
+	var col := _token_color(m)
 	var pulse := 0.5 + 0.5 * sin(time * 6.0)
 	if show_destinations:
 		for d in dests:

@@ -4,14 +4,14 @@
  "name": "Borrowed Lens",
  "world": "lighthouse",
  "tutorial": "",
- "par": 3,
+ "par": 6,
  "rows": [
   ".. Ev .. .. .. ..",
-  ".. .. .. .. gL go",
-  ".. .. .. .. .. ..",
-  ".. qo qo qo .. ..",
-  ".. qo .. xo .. E<",
-  ".. .. .. xo .. ..",
-  ".. R. .. .. hL ho"
+  ".. .. .. ao .. ..",
+  ".. qo aL aL .. ..",
+  ".. qo qo .. .. ..",
+  ".. qo bo xo xo E<",
+  ".. .. bo xo .. ..",
+  ".. R. .. .. ho hL"
  ]
 }

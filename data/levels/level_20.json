@@ -4,12 +4,12 @@
  "name": "Greenhouse Heart",
  "world": "greenhouse",
  "tutorial": "",
- "par": 6,
+ "par": 8,
  "rows": [
-  ".. .. .. .. .. .. ..",
+  ".. .. .. ao .. .. ..",
   "E> s> .. ao .. .. D.",
   ".. .. bo ao .. .. ..",
-  "E> .. bo bo Sv .. R.",
+  "E> bo bo bo Sv .. R.",
   "hM ho .. .. co co ..",
   "gL go xo xo .. .. fL",
   ".. gL .. E^ D. .. fo"

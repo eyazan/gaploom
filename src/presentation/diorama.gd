@@ -48,6 +48,8 @@ func _draw() -> void:
 			_greenhouse(base, u)
 		"clocktower":
 			_clocktower(base, u)
+		"glassworks":
+			_glassworks(base, u)
 
 
 func _lighthouse(b: Vector2, u: float) -> void:
@@ -165,3 +167,32 @@ func _clocktower(b: Vector2, u: float) -> void:
 		draw_circle(gc, gr * 0.35, _col(3, Color("d9b69a")))
 	var bell := b + Vector2(0, top - u * 0.55)
 	draw_colored_polygon(PackedVector2Array([bell + Vector2(-u * 0.35, u * 0.3), bell + Vector2(u * 0.35, u * 0.3), bell + Vector2(u * 0.2, -u * 0.25), bell + Vector2(-u * 0.2, -u * 0.25)]), _col(3, Color("ffd27a")))
+
+
+
+func _glassworks(b: Vector2, u: float) -> void:
+	# 0 stone frame, 1 red panes, 2 blue panes, 3 golden rose, 4 light rays on the floor
+	var c := b + Vector2(0, -u * 3.6)
+	var r := u * 2.9
+	draw_circle(c, r + u * 0.35, _col(0, Color("c4b2e6")))
+	draw_circle(c, r, Color(0.08, 0.09, 0.16, 1))
+	for k in 8:
+		var a0 := TAU * k / 8.0
+		var a1 := TAU * (k + 1) / 8.0
+		var pts := PackedVector2Array([c])
+		for j in 7:
+			var a := lerpf(a0, a1, j / 6.0)
+			pts.append(c + Vector2(cos(a), sin(a)) * r * 0.95)
+		var part := 1 if k % 2 == 0 else 2
+		var colr := Color("ff6f7d") if part == 1 else Color("6fa8ff")
+		var shimmer := 0.85 + 0.15 * sin(_t * 1.5 + k) if _on(part) else 1.0
+		draw_colored_polygon(pts, _col(part, colr * shimmer))
+		draw_line(c, c + Vector2(cos(a0), sin(a0)) * r, _col(0, Color("c4b2e6")), 3.0)
+	draw_circle(c, r * 0.32, _col(3, Color("ffd27a")))
+	draw_arc(c, r * 0.32, 0, TAU, 24, _col(0, Color("c4b2e6")), 3.0, true)
+	if _on(4):
+		for k in 5:
+			var x := -u * 2.0 + k * u
+			var col := Color("ff6f7d") if k % 2 == 0 else Color("6fa8ff")
+			col.a = 0.18 + 0.06 * sin(_t * 2.0 + k)
+			draw_colored_polygon(PackedVector2Array([c + Vector2(x * 0.3, r * 0.6), c + Vector2(x * 0.3 + u * 0.3, r * 0.6), b + Vector2(x + u * 0.6, 0), b + Vector2(x, 0)]), col)

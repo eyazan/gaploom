@@ -4,12 +4,12 @@
  "name": "Clockwork Heart",
  "world": "clocktower",
  "tutorial": "",
- "par": 5,
+ "par": 6,
  "rows": [
-  ".. .. .. Ev .. hL ho",
-  ".. .. qo xo xo .. ..",
-  ".. .. qo sv .. .. ..",
-  "S> .. qo qo .. ro D.",
+  ".. .. .. Ev .. ho hL",
+  ".. .. .. xo xo .. ..",
+  ".. .. qo sv ao .. ..",
+  "S> .. qo qo ao ro D.",
   ".. .. .. .. .. ro ..",
   "E> zo .. .. .. .. R.",
   ".. zo .. .. gM gM go"

@@ -59,7 +59,7 @@ static func validate(lv: LevelDefinition, st: BoardState, sim: Dictionary, src: 
 static func gap_cells(st: BoardState) -> PackedInt32Array:
 	var out := PackedInt32Array()
 	for i in st.mat.size():
-		if st.mat[i] == Mat.LIGHT_GAP or st.mat[i] == Mat.MOTION_GAP:
+		if VoidProperty.family_of(st.mat[i]) >= 0:
 			out.append(i)
 	return out
 

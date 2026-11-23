@@ -41,6 +41,12 @@ const PAGES := [
 		".. .. qo .. .. ..",
 		".. .. qo .. .. gL",
 		".. .. .. .. gL go"]},
+	{"title": "HOW_T7", "text": "HOW_7", "rows": [
+		"E> .. ao .. .. Rr",
+		".. .. ao .. .. ..",
+		"E> .. co .. .. Rb",
+		".. .. co .. .. ..",
+		".. gb go gr .. .."]},
 ]
 
 var page := 0

@@ -15,12 +15,15 @@ const Static = LevelDefinition.Static
 ##  beams:     Array[PackedVector2Array] polyline points in cell units (cell centers at integer coords)
 static func trace_light(lv: LevelDefinition, st: BoardState) -> Dictionary:
 	var lit: Dictionary = {}
+	var lit_hue: Dictionary = {}   # cell -> bitmask of hues that reached it (1 << Hue)
 	var frontier: Dictionary = {}
 	var passed: Dictionary = {}
 	var beams: Array = []
+	var beam_hues: Array[int] = []
 	for e in lv.emitters:
 		var d: Vector2i = lv.emitter_dir[e]
 		var p := lv.pos(e)
+		var hue := 0
 		var pts := PackedVector2Array([Vector2(p)])
 		var seen: Dictionary = {}
 		while true:
@@ -29,7 +32,7 @@ static func trace_light(lv: LevelDefinition, st: BoardState) -> Dictionary:
 				pts.append(Vector2(p) + Vector2(d) * 0.5)
 				break
 			var i := lv.idx_v(np)
-			var guard := i * 4 + Dir.index_of(d)
+			var guard := (i * 4 + Dir.index_of(d)) * 3 + hue
 			if seen.has(guard):
 				pts.append(Vector2(np))
 				break
@@ -37,6 +40,7 @@ static func trace_light(lv: LevelDefinition, st: BoardState) -> Dictionary:
 			p = np
 			if st.shuttle_at(i) >= 0:
 				lit[i] = true
+				lit_hue[i] = int(lit_hue.get(i, 0)) | (1 << hue)
 				pts.append(Vector2(np) - Vector2(d) * 0.3)
 				break
 			var s := lv.static_cells[i]
@@ -45,6 +49,7 @@ static func trace_light(lv: LevelDefinition, st: BoardState) -> Dictionary:
 				break
 			if s == Static.RECEIVER:
 				lit[i] = true
+				lit_hue[i] = int(lit_hue.get(i, 0)) | (1 << hue)
 				pts.append(Vector2(np) - Vector2(d) * 0.15)
 				break
 			if s == Static.MIRROR_SLASH:
@@ -64,8 +69,31 @@ static func trace_light(lv: LevelDefinition, st: BoardState) -> Dictionary:
 			if m == Mat.MOTION_GAP:
 				pts.append(Vector2(np) - Vector2(d) * 0.5)
 				break
+			var nh := VoidProperty.filter_hue(m, hue)
+			if nh < 0:
+				# Tinted glass of the other hue: the beam stops at its face.
+				pts.append(Vector2(np) - Vector2(d) * 0.5)
+				break
+			if nh != hue:
+				# Hue changes inside tinted glass: close this coloured segment, start a new one.
+				pts.append(Vector2(np))
+				beams.append(pts)
+				beam_hues.append(hue)
+				pts = PackedVector2Array([Vector2(np)])
+				hue = nh
 		beams.append(pts)
-	return {"lit": lit, "frontier": frontier, "beams": beams, "passed": passed}
+		beam_hues.append(hue)
+	return {"lit": lit, "lit_hue": lit_hue, "frontier": frontier, "beams": beams, "beam_hues": beam_hues, "passed": passed}
+
+
+## A flower is satisfied by any light if it is white, otherwise only by light of its own hue.
+static func receiver_satisfied(lv: LevelDefinition, lit_hue: Dictionary, cell: int) -> bool:
+	if not lit_hue.has(cell):
+		return false
+	var need: int = lv.receiver_hue.get(cell, 0)
+	if need == 0:
+		return true
+	return (int(lit_hue[cell]) & (1 << need)) != 0
 
 
 static func can_enter(lv: LevelDefinition, st: BoardState, cell: int) -> bool:
@@ -141,6 +169,8 @@ static func evaluate(lv: LevelDefinition, st: BoardState) -> Dictionary:
 			motion_reach[bi] = true
 			bp -= (lv.shuttles[k].dir as Vector2i)
 	return {
+		"lit_hue": light.lit_hue,
+		"beam_hues": light.beam_hues,
 		"light_passed": light.passed,
 		"motion_reach": motion_reach,
 		"lit": light.lit,

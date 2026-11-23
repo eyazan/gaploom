@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_29",
+ "name": "Rose Window",
+ "world": "glassworks",
+ "tutorial": "",
+ "par": 6,
+ "rows": [
+  "db do .. bL .. ..",
+  "E> .. ao bo bo Rr",
+  ".. .. ab .. .. ..",
+  ".. .. .. eL .. ..",
+  "E> .. co eo .. Rb",
+  ".. cL .. .. .. ..",
+  ".. gr go .. .. .."
+ ]
+}

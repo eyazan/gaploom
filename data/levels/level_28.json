@@ -1,0 +1,15 @@
+{
+ "format": 1,
+ "id": "level_28",
+ "name": "Two Lanterns",
+ "world": "glassworks",
+ "tutorial": "",
+ "par": 6,
+ "rows": [
+  "E> .. ar ao .. Rr",
+  ".. bL ab .. .. ..",
+  "E> bo co .. do Rb",
+  ".. .. co .. .. dL",
+  ".. go gb gr .. .."
+ ]
+}

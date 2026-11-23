@@ -8,11 +8,15 @@ extends RefCounted
 ##   E>  light emitter (dir)   R.  light receiver (bloom)
 ##   D.  shuttle dock          S>  shuttle (dir)     s>  solar shuttle (moves only while lit)
 ##   ao  object 'a' solid      aL  object 'a' light gap     aM  object 'a' motion gap
+##   ar  object 'a' red glass   ab  object 'a' blue glass    Rr / Rb  red / blue flower
 
 enum Static { EMPTY, WALL, MIRROR_SLASH, MIRROR_BACKSLASH, EMITTER, RECEIVER, DOCK }
-enum Mat { NONE, SOLID, LIGHT_GAP, MOTION_GAP }
+enum Mat { NONE, SOLID, LIGHT_GAP, MOTION_GAP, LIGHT_RED, LIGHT_BLUE }
+enum Hue { WHITE, RED, BLUE }
 
 const FORMAT_VERSION := 1
+const MAT_CODES := {"o": Mat.SOLID, "L": Mat.LIGHT_GAP, "M": Mat.MOTION_GAP, "r": Mat.LIGHT_RED, "b": Mat.LIGHT_BLUE}
+const MAT_CHARS := {Mat.SOLID: "o", Mat.LIGHT_GAP: "L", Mat.MOTION_GAP: "M", Mat.LIGHT_RED: "r", Mat.LIGHT_BLUE: "b"}
 
 var id := ""
 var name := ""
@@ -27,6 +31,7 @@ var static_cells := PackedInt32Array()
 var emitter_dir: Dictionary = {}          # cell -> Vector2i
 var emitters := PackedInt32Array()        # deterministic order
 var receivers := PackedInt32Array()
+var receiver_hue: Dictionary = {}         # cell -> Hue (WHITE = any colour)
 var docks := PackedInt32Array()
 var object_of := PackedInt32Array()       # cell -> object id or -1
 var object_letters: Array[String] = []
@@ -125,16 +130,17 @@ static func from_dict(d: Dictionary) -> LevelDefinition:
 				lv.static_cells[i] = Static.EMITTER
 				lv.emitter_dir[i] = Dir.from_char(c1)
 				lv.emitters.append(i)
-			elif t == "R.":
+			elif t == "R." or t == "Rr" or t == "Rb":
 				lv.static_cells[i] = Static.RECEIVER
 				lv.receivers.append(i)
+				lv.receiver_hue[i] = Hue.WHITE if c1 == "." else (Hue.RED if c1 == "r" else Hue.BLUE)
 			elif t == "D.":
 				lv.static_cells[i] = Static.DOCK
 				lv.docks.append(i)
 			elif (c0 == "S" or c0 == "s") and Dir.from_char(c1) != Vector2i.ZERO:
 				lv.static_cells[i] = Static.EMPTY
 				lv.shuttles.append({"start": i, "dir": Dir.from_char(c1), "solar": c0 == "s"})
-			elif c0 >= "a" and c0 <= "z" and (c1 == "o" or c1 == "L" or c1 == "M"):
+			elif c0 >= "a" and c0 <= "z" and c1 in ["o", "L", "M", "r", "b"]:
 				lv.static_cells[i] = Static.EMPTY
 				if not letter_to_obj.has(c0):
 					letter_to_obj[c0] = lv.object_letters.size()
@@ -143,7 +149,7 @@ static func from_dict(d: Dictionary) -> LevelDefinition:
 				var o: int = letter_to_obj[c0]
 				lv.object_of[i] = o
 				lv.object_cells[o].append(i)
-				lv.initial_mat[i] = Mat.SOLID if c1 == "o" else (Mat.LIGHT_GAP if c1 == "L" else Mat.MOTION_GAP)
+				lv.initial_mat[i] = MAT_CODES[c1]
 			else:
 				lv.error = "unknown token '%s' at %d,%d" % [t, x, y]
 				return lv
@@ -168,7 +174,7 @@ func gap_totals(mat: PackedByteArray) -> Vector2i:
 	var l := 0
 	var m := 0
 	for v in mat:
-		if v == Mat.LIGHT_GAP:
+		if v == Mat.LIGHT_GAP or v == Mat.LIGHT_RED or v == Mat.LIGHT_BLUE:
 			l += 1
 		elif v == Mat.MOTION_GAP:
 			m += 1
@@ -188,7 +194,7 @@ func to_dict() -> Dictionary:
 			var t := ".."
 			if object_of[i] >= 0:
 				var m := initial_mat[i]
-				t = object_letters[object_of[i]] + ("o" if m == Mat.SOLID else ("L" if m == Mat.LIGHT_GAP else "M"))
+				t = object_letters[object_of[i]] + str(MAT_CHARS[m])
 			elif shuttle_at.has(i):
 				var s: Dictionary = shuttle_at[i]
 				t = ("s" if s.solar else "S") + Dir.to_char(s.dir)
@@ -203,7 +209,7 @@ func to_dict() -> Dictionary:
 					Static.EMITTER:
 						t = "E" + Dir.to_char(emitter_dir[i])
 					Static.RECEIVER:
-						t = "R."
+						t = "R" + [".", "r", "b"][int(receiver_hue.get(i, Hue.WHITE))]
 					Static.DOCK:
 						t = "D."
 			toks.append(t)

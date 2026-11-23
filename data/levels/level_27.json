@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_27",
+ "name": "Rose Scaffold",
+ "world": "glassworks",
+ "tutorial": "",
+ "par": 4,
+ "rows": [
+  ".. .. .. Ev .. ..",
+  ".. .. .. xo xo ..",
+  ".. .. .. ao ao ..",
+  "E> .. qo qo .. Rr",
+  ".. .. qo .. .. ..",
+  ".. .. .. .. .. go",
+  ".. .. .. .. gL gr"
+ ]
+}

@@ -4,14 +4,14 @@
  "name": "Long Way Round",
  "world": "lighthouse",
  "tutorial": "",
- "par": 3,
+ "par": 7,
  "rows": [
-  ".. .. .. .. xo Ev",
-  ".. .. .. /. xo /.",
-  ".. .. .. .. .. ..",
+  ".. .. .. .. .. Ev",
+  ".. .. .. /. ao /.",
+  ".. bL .. ao ao ..",
+  ".. bo co co .. ..",
   ".. .. qo .. .. ..",
-  ".. .. qo .. .. ..",
-  "E> .. qo qo .. R.",
-  "gL go .. .. ho hL"
+  "E> qL qo qo ho R.",
+  "go gL .. .. .. hL"
  ]
 }

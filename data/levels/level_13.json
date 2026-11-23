@@ -4,11 +4,11 @@
  "name": "Close Quarters",
  "world": "railway",
  "tutorial": "",
- "par": 2,
+ "par": 4,
  "rows": [
-  ".. .. ao bo .. ..",
-  "S> .. ao bo .. D.",
-  ".. .. .. .. .. ..",
-  ".. cM co cM .. .."
+  ".. dM .. .. .. ..",
+  "S> do bo bM bM D.",
+  ".. do .. .. .. ..",
+  ".. .. .. .. .. .."
  ]
 }

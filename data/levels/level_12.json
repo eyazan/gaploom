@@ -4,11 +4,11 @@
  "name": "Recycled Groove",
  "world": "railway",
  "tutorial": "tut_recycle",
- "par": 2,
+ "par": 5,
  "rows": [
-  ".. .. ao .. .. bo .. ..",
-  "S> .. ao .. .. bo .. D.",
-  ".. .. .. .. .. .. .. ..",
-  ".. cM co .. .. .. .. .."
+  ".. .. aM .. .. .. bM ..",
+  "S> .. ao ao fo bo bo D.",
+  ".. .. .. .. fo .. .. ..",
+  ".. .. .. .. .. .. .. .."
  ]
 }

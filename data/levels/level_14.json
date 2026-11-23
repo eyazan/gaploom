@@ -4,14 +4,14 @@
  "name": "Work Cart",
  "world": "railway",
  "tutorial": "tut_workcart",
- "par": 3,
+ "par": 7,
  "rows": [
   ".. .. .. Sv .. ..",
   ".. .. .. xo xo ..",
-  ".. .. .. .. .. ..",
-  "S> .. qo qo .. D.",
-  ".. .. qo .. .. ..",
-  "gM go qo .. .. ..",
-  ".. hM ho .. .. .."
+  ".. .. .. ao ao ..",
+  "S> .. qo qo cM D.",
+  ".. .. qo co .. ..",
+  "go gM .. do do ..",
+  ".. .. ho hM .. .."
  ]
 }

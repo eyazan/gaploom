@@ -44,6 +44,7 @@ func _run_all() -> void:
 	var t0 := Time.get_ticks_msec()
 	test_parsing()
 	test_light_rules()
+	test_tinted_glass()
 	test_motion_rules()
 	test_transfer_validity()
 	test_conservation_random()
@@ -58,6 +59,7 @@ func _run_all() -> void:
 	test_input_adapter()
 	await test_board_view()
 	test_feedback_and_assist()
+	await test_music()
 	test_performance()
 	var elapsed := Time.get_ticks_msec() - t0
 	var out := {
@@ -681,3 +683,72 @@ func test_feedback_and_assist() -> void:
 	bad._apply({"settings": {"assist": "banana"}})
 	check(str(bad.settings.assist) == "auto", "unknown assist value falls back to auto")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+
+
+
+func test_tinted_glass() -> void:
+	begin("tinted_glass")
+	var lv := LevelDefinition.from_dict({"rows": [
+		"E> .. ao .. Rr",
+		".. .. ao .. ..",
+		"E> .. co .. Rb",
+		".. .. co .. ..",
+		".. gr go gb ..",
+	]})
+	check(lv.error.is_empty(), "red/blue glass and coloured flowers parse (%s)" % lv.error)
+	check(lv.receiver_hue[lv.idx(4, 0)] == LevelDefinition.Hue.RED and lv.receiver_hue[lv.idx(4, 2)] == LevelDefinition.Hue.BLUE, "flower hues read")
+	var rt := LevelDefinition.from_dict(lv.to_dict())
+	check(rt.to_dict().rows == lv.to_dict().rows, "tinted tokens round-trip")
+	check(lv.mirrored().canonical_key() == lv.canonical_key(), "mirror canonical key with colours")
+	var g := PuzzleGame.new(lv)
+	check(g.conserved == Vector2i(2, 0), "tinted glass counts as light gaps")
+	# Blue glass into the red flower's beam: beam turns blue, red flower stays shut.
+	check(g.try_transfer(lv.idx(3, 4), lv.idx(2, 0)).ok, "blue glass placed on a light frontier")
+	check(not FunctionalSimulation.receiver_satisfied(lv, g.sim.lit_hue, lv.idx(4, 0)), "blue light does not open a red flower")
+	check(g.sim.lit.has(lv.idx(4, 0)), "the flower is still hit by (blue) light")
+	g.undo()
+	check(g.try_transfer(lv.idx(1, 4), lv.idx(2, 0)).ok and g.try_transfer(lv.idx(3, 4), lv.idx(2, 2)).ok, "red and blue placed")
+	check(g.is_solved(), "red flower by red light, blue flower by blue light")
+	var hues: Array = g.sim.beam_hues
+	check(hues.has(LevelDefinition.Hue.RED) and hues.has(LevelDefinition.Hue.BLUE), "beam segments carry their hues")
+	# Other-hue glass blocks the beam and is not a frontier.
+	var blk := LevelDefinition.from_dict({"rows": [
+		"E> ar .. bb .. R.",
+		".. ao .. bo .. ..",
+	]})
+	var gb := PuzzleGame.new(blk)
+	check(not gb.sim.lit.has(blk.idx(5, 0)), "red light is stopped by blue glass")
+	check(gb.sim.frontier_light.is_empty(), "blocking glass is not a placement frontier")
+	check(VoidProperty.filter_hue(LevelDefinition.Mat.LIGHT_GAP, 1) == 1, "clear glass keeps hue")
+	check(VoidProperty.filter_hue(LevelDefinition.Mat.LIGHT_RED, 0) == 1, "red glass tints white light")
+	check(VoidProperty.filter_hue(LevelDefinition.Mat.LIGHT_RED, 2) == -1, "red glass blocks blue light")
+	var r := PuzzleSolver.solve(lv)
+	check(r.status == PuzzleSolver.STATUS_SOLVED and r.min_moves == 2, "solver handles colours (min=%d)" % r.min_moves)
+
+
+
+func test_music() -> void:
+	begin("music")
+	var m := Music.new()
+	root.add_child(m)
+	for w in LevelCatalog.WORLDS:
+		var st := m._stream(str(w.id))
+		check(st != null, "track exists for world %s" % w.id)
+		if st == null:
+			continue
+		var len_s := st.get_length()
+		check(len_s > 15.0 and len_s < 40.0, "%s loop length %.1fs is sane" % [w.id, len_s])
+		if st is AudioStreamWAV:
+			check((st as AudioStreamWAV).loop_mode == AudioStreamWAV.LOOP_FORWARD, "%s loops" % w.id)
+	m.play("lighthouse")
+	await process_frame
+	check(m.is_playing() and m.current == "lighthouse", "music starts")
+	m.play("railway")
+	await create_timer(1.5).timeout
+	check(m.current == "railway" and m.is_playing(), "crossfades to the next world")
+	m.set_enabled(false)
+	check(not m.is_playing(), "disabling stops music")
+	m.set_enabled(true)
+	await process_frame
+	check(m.is_playing() and m.current == "railway", "re-enabling resumes the current world")
+	m.queue_free()

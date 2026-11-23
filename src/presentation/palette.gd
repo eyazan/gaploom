@@ -17,6 +17,19 @@ const LIGHT := Color("ffd27a")
 const LIGHT_CORE := Color("fff6dc")
 const LIGHT_GLOW := Color(1.0, 0.78, 0.35, 0.22)
 const MOTION := Color("5fe0c8")
+const RED_GLASS := Color("ff6f7d")
+const BLUE_GLASS := Color("6fa8ff")
+const RED_CORE := Color("ffd9dd")
+const BLUE_CORE := Color("dbe9ff")
+
+
+## Beam colours per hue (WHITE, RED, BLUE): [glow, core].
+static func hue_colors(hue: int) -> Array[Color]:
+	if hue == 1:
+		return [RED_GLASS, RED_CORE]
+	if hue == 2:
+		return [BLUE_GLASS, BLUE_CORE]
+	return [LIGHT, LIGHT_CORE]
 const MOTION_DARK := Color("2a8f80")
 
 const FLOWER_OFF := Color("6e6688")

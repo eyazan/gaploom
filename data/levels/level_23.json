@@ -4,15 +4,15 @@
  "name": "Twin Bridges",
  "world": "clocktower",
  "tutorial": "",
- "par": 6,
+ "par": 8,
  "rows": [
   ".. Ev .. .. .. .. ..",
   ".. .. .. .. .. .. ..",
   "qo qo .. .. .. .. ..",
-  ".. qo .. .. xo .. E<",
-  ".. .. .. .. xo .. ..",
-  ".. po po .. yo .. ..",
-  ".. po .. .. yo .. E<",
+  ".. qo qo ao xo xo E<",
+  ".. .. .. ao xo .. ..",
+  ".. po pL .. .. .. ..",
+  ".. po .. .. .. ## E<",
   ".. R. gL gL gL gL go"
  ]
 }

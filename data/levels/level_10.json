@@ -4,15 +4,15 @@
  "name": "Keeper's Lamp",
  "world": "lighthouse",
  "tutorial": "",
- "par": 4,
+ "par": 6,
  "rows": [
   ".. .. Ev .. .. ..",
-  ".. .. xo xo .. ..",
-  ".. .. .. .. .. ..",
+  ".. xL xo xo .. ..",
+  ".. .. ao ao .. ..",
   "E> qo qo .. .. \\.",
   ".. qo .. .. .. ..",
-  ".. qo .. .. ko ..",
-  "R. .. .. .. ko /.",
-  "gL go gL .. hL ho"
+  ".. .. .. .. ko ..",
+  "R. .. go .. kL /.",
+  "gL gL .. .. ho hL"
  ]
 }
