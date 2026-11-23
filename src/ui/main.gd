@@ -35,6 +35,8 @@ var btn_help: IconButton
 var howto: HowTo
 var tip_tween: Tween
 var win_pending := false
+var hints_used := 0
+var hint_key := ""
 
 
 func _ready() -> void:
@@ -278,6 +280,7 @@ func _rebuild_select() -> void:
 			var lb := LevelButton.new()
 			lb.number = n
 			lb.stars = save.stars("level_%02d" % n)
+			lb.perfect = save.is_perfect("level_%02d" % n)
 			lb.locked = not _unlocked(n)
 			lb.disabled = lb.locked
 			var nn := n
@@ -448,6 +451,8 @@ func start_level(n: int) -> void:
 		push_error("level %d invalid: %s" % [n, lv.error])
 		return
 	current = n
+	hints_used = 0
+	hint_key = ""
 	music.play(str(LevelCatalog.world_of(n).id))
 	game = PuzzleGame.new(lv)
 	board.setup(game)
@@ -505,7 +510,7 @@ func _on_board_settled() -> void:
 		board.interactive = false
 		board.win_t = 0.0
 		Sfx.play("win")
-		var stars := save.record(game.level.id, game.moves, game.level.par)
+		var stars := save.record(game.level.id, game.moves, game.level.par, hints_used == 0)
 		save.save()
 		var t := create_tween()
 		t.tween_interval(0.9)
@@ -522,7 +527,10 @@ func _show_overlay(stars: int) -> void:
 	dio.restored = flags
 	dio.highlight = current - w.first
 	(overlay.get_node("V/Stars") as StarRow).stars = stars
-	(overlay.get_node("V/Info") as Label).text = "%s %d   ·   par %d" % [tr("LBL_MOVES"), game.moves, game.level.par]
+	var info := "%s %d   ·   par %d" % [tr("LBL_MOVES"), game.moves, game.level.par]
+	if hints_used == 0 and game.moves <= game.level.par:
+		info += "\n" + tr("LBL_PERFECT")
+	(overlay.get_node("V/Info") as Label).text = info
 	overlay.visible = true
 	_layout()
 	var target_y := overlay.position.y
@@ -571,7 +579,17 @@ func _on_hint() -> void:
 	if mv.x < 0:
 		_show_tip(tr("MSG_STUCK"), true)
 		return
-	board.hint_move = mv
+	hints_used += 1
+	# Two stages per position: first only which gap to use, then where it goes.
+	var key := game.state.key()
+	if hint_key != key:
+		hint_key = key
+		board.hint_src = mv.x
+		board.hint_move = Vector2i(-1, -1)
+		_show_tip(tr("HINT_STAGE1"), true)
+	else:
+		board.hint_src = -1
+		board.hint_move = mv
 
 
 func _on_rejected(reason: String) -> void:

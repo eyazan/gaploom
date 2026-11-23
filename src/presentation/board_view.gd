@@ -73,6 +73,8 @@ var shake_t := 0.0
 var reject_cell := -1
 var reject_reason := ""
 var hint_move := Vector2i(-1, -1)
+## Stage-1 hint: only the gap to start with is marked (no destination).
+var hint_src := -1
 var win_t := -1.0
 
 var _sb := StyleBoxFlat.new()
@@ -265,6 +267,7 @@ func _transfer(src: int, dst: int) -> void:
 		rejected.emit(res.reason)
 		return
 	hint_move = Vector2i(-1, -1)
+	hint_src = -1
 	fly_src = src
 	fly_dst = dst
 	fly_mat = shown_mat[src]
@@ -434,6 +437,8 @@ func _draw() -> void:
 		var b := cell_center(fly_dst)
 		var lift := Vector2(0, -cs * 0.6 * sin(e * PI))
 		_draw_token(a.lerp(b, e) + lift, fly_mat, 1.15, 1.0)
+	if hint_src >= 0 and hint_move.x < 0 and phase == "" and selected != hint_src:
+		_draw_hint_source()
 	if hint_move.x >= 0 and phase == "" and selected < 0:
 		_draw_hint()
 	if win_t >= 0.0:
@@ -825,3 +830,13 @@ func _draw_rejection() -> void:
 		_rounded(rr, Color(Palette.DANGER, 0.32 * a), cs * 0.16, Color(Palette.DANGER, 0.9 * a), maxi(2, int(cs * 0.05)))
 		var p0 := rr.position + Vector2(rr.size.x * 0.2, 0)
 		draw_polyline(PackedVector2Array([p0, p0 + Vector2(rr.size.x * 0.25, rr.size.y * 0.35), p0 + Vector2(rr.size.x * 0.1, rr.size.y * 0.6), p0 + Vector2(rr.size.x * 0.4, rr.size.y)]), Color(Palette.BG_TOP, 0.9 * a), maxf(2.0, cs * 0.04), true)
+
+
+
+func _draw_hint_source() -> void:
+	var c := cell_center(hint_src)
+	var pulse := 0.5 + 0.5 * sin(time * 5.0)
+	draw_arc(c, cs * (0.48 + 0.06 * pulse), 0, TAU, 40, Color(1, 1, 1, 0.55 + 0.35 * pulse), maxf(3.0, cs * 0.05), true)
+	for k in 8:
+		var a := TAU * k / 8.0 + time * 0.8
+		draw_circle(c + Vector2(cos(a), sin(a)) * cs * 0.62, cs * 0.035, Color(1, 1, 1, 0.5))

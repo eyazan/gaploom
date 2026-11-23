@@ -60,6 +60,7 @@ func _run_all() -> void:
 	await test_board_view()
 	test_feedback_and_assist()
 	await test_music()
+	await test_staged_hints()
 	test_performance()
 	var elapsed := Time.get_ticks_msec() - t0
 	var out := {
@@ -752,3 +753,36 @@ func test_music() -> void:
 	await process_frame
 	check(m.is_playing() and m.current == "railway", "re-enabling resumes the current world")
 	m.queue_free()
+
+
+
+func test_staged_hints() -> void:
+	begin("staged_hints")
+	var main: Control = load("res://scenes/main.tscn").instantiate()
+	root.add_child(main)
+	await process_frame
+	main.start_level(7)
+	await process_frame
+	var b: BoardView = main.board
+	var expected := PuzzleSolver.hint(main.game.level, main.game.state)
+	main._on_hint()
+	check(b.hint_src == expected.x and b.hint_move.x < 0, "first hint only marks the gap to use")
+	main._on_hint()
+	check(b.hint_src < 0 and b.hint_move == expected, "second hint shows the whole move")
+	check(main.hints_used == 2, "hint uses are counted")
+	b.request_transfer(expected.x, expected.y)
+	b.finish_animation()
+	check(b.hint_src < 0 and b.hint_move.x < 0, "making a move clears the hint")
+	main._on_hint()
+	check(b.hint_src >= 0 and b.hint_move.x < 0, "a new position starts again at stage 1")
+	main.queue_free()
+	var sg := SaveGame.new()
+	sg.path = "user://test_perfect.json"
+	sg.record("level_07", 3, 3, true)
+	check(sg.is_perfect("level_07"), "par without hints is perfect")
+	sg.record("level_08", 7, 7, false)
+	check(not sg.is_perfect("level_08"), "using a hint is not perfect")
+	sg.record("level_09", 9, 6, true)
+	check(not sg.is_perfect("level_09") and sg.stars("level_09") == 1, "over par is not perfect")
+	sg.record("level_07", 9, 3, false)
+	check(sg.is_perfect("level_07"), "a later worse run never removes perfect")

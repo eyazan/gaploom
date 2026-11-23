@@ -50,7 +50,7 @@ func _apply(d: Dictionary) -> void:
 		for k in lv:
 			var e: Variant = lv[k]
 			if typeof(e) == TYPE_DICTIONARY:
-				levels[str(k)] = {"done": bool(e.get("done", false)), "best": int(e.get("best", 0)), "stars": clampi(int(e.get("stars", 0)), 0, 3)}
+				levels[str(k)] = {"done": bool(e.get("done", false)), "best": int(e.get("best", 0)), "stars": clampi(int(e.get("stars", 0)), 0, 3), "perfect": bool(e.get("perfect", false))}
 	var st: Variant = d.get("settings", {})
 	if typeof(st) == TYPE_DICTIONARY:
 		settings["sfx"] = bool(st.get("sfx", true))
@@ -84,12 +84,18 @@ func stars(id: String) -> int:
 	return int(levels.get(id, {}).get("stars", 0))
 
 
-func record(id: String, moves: int, par: int) -> int:
+func record(id: String, moves: int, par: int, no_hints: bool = true) -> int:
 	var s := star_rating(moves, par)
-	var prev: Dictionary = levels.get(id, {"done": false, "best": 0, "stars": 0})
+	var prev: Dictionary = levels.get(id, {"done": false, "best": 0, "stars": 0, "perfect": false})
 	var best := moves if (int(prev.best) == 0 or moves < int(prev.best)) else int(prev.best)
-	levels[id] = {"done": true, "best": best, "stars": maxi(s, int(prev.stars))}
+	var perfect := bool(prev.get("perfect", false)) or (no_hints and par > 0 and moves <= par)
+	levels[id] = {"done": true, "best": best, "stars": maxi(s, int(prev.stars)), "perfect": perfect}
 	return s
+
+
+## Perfect = solved at par without any hint.
+func is_perfect(id: String) -> bool:
+	return bool(levels.get(id, {}).get("perfect", false))
 
 
 static func star_rating(moves: int, par: int) -> int:
