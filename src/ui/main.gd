@@ -76,11 +76,13 @@ func _ready() -> void:
 func _build_theme() -> void:
 	theme_res = Theme.new()
 	theme_res.default_font_size = 30
-	var base_font := ThemeDB.fallback_font
+	Fonts.install()
+	theme_res.default_font = Fonts.ui if Fonts.ui != null else ThemeDB.fallback_font
+	var base_font: Font = Fonts.title if Fonts.title != null else ThemeDB.fallback_font
 	title_font = FontVariation.new()
 	title_font.base_font = base_font
 	title_font.spacing_glyph = 10
-	title_font.variation_embolden = 0.9
+	title_font.variation_embolden = 0.0 if Fonts.title != null else 0.9
 	theme_res.set_color("font_color", "Label", Palette.TEXT)
 	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
 		var sb := StyleBoxFlat.new()
