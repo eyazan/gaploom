@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_31",
+ "name": "Shunting Yard",
+ "world": "observatory",
+ "tutorial": "",
+ "par": 6,
+ "rows": [
+  ".. .. .. Sv .. .. ..",
+  "bo .. .. xo xo .. ..",
+  "bL .. qo ao ao .. ..",
+  "S> .. qo qo ao .. D.",
+  ".. .. .. wo wo .. ..",
+  ".. .. .. .. .. .. ..",
+  "gM gM go .. .. .. .."
+ ]
+}

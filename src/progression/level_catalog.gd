@@ -3,7 +3,7 @@ extends RefCounted
 ## Ordered list of handcrafted levels and their worlds.
 
 const LEVEL_DIR := "res://data/levels/"
-const COUNT := 29
+const COUNT := 37
 
 const WORLDS := [
 	{"id": "lighthouse", "first": 1, "last": 10},
@@ -11,6 +11,7 @@ const WORLDS := [
 	{"id": "greenhouse", "first": 16, "last": 20},
 	{"id": "clocktower", "first": 21, "last": 24},
 	{"id": "glassworks", "first": 25, "last": 29},
+	{"id": "observatory", "first": 30, "last": 37},
 ]
 
 

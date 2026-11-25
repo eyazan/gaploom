@@ -258,3 +258,85 @@ E> .. co eo .. Rb
 .. cL .. .. .. ..
 .. gr go .. .. ..
 """)
+
+L(30, "Far Lens", "observatory", "", """
+.. .. .. Ev .. ..
+.. .. xo xo xL ..
+.. .. .. .. .. ..
+/. .. .. qo qo E<
+.. .. .. .. qo ..
+.. kL bo .. .. ..
+\\. ko bL go .. R.
+.. .. .. .. gL gL
+""")
+
+L(31, "Shunting Yard", "observatory", "", """
+.. .. .. Sv .. .. ..
+bo .. .. xo xo .. ..
+bL .. qo ao ao .. ..
+S> .. qo qo ao .. D.
+.. .. .. wo wo .. ..
+.. .. .. .. .. .. ..
+gM gM go .. .. .. ..
+""")
+
+L(32, "Night Shift", "observatory", "", """
+.. .. .. Sv .. ..
+.. .. .. xo xo ..
+.. .. .. ao ao ..
+S> .. qo qo cM D.
+.. .. qo co .. ..
+go gM .. do do ..
+.. .. hM ho .. ..
+""")
+
+L(33, "Twin Telescopes", "observatory", "", """
+.. .. .. .. .. Ev ..
+.. .. .. .. .. .. ..
+.. .. .. .. .. qo qo
+E> xo xo .. qo qo ..
+.. .. xo .. .. .. ..
+.. .. .. .. pL bo bo
+E> .. .. .. ## po ..
+go gL gL gL gL R. ..
+""")
+
+L(34, "Nebula", "observatory", "", """
+db do .. bL .. ..
+E> ao ao bo bb Rr
+.. ao ab .. fL ..
+.. .. .. eL fo ..
+E> .. cL eo eo Rb
+.. co .. .. .. ..
+.. gr go .. .. ..
+""")
+
+L(35, "Red Giant", "observatory", "", """
+.. bb .. .. do db
+Rr bb bo ao .. E<
+.. .. .. ab .. ..
+.. .. eL .. .. ..
+Rb .. eo co co E<
+.. .. fL fo cL ..
+.. .. .. go gr ..
+""")
+
+L(36, "Eclipse", "observatory", "", """
+.. .. .. ao .. .. ..
+D. .. .. ao .. s< E<
+.. .. .. ao bM .. ..
+R. .. Sv bo bo bo E<
+.. co co .. .. ho hM
+fL .. .. xo xo gL go
+fo .. D. E^ .. gL ..
+""")
+
+L(37, "Constellation", "observatory", "", """
+fo .. bL Sv .. ..
+fL .. bo bo .. ..
+.. .. .. .. .. ..
+R. eo ao ao ao E<
+.. eL aL .. .. ..
+D. eL .. .. gL S<
+.. hM ho D. go ..
+""")

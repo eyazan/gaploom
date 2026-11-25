@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_34",
+ "name": "Nebula",
+ "world": "observatory",
+ "tutorial": "",
+ "par": 7,
+ "rows": [
+  "db do .. bL .. ..",
+  "E> ao ao bo bb Rr",
+  ".. ao ab .. fL ..",
+  ".. .. .. eL fo ..",
+  "E> .. cL eo eo Rb",
+  ".. co .. .. .. ..",
+  ".. gr go .. .. .."
+ ]
+}

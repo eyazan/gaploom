@@ -69,6 +69,8 @@ is needed; in GAPLOOM the *function* of the gap decides who can deliver it there
 **cross-family scaffold** where glass wakes a solar work cart that opens a groove (22, 24), and two scaffolds
 in series (23). Total: **12 / 24 (50%)**, meeting the ≥50% target for the batch.
 
+**v0.7.0:** 37 levels; force-divergent **19 / 37**; levels 34–37 inconclusive (baseline search capped at 60 000 states, counted as not divergent).
+
 **v0.5.0:** levels deepened and a coloured-glass world added; force-divergent levels: **15 / 29** (07, 08, 09, 10, 14, 15, 17, 20, 21, 22, 23, 24, 27, 28, 29).
 
 **Verdict for v0.2.0: SUFFICIENT FOR TESTING, NOT PROVEN.** The solver shows that 40% of the levels need

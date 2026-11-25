@@ -1,7 +1,7 @@
 # Test Summary
 
 Run: 2026-11-22 (re-run for v0.2.0 levels), Godot 4.5.1 stable, headless, `godot --headless -s tests/run_tests.gd`.
-Raw output: `reports/test_results.json`. **Result: 687 checks passed, 0 failed (≈5 s), 29 levels (v0.5.0).** New suites in v0.5: tinted_glass, feedback_assist, music, howto.
+Raw output: `reports/test_results.json`. **Result: 860 checks passed, 0 failed (≈9 s), 37 levels + 80 daily puzzles (v0.7.0).** Suites added since v0.5: staged_hints, daily, entitlements, brand_site.
 
 | Suite | Checks | What it covers |
 |---|---|---|

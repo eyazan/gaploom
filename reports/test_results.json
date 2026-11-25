@@ -1,19 +1,19 @@
 {
- "elapsed_ms": 7196,
+ "elapsed_ms": 9282,
  "engine": "4.5.1-stable (official)",
  "failed": 0,
  "failures": [],
  "metrics": {
-  "destinations_us": 20.4,
-  "evaluate_us": 29.84,
-  "invalid_moves_checked": 8696,
-  "random_moves_played": 12294,
-  "solve_all_handcrafted_ms": 128.8,
-  "solve_all_states": 695,
-  "static_memory_mb": 30.0,
-  "static_memory_peak_mb": 35.44
+  "destinations_us": 17.56,
+  "evaluate_us": 28.17,
+  "invalid_moves_checked": 11093,
+  "random_moves_played": 16445,
+  "solve_all_handcrafted_ms": 465.2,
+  "solve_all_states": 2632,
+  "static_memory_mb": 30.09,
+  "static_memory_peak_mb": 35.46
  },
- "passed": 721,
+ "passed": 860,
  "suites": {
   "board_view": {
    "failed": 0,
@@ -25,11 +25,11 @@
   },
   "canonical": {
    "failed": 0,
-   "passed": 88
+   "passed": 112
   },
   "conservation_random": {
    "failed": 0,
-   "passed": 29
+   "passed": 37
   },
   "daily": {
    "failed": 0,
@@ -37,7 +37,7 @@
   },
   "determinism": {
    "failed": 0,
-   "passed": 87
+   "passed": 111
   },
   "entitlements": {
    "failed": 0,
@@ -69,11 +69,11 @@
   },
   "music": {
    "failed": 0,
-   "passed": 19
+   "passed": 22
   },
   "parsing": {
    "failed": 0,
-   "passed": 39
+   "passed": 47
   },
   "performance": {
    "failed": 0,
@@ -85,7 +85,7 @@
   },
   "solver": {
    "failed": 0,
-   "passed": 148
+   "passed": 188
   },
   "solver_limits": {
    "failed": 0,
@@ -101,12 +101,12 @@
   },
   "transfer_validity": {
    "failed": 0,
-   "passed": 32
+   "passed": 40
   },
   "undo_restart": {
    "failed": 0,
-   "passed": 87
+   "passed": 111
   }
  },
- "timestamp_unix": 1795631534
+ "timestamp_unix": 1795634179
 }

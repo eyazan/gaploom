@@ -16,7 +16,6 @@ iPhone-13 emulation).
 | 9 | Low | Generator: 31% of candidates fail construction; force-divergent levels are rare in generated output; generated boards look cluttered. | Template-based generation for scaffold structures. |
 | 10 | Low | Level 20 has 558 optimal solutions (many interchangeable orders). | Tighten if playtests find it loose. |
 | 11 | Low | Hints are free and unlimited. | Product decision. |
-| 12 | Low | Uses Godot's built-in fallback font; no brand font. | Choose an OFL font. |
 | 13 | Medium | Music and SFX are synthesized and verified only by objective checks (no clipping, no silent gaps, seamless loop step < typical step) and by playback in Godot's dummy driver — **nobody has listened to them yet**. | Owner listens on iPhone; adjust mix in tools/make_music.py. |
 | 14 | Info | Difficulty score is an uncalibrated heuristic. | Calibrate with playtest data. |
 | 15 | Info | `TransferValidator` has two analysis-only static switches (`relaxed_frontier`, `active_sources_only`), default off, reset by tools. | — |

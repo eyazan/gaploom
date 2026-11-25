@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_37",
+ "name": "Constellation",
+ "world": "observatory",
+ "tutorial": "",
+ "par": 8,
+ "rows": [
+  "fo .. bL Sv .. ..",
+  "fL .. bo bo .. ..",
+  ".. .. .. .. .. ..",
+  "R. eo ao ao ao E<",
+  ".. eL aL .. .. ..",
+  "D. eL .. .. gL S<",
+  ".. hM ho D. go .."
+ ]
+}

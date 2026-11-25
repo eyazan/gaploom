@@ -67,6 +67,7 @@ Invalid drops shake the target and show a one-line reason (e.g. "That would brea
 | 18 | Airlock | Greenhouse | Groove → glass swap behind a solar cart | 3 | |
 | 19 | Glass and Groove | Greenhouse | Same cell needs both families, in order | 4 | |
 | 20 | Greenhouse Heart | Greenhouse | Airlock + shadow + scaffold | 6 | ✓ |
+| 30–37 | Far Lens, Shunting Yard, Night Shift, Twin Telescopes, Nebula, Red Giant, Eclipse, Constellation | Observatory | Master levels combining every rule (6–8 moves) | 6–8 | mixed |
 | 21 | Clear the Track | Clocktower | A work cart that stops on the main track must be moved on | 4 | ✓ |
 | 22 | Lantern Cart | Clocktower | Cross-family scaffold: glass wakes a solar work cart that opens a groove | 4 | ✓ |
 | 23 | Twin Bridges | Clocktower | Two scaffolds in series; ordered gap supply | 6 | ✓ |

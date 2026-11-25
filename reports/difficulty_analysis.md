@@ -36,6 +36,18 @@ Difficulty score = heuristic in `src/solver/difficulty_estimator.gd`
 | 27 | 4 | 2 | 11 | 2.33 | 0.00 | 4/0 | 4.81 | 2 |
 | 28 | 6 | 4 | 108 | 2.70 | 0.53 | 6/0 | 9.15 | 5 |
 | 29 | 6 | 7 | 78 | 2.37 | 0.54 | 6/0 | 8.69 | 4 |
+| 30 | 6 | 12 | 35 | 3.18 | 0.11 | 6/0 | 6.70 | 3 |
+| 31 | 6 | 1 | 8 | 1.00 | 0.12 | 0/6 | 7.43 | 4 |
+| 32 | 7 | 4 | 13 | 1.25 | 0.23 | 0/7 | 8.19 | 4 |
+| 33 | 7 | 3 | 16 | 2.67 | 0.00 | 7/0 | 7.77 | 4 |
+| 34 | 7 | 8 | 990 | 4.18 | 0.81 | 7/0 | 11.70 | 5 |
+| 35 | 7 | 1 | 447 | 3.22 | 0.84 | 7/0 | 12.60 | 5 |
+| 36 | 8 | 6 | 236 | 5.19 | 0.65 | 6/2 | 12.68 | 5 |
+| 37 | 8 | 4 | 192 | 3.08 | 0.93 | 4/4 | 13.64 | 5 |
+
+## v0.7.0 additions
+* World 6 **The Observatory** (30–37): master levels, 6–8 moves, dead-end ratios up to 0.93, three of them with a
+  single optimal solution. Total states over 37 levels: 2632.
 
 ## Curve (v0.5.0, 29 levels)
 * Each world opens with 1–3-move concept levels and then rises: Lighthouse 1→7, Railway 1→7,

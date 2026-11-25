@@ -1,4 +1,4 @@
-# Master Directive — completion audit (2026-11-23, v0.6.0)
+# Master Directive — completion audit (2026-11-25, v0.7.0)
 
 Legend: ✅ done · 🟡 partly / with limits · ❌ not done · 👤 needs the owner or real people
 
@@ -26,7 +26,7 @@ Legend: ✅ done · 🟡 partly / with limits · ❌ not done · 👤 needs the 
 ## 7. P0 scope
 | Item | State |
 |---|---|
-| 20 handcrafted levels | ✅ 29 levels, 5 worlds |
+| 20 handcrafted levels | ✅ 37 levels, 6 worlds (+80 daily puzzles) |
 | Two void families | ✅ (+ coloured glass) |
 | Transfer, conservation, goals, undo, restart | ✅ |
 | Interactive tutorial | ✅ ghost hand, tips, 7-page How to play with live demos |

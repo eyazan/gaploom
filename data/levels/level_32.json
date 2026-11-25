@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_32",
+ "name": "Night Shift",
+ "world": "observatory",
+ "tutorial": "",
+ "par": 7,
+ "rows": [
+  ".. .. .. Sv .. ..",
+  ".. .. .. xo xo ..",
+  ".. .. .. ao ao ..",
+  "S> .. qo qo cM D.",
+  ".. .. qo co .. ..",
+  "go gM .. do do ..",
+  ".. .. hM ho .. .."
+ ]
+}

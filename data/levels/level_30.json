@@ -1,0 +1,18 @@
+{
+ "format": 1,
+ "id": "level_30",
+ "name": "Far Lens",
+ "world": "observatory",
+ "tutorial": "",
+ "par": 6,
+ "rows": [
+  ".. .. .. Ev .. ..",
+  ".. .. xo xo xL ..",
+  ".. .. .. .. .. ..",
+  "/. .. .. qo qo E<",
+  ".. .. .. .. qo ..",
+  ".. kL bo .. .. ..",
+  "\\. ko bL go .. R.",
+  ".. .. .. .. gL gL"
+ ]
+}

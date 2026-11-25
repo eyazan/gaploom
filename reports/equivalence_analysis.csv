@@ -28,3 +28,11 @@ level_26,2,2,1,1,4,24,2,6,true,false
 level_27,4,2,2,1,11,60,1,8,true,true
 level_28,6,5,4,5,108,5040,3,12,true,true
 level_29,6,5,7,40,78,7680,2,14,true,true
+level_30,6,4,12,52,35,301,2,15,true,true
+level_31,6,3,1,1,8,1976,1,19,true,true
+level_32,7,2,4,2,13,279,2,19,true,true
+level_33,7,5,3,40,16,408,1,11,true,true
+level_34,7,-1,8,0,990,60000,7,34,true,false
+level_35,7,-1,1,0,447,60000,7,20,true,false
+level_36,8,-1,6,0,236,60000,6,36,true,false
+level_37,8,-1,4,0,192,60000,6,27,true,false

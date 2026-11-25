@@ -202,10 +202,22 @@ func _glassworks(b: Vector2, u: float) -> void:
 
 
 func _observatory(b: Vector2, u: float) -> void:
-	# 0 building, 1 dome, 2 telescope, 3 stars, 4 comet + rotating dome slit
+	# 0 building, 1 dome, 2 telescope, 3 stars, 4 comet + rotating dome slit,
+	# 5 lit window, 6 second constellation, 7 moon
 	var bw := u * 2.6
 	draw_rect(Rect2(b + Vector2(-bw, -u * 2.2), Vector2(bw * 2.0, u * 2.2)), _col(0, Color("a8cbb7")))
 	draw_rect(Rect2(b + Vector2(-u * 0.4, -u * 1.2), Vector2(u * 0.8, u * 1.2)), _col(0, Color("6b5a8e")))
+	draw_rect(Rect2(b + Vector2(u * 1.1, -u * 1.7), Vector2(u * 0.7, u * 0.6)), _col(5, Color("ffd27a")))
+	var moon := b + Vector2(-u * 3.4, -u * 6.0)
+	draw_circle(moon, u * 0.6, _col(7, Color("fff6dc")))
+	if _on(7):
+		draw_circle(moon + Vector2(u * 0.28, -u * 0.12), u * 0.5, Color(0.12, 0.13, 0.2, 1))
+	for k in 5:
+		var sp := b + Vector2(u * (1.8 + k * 0.45), -u * (5.2 + 0.4 * sin(k * 1.7)))
+		draw_circle(sp, u * 0.08, _col(6, Color("9cc3e4")))
+		if k > 0 and _on(6):
+			var pp := b + Vector2(u * (1.8 + (k - 1) * 0.45), -u * (5.2 + 0.4 * sin((k - 1) * 1.7)))
+			draw_line(pp, sp, Color(0.6, 0.76, 0.9, 0.35), 1.5)
 	var dc := b + Vector2(0, -u * 2.2)
 	var pts := PackedVector2Array()
 	for k in 25:

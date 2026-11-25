@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_35",
+ "name": "Red Giant",
+ "world": "observatory",
+ "tutorial": "",
+ "par": 7,
+ "rows": [
+  ".. bb .. .. do db",
+  "Rr bb bo ao .. E<",
+  ".. .. .. ab .. ..",
+  ".. .. eL .. .. ..",
+  "Rb .. eo co co E<",
+  ".. .. fL fo cL ..",
+  ".. .. .. go gr .."
+ ]
+}

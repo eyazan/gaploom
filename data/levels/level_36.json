@@ -1,0 +1,17 @@
+{
+ "format": 1,
+ "id": "level_36",
+ "name": "Eclipse",
+ "world": "observatory",
+ "tutorial": "",
+ "par": 8,
+ "rows": [
+  ".. .. .. ao .. .. ..",
+  "D. .. .. ao .. s< E<",
+  ".. .. .. ao bM .. ..",
+  "R. .. Sv bo bo bo E<",
+  ".. co co .. .. ho hM",
+  "fL .. .. xo xo gL go",
+  "fo .. D. E^ .. gL .."
+ ]
+}

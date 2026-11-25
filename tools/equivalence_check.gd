@@ -15,7 +15,7 @@ func _initialize() -> void:
 		var ga := PuzzleGame.new(lv)
 		var fa := ga.legal_moves().size()
 		TransferValidator.relaxed_frontier = true
-		var b := PuzzleSolver.solve(lv)
+		var b := PuzzleSolver.solve(lv, 60000)   # capped: a capped baseline is reported as inconclusive
 		var gb := PuzzleGame.new(lv)
 		var fb := gb.legal_moves().size()
 		# Every GAPLOOM move is also legal in the baseline (superset check).
@@ -24,7 +24,9 @@ func _initialize() -> void:
 			if not gb.try_transfer(mv[0], mv[1]).ok:
 				ok = false
 		TransferValidator.relaxed_frontier = false
-		var sc: bool = b.min_moves < a.min_moves
+		var sc: bool = b.status == PuzzleSolver.STATUS_SOLVED and b.min_moves < a.min_moves
+		if b.status != PuzzleSolver.STATUS_SOLVED:
+			print("%s baseline %s (capped search)" % [lv.id, b.status])
 		if sc:
 			shortcut += 1
 		if fb > fa:

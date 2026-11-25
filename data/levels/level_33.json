@@ -1,0 +1,18 @@
+{
+ "format": 1,
+ "id": "level_33",
+ "name": "Twin Telescopes",
+ "world": "observatory",
+ "tutorial": "",
+ "par": 7,
+ "rows": [
+  ".. .. .. .. .. Ev ..",
+  ".. .. .. .. .. .. ..",
+  ".. .. .. .. .. qo qo",
+  "E> xo xo .. qo qo ..",
+  ".. .. xo .. .. .. ..",
+  ".. .. .. .. pL bo bo",
+  "E> .. .. .. ## po ..",
+  "go gL gL gL gL R. .."
+ ]
+}

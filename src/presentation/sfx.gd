@@ -29,7 +29,13 @@ func _ready() -> void:
 	_streams["tap"] = _tone([[700.0, 0.03]], 0.18, 0.002)
 
 
+## Short haptic tick on phones (native builds; iOS Safari has no vibration API).
+const HAPTIC_MS := {"drop": 12, "win": 35, "invalid": 20, "dock": 15}
+
+
 static func play(name: String, pitch: float = 1.0) -> void:
+	if HAPTIC_MS.has(name) and OS.has_feature("mobile") and not OS.has_feature("web"):
+		Input.vibrate_handheld(int(HAPTIC_MS[name]))
 	if instance == null or not instance.enabled:
 		return
 	var s: AudioStream = instance._streams.get(name)

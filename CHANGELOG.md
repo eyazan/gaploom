@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.0 — 2026-11-25
+- Brand typography: **Nunito** (SIL OFL 1.1) for all UI, Turkish glyphs via latin-ext fallback.
+- **Privacy policy** (`/privacy.html`, required by the App Store) and a **tester questionnaire**
+  (`/feedback.html`) published with the web build.
+- **App Store screenshots** at 1290×2796 in Turkish and English (`docs/marketing/media/store_*`, `tools/store_shots.gd`).
+- Haptic ticks on native phones (drop, dock, win, invalid).
+- New world **The Observatory** (levels 30–37): eight "master" levels (6–8 moves, mostly with dead ends),
+  produced by `tools/make_world.gd` (hard-level factory) and hand-picked for variety from 13 candidates;
+  8-part observatory diorama, own music loop. 37 levels in 6 worlds; 19/37 force-divergent
+  (4 late levels inconclusive: baseline search capped).
+
 ## 0.6.0 — 2026-11-23
 - **Two-step hints**: first tap marks the gap to use, second tap shows where it goes.
 - **Perfect badge** (par without hints) on the completion card and level select.
