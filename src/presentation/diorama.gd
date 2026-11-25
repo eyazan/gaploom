@@ -50,6 +50,8 @@ func _draw() -> void:
 			_clocktower(base, u)
 		"glassworks":
 			_glassworks(base, u)
+		"observatory":
+			_observatory(base, u)
 
 
 func _lighthouse(b: Vector2, u: float) -> void:
@@ -196,3 +198,33 @@ func _glassworks(b: Vector2, u: float) -> void:
 			var col := Color("ff6f7d") if k % 2 == 0 else Color("6fa8ff")
 			col.a = 0.18 + 0.06 * sin(_t * 2.0 + k)
 			draw_colored_polygon(PackedVector2Array([c + Vector2(x * 0.3, r * 0.6), c + Vector2(x * 0.3 + u * 0.3, r * 0.6), b + Vector2(x + u * 0.6, 0), b + Vector2(x, 0)]), col)
+
+
+
+func _observatory(b: Vector2, u: float) -> void:
+	# 0 building, 1 dome, 2 telescope, 3 stars, 4 comet + rotating dome slit
+	var bw := u * 2.6
+	draw_rect(Rect2(b + Vector2(-bw, -u * 2.2), Vector2(bw * 2.0, u * 2.2)), _col(0, Color("a8cbb7")))
+	draw_rect(Rect2(b + Vector2(-u * 0.4, -u * 1.2), Vector2(u * 0.8, u * 1.2)), _col(0, Color("6b5a8e")))
+	var dc := b + Vector2(0, -u * 2.2)
+	var pts := PackedVector2Array()
+	for k in 25:
+		var a := PI + PI * k / 24.0
+		pts.append(dc + Vector2(cos(a), sin(a)) * bw)
+	draw_colored_polygon(pts, _col(1, Color("c4b2e6")))
+	var slit := sin(_t * 0.4) * 0.25 if _on(4) else 0.0
+	var sd := Vector2(sin(slit), -cos(slit))
+	draw_line(dc, dc + sd * bw, Color(0.08, 0.09, 0.16, 1), u * 0.45)
+	var tip := dc + sd.rotated(-0.35) * bw * 1.45
+	draw_line(dc + Vector2(0, -u * 0.3), tip, _col(2, Color("f0d29a")), u * 0.38)
+	draw_circle(tip, u * 0.22, _col(2, Color("fff6dc")))
+	for k in 9:
+		var sx := sin(k * 12.9898) * 43758.5453
+		var sy := sin(k * 78.233) * 12345.678
+		var p := b + Vector2((sx - floor(sx) - 0.5) * u * 9.0, -u * (3.6 + (sy - floor(sy)) * 3.2))
+		var tw := 0.6 + 0.4 * sin(_t * 2.0 + k) if _on(3) else 1.0
+		draw_circle(p, u * 0.09 * tw, _col(3, Color("ffd27a")))
+	if _on(4):
+		var cp := b + Vector2(u * 3.2 - fmod(_t * 0.3, 1.0) * u * 1.5, -u * 6.2)
+		draw_line(cp, cp + Vector2(u * 1.4, u * 0.5), Color(1, 1, 1, 0.35), u * 0.12)
+		draw_circle(cp, u * 0.16, Color("fff6dc"))

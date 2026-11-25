@@ -62,6 +62,7 @@ func _run_all() -> void:
 	await test_music()
 	await test_staged_hints()
 	test_daily_and_entitlements()
+	test_brand_and_site()
 	test_performance()
 	var elapsed := Time.get_ticks_msec() - t0
 	var out := {
@@ -836,3 +837,23 @@ func test_daily_and_entitlements() -> void:
 	check(Entitlements.level_available(10) and not Entitlements.level_available(11), "demo build: first world free, rest locked")
 	ProjectSettings.set_setting(Entitlements.SETTING, false)
 	check(Entitlements.level_available(29), "full build: everything available")
+
+
+
+func test_brand_and_site() -> void:
+	begin("brand_site")
+	check(Fonts.install(), "brand font loads")
+	check(Fonts.ui != null and Fonts.title != null, "ui and title fonts available")
+	var missing := ""
+	for ch in "ŞşĞğİıÇçÖöÜü":
+		var ok := Fonts.ui.has_char(ch.unicode_at(0))
+		for fb in Fonts.ui.fallbacks:
+			ok = ok or (fb as Font).has_char(ch.unicode_at(0))
+		if not ok:
+			missing += ch
+	check(missing == "", "Turkish letters covered by the font (missing: %s)" % missing)
+	check(FileAccess.file_exists("res://assets/fonts/OFL-Nunito.txt"), "font licence shipped with the font")
+	for f in ["res://site/privacy.html", "res://site/feedback.html"]:
+		var txt := FileAccess.get_file_as_string(f)
+		check(txt.length() > 500 and txt.contains("GAPLOOM"), "%s exists" % f.get_file())
+	check(FileAccess.get_file_as_string("res://site/privacy.html").contains("not collect"), "privacy page states no data collection")
