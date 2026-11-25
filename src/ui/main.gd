@@ -150,11 +150,11 @@ func _build_title() -> void:
 	var box := VBoxContainer.new()
 	box.set_anchors_preset(Control.PRESET_FULL_RECT)
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
-	box.add_theme_constant_override("separation", 28)
+	box.add_theme_constant_override("separation", 16)
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	screen_title.add_child(box)
 	var spacer := Control.new()
-	spacer.custom_minimum_size = Vector2(0, 380)
+	spacer.custom_minimum_size = Vector2(0, 330)
 	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(spacer)
 	var logo := _label("GAPLOOM", 92, Palette.TEXT)
@@ -162,7 +162,7 @@ func _build_title() -> void:
 	box.add_child(logo)
 	box.add_child(_label(tr("APP_TAGLINE"), 30, Palette.TEXT_DIM))
 	var spacer2 := Control.new()
-	spacer2.custom_minimum_size = Vector2(0, 40)
+	spacer2.custom_minimum_size = Vector2(0, 16)
 	box.add_child(spacer2)
 	var play := Button.new()
 	play.text = tr("BTN_PLAY")
